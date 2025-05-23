@@ -1,11 +1,6 @@
 [
   {
     "type": "icon",
-    "name": "이력서",
-    "image": "/image/아이콘/이력서.png"
-  },
-  {
-    "type": "icon",
     "name": "GITHUB",
     "image": "/image/아이콘/github.png",
     "url": "https://github.com/Dongsusin"
@@ -18,23 +13,9 @@
   },
   {
     "type": "icon",
-    "name": "계산기",
-    "image": "/public/image/아이콘/계산기.png"
-  },
-  {
-    "type": "icon",
-    "name": "지도",
-    "image": "/public/image/아이콘/지도.png"
-  },
-  {
-    "type": "icon",
-    "name": "날씨",
-    "image": "/public/image/아이콘/날씨.png"
-  },
-  {
-    "type": "icon",
-    "name": "메모장",
-    "image": "/public/image/아이콘/메모장.png"
+    "name": "이력서",
+    "image": "/image/아이콘/이력서.png",
+    "url": ""
   },
   {
     "type": "folder",
@@ -58,132 +39,150 @@
   {
     "type": "folder",
     "name": "게임",
-    "image": "/public/image/아이콘/폴더.png",
+    "image": "/image/아이콘/폴더.png",
     "projects": [
       {
         "type": "icon",
         "name": "테트리스",
-        "image": "/public/image/아이콘/테트리스.webp"
+        "image": "/image/아이콘/테트리스.webp",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "벽돌깨기",
-        "image": "/public/image/아이콘/벽돌깨기.webp"
+        "image": "/image/아이콘/벽돌깨기.webp",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "반응속도 테스트",
-        "image": "/public/image/아이콘/반응속도.jpg"
+        "image": "/image/아이콘/반응속도.jpg",
+        "url": ""
       }
     ]
   },
   {
     "type": "folder",
     "name": "게임 위키",
-    "image": "/public/image/아이콘/폴더.png",
+    "image": "/image/아이콘/폴더.png",
     "projects": [
       {
         "type": "icon",
         "name": "메이플",
-        "image": "/public/image/아이콘/메이플.png"
+        "image": "/image/아이콘/메이플.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "로스트아크",
-        "image": "/public/image/아이콘/로스트아크.jpg"
+        "image": "/image/아이콘/로스트아크.jpg",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "포켓몬",
-        "image": "/public/image/아이콘/포켓몬.png"
+        "image": "/image/아이콘/포켓몬.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "세븐나이츠",
-        "image": "/public/image/아이콘/세븐나이츠.webp"
+        "image": "/image/아이콘/세븐나이츠.webp",
+        "url": ""
       }
     ]
   },
   {
     "type": "folder",
     "name": "영화/OTT",
-    "image": "/public/image/아이콘/폴더.png",
+    "image": "/image/아이콘/폴더.png",
     "projects": [
       {
         "type": "icon",
         "name": "넷플릭스",
-        "image": "/public/image/아이콘/넷플릭스.webp"
+        "image": "/image/아이콘/넷플릭스.webp",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "디즈니 플러스",
-        "image": "/public/image/아이콘/디즈니.webp"
+        "image": "/image/아이콘/디즈니.webp",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "CGV",
-        "image": "/public/image/아이콘/CGV.png"
+        "image": "/image/아이콘/CGV.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "메가박스",
-        "image": "/public/image/아이콘/메가박스.webp"
+        "image": "/image/아이콘/메가박스.webp",
+        "url": ""
       }
     ]
   },
   {
     "type": "folder",
     "name": "유튜브",
-    "image": "/public/image/아이콘/폴더.png",
+    "image": "/image/아이콘/폴더.png",
     "projects": [
       {
         "type": "icon",
         "name": "유튜브",
-        "image": "/public/image/아이콘/유튜브.png"
+        "image": "/image/아이콘/유튜브.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "유튜브 뮤직",
-        "image": "/public/image/아이콘/유튜브뮤직.png"
+        "image": "/image/아이콘/유튜브뮤직.png",
+        "url": ""
       }
     ]
   },
   {
     "type": "folder",
     "name": "금융 정보",
-    "image": "/public/image/아이콘/폴더.png",
+    "image": "/image/아이콘/폴더.png",
     "projects": [
       {
         "type": "icon",
         "name": "환률",
-        "image": "/public/image/아이콘/환률.png"
+        "image": "/image/아이콘/환률.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "코인",
-        "image": "/public/image/아이콘/코인.png"
+        "image": "/image/아이콘/코인.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "주식",
-        "image": "/public/image/아이콘/주식.png"
+        "image": "/image/아이콘/주식.png",
+        "url": ""
       }
     ]
   },
   {
     "type": "folder",
     "name": "여행",
-    "image": "/public/image/아이콘/폴더.png",
+    "image": "/image/아이콘/폴더.png",
     "projects": [
       {
         "type": "icon",
         "name": "항공편",
-        "image": "/public/image/아이콘/항공편.png"
+        "image": "/image/아이콘/항공편.png",
+        "url": ""
       },
       {
         "type": "icon",
         "name": "여행지",
-        "image": "/public/image/아이콘/여행.png"
+        "image": "/image/아이콘/여행.png",
+        "url": ""
       }
     ]
   }
