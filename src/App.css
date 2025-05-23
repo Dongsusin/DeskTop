@@ -10,7 +10,7 @@ html {
 
 /* 데스크탑 배경 및 레이아웃 */
 .desktop {
-  background-image: url("/public/image/배경.jpg");
+  background-image: url("/image/배경.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -60,7 +60,8 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  height: 70%;
+  height: auto;
+  max-height: 500px;
   background-color: rgba(30, 30, 30, 0.95);
   border: 2px solid #ccc;
   border-radius: 6px;
@@ -68,10 +69,12 @@ html {
   box-shadow: 0px 0px 10px #000;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .popup-header {
-  background-color: #444;
+  background-color: rgb(30, 30, 30);
   color: white;
   padding: 8px 10px;
   display: flex;
@@ -85,19 +88,18 @@ html {
   display: flex;
   gap: 10px;
 }
-
-.button-grup button {
-  background: #888;
+button {
+  padding: 20px;
+  font-size: 1.2rem;
+  background: #3a3a3a;
   border: none;
+  border-radius: 5px;
   color: white;
-  padding: 2px 6px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.5s;
 }
 
-.button-grup button:hover {
-  background: #303030;
+button:hover {
+  background: #414141;
 }
 
 .popup-content {
@@ -137,6 +139,7 @@ html {
   backdrop-filter: blur(10px);
   border: skyblue 2px solid;
   padding: 20px;
+  height: 100%;
 }
 
 /* 달력 제목 */
@@ -255,11 +258,12 @@ html {
 }
 
 .taskbar-right {
-  padding: 10px;
+  padding: 0px 10px;
   transition: all 0.5s ease;
+  height: 100%;
 }
 
 .taskbar-left button:hover,
-.taskbar-right:hover {
+.todolist:hover {
   background-color: #414141;
 }

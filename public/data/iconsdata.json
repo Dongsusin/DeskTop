@@ -1,6 +1,12 @@
 [
   {
     "type": "icon",
+    "name": "이력서",
+    "image": "/image/아이콘/이력서.png",
+    "url": "/resume"
+  },
+  {
+    "type": "icon",
     "name": "GITHUB",
     "image": "/image/아이콘/github.png",
     "url": "https://github.com/Dongsusin"
@@ -13,33 +19,27 @@
   },
   {
     "type": "icon",
-    "name": "이력서",
-    "image": "/image/아이콘/이력서.png",
-    "url": ""
-  },
-  {
-    "type": "icon",
     "name": "계산기",
     "image": "/image/아이콘/계산기.png",
-    "url": ""
+    "url": "/calculator"
   },
   {
     "type": "icon",
     "name": "날씨",
     "image": "/image/아이콘/날씨.png",
-    "url": ""
+    "url": "/weather"
   },
   {
     "type": "icon",
     "name": "지도",
     "image": "/image/아이콘/지도.png",
-    "url": ""
+    "url": "/map"
   },
   {
     "type": "icon",
     "name": "메모장",
     "image": "/image/아이콘/메모장.png",
-    "url": ""
+    "url": "/memo"
   },
   {
     "type": "folder",

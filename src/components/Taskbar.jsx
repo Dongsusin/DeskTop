@@ -5,9 +5,14 @@ function Taskbar({ time, onTimeClick }) {
         <button>🪟 시작</button>
       </div>
       <div className="taskbar-right">
-        <span style={{ cursor: "pointer" }} onClick={onTimeClick}>
-          {time}
+        <span
+          className="todolist"
+          style={{ cursor: "pointer" }}
+          onClick={onTimeClick}
+        >
+          달력(todolist)
         </span>
+        <span>{time}</span>
       </div>
     </div>
   );

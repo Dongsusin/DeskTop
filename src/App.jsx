@@ -1,12 +1,19 @@
+// App.js
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import IconList from "./components/IconList";
 import Folder from "./components/Folder";
 import Memo from "./components/Memo";
 import Calendar from "./components/Calendar";
 import Taskbar from "./components/Taskbar";
+import Calculator from "./Apps/Calculator/Calculator";
+import Weather from "./Apps/Weather/Weather";
+import Map from "./Apps/Map/Map";
+import MemoApp from "./Apps/Memo/Memo";
+import Resume from "./Apps/Resume/Resume";
 
-function App() {
+function DesktopApp() {
   const [icons, setIcons] = useState([]);
   const [openFolder, setOpenFolder] = useState(null);
   const [currentDate] = useState(new Date());
@@ -18,7 +25,13 @@ function App() {
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
+
   const [showCalendar, setShowCalendar] = useState(false);
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [showWeather, setShowWeather] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+  const [showMemo, setShowMemo] = useState(false);
+  const [showResume, setShowResume] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(
@@ -36,10 +49,20 @@ function App() {
   }, []);
 
   const handleIconClick = (icon) => {
-    if (icon.type === "icon" && icon.url) {
-      window.location.href = icon.url;
+    if (icon.type === "icon" && icon.url === "/calculator") {
+      setShowCalculator(true);
+    } else if (icon.type === "icon" && icon.url === "/weather") {
+      setShowWeather(true);
+    } else if (icon.type === "icon" && icon.url === "/map") {
+      setShowMap(true);
+    } else if (icon.type === "icon" && icon.url === "/memo") {
+      setShowMemo(true);
+    } else if (icon.type === "icon" && icon.url === "/resume") {
+      setShowResume(true);
     } else if (icon.type === "folder") {
       setOpenFolder(icon);
+    } else {
+      window.location.href = icon.url;
     }
   };
 
@@ -88,6 +111,56 @@ function App() {
             onClose={() => setSelectedDate(null)}
           />
         )}
+
+        {showCalculator && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>계산기</span>
+              <button onClick={() => setShowCalculator(false)}>닫기 ✖</button>
+            </div>
+            <Calculator />
+          </div>
+        )}
+
+        {showWeather && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>날씨</span>
+              <button onClick={() => setShowWeather(false)}>닫기 ✖</button>
+            </div>
+            <Weather />
+          </div>
+        )}
+
+        {showMap && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>지도</span>
+              <button onClick={() => setShowMap(false)}>닫기 ✖</button>
+            </div>
+            <Map />
+          </div>
+        )}
+
+        {showMemo && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>메모장</span>
+              <button onClick={() => setShowMemo(false)}>닫기 ✖</button>
+            </div>
+            <MemoApp />
+          </div>
+        )}
+
+        {showResume && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>이력서</span>
+              <button onClick={() => setShowResume(false)}>닫기 ✖</button>
+            </div>
+            <Resume />
+          </div>
+        )}
       </div>
 
       <Taskbar
@@ -97,4 +170,13 @@ function App() {
     </>
   );
 }
+
+function App() {
+  return (
+    <Router>
+      <DesktopApp />
+    </Router>
+  );
+}
+
 export default App;
