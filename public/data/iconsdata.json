@@ -18,6 +18,30 @@
     "url": ""
   },
   {
+    "type": "icon",
+    "name": "계산기",
+    "image": "/image/아이콘/계산기.png",
+    "url": ""
+  },
+  {
+    "type": "icon",
+    "name": "날씨",
+    "image": "/image/아이콘/날씨.png",
+    "url": ""
+  },
+  {
+    "type": "icon",
+    "name": "지도",
+    "image": "/image/아이콘/지도.png",
+    "url": ""
+  },
+  {
+    "type": "icon",
+    "name": "메모장",
+    "image": "/image/아이콘/메모장.png",
+    "url": ""
+  },
+  {
     "type": "folder",
     "name": "(팀) 프로젝트",
     "image": "/image/아이콘/폴더.png",
