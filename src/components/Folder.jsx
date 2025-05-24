@@ -1,4 +1,5 @@
-function FolderPopup({ folder, onClose }) {
+// components/FolderPopup.js
+function FolderPopup({ folder, onClose, onIconClick }) {
   return (
     <div className="popup">
       <div className="popup-header">
@@ -10,7 +11,8 @@ function FolderPopup({ folder, onClose }) {
           <div
             key={i}
             className="icon"
-            onClick={() => (window.location.href = project.url)}
+            onClick={() => onIconClick(project)}
+            style={{ cursor: "pointer" }}
           >
             <img src={project.image} alt={project.name} />
             <span>{project.name}</span>
@@ -20,4 +22,5 @@ function FolderPopup({ folder, onClose }) {
     </div>
   );
 }
+
 export default FolderPopup;

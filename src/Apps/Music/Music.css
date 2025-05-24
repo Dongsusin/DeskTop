@@ -1,0 +1,228 @@
+body {
+  margin: 0;
+  background: #121212;
+  color: #eee;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  padding: 15px;
+  background: #1f1f1f;
+  text-align: center;
+}
+
+header input {
+  width: 50%;
+  max-width: 500px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  height: auto;
+  max-height: 500px;
+}
+
+/* 즐겨찾기 영역 관련 삭제해서 아래부터 시작 */
+.right {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: auto;
+}
+
+.right h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+}
+
+.track {
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.track:hover {
+  background: #333;
+}
+
+.track img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.track div {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track button {
+  background: transparent;
+  border: none;
+  color: #eee;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+.track button:hover {
+  color: #1db954; /* Spotify green-ish */
+}
+
+.center {
+  flex: 1;
+  background: #181818;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+
+.player {
+  text-align: center;
+  width: 100%;
+  max-width: 350px;
+}
+
+.player img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  animation-play-state: paused;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.player img.playing {
+  animation-name: rotate;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+}
+
+.player h3 {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  color: #1db954;
+}
+
+audio {
+  width: 100%;
+  outline: none;
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: #aaa;
+}
+
+.progress-bar span {
+  width: 35px;
+  text-align: center;
+  font-size: 14px;
+  user-select: none;
+}
+
+.progress-bar input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 4px;
+  background: #333;
+  cursor: pointer;
+}
+
+.progress-bar input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+  margin-top: -4px;
+  box-shadow: 0 0 2px #1db954;
+}
+
+.volume-control {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  color: #aaa;
+  user-select: none;
+}
+
+.volume-control label {
+  font-size: 14px;
+}
+
+.volume-control input[type="range"] {
+  width: 100px;
+  -webkit-appearance: none;
+  height: 6px;
+  border-radius: 4px;
+  background: #333;
+  cursor: pointer;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #1db954;
+  cursor: pointer;
+  box-shadow: 0 0 2px #1db954;
+}

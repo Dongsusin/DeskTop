@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import IconList from "./components/IconList";
-import Folder from "./components/Folder";
+import FolderPopup from "./components/Folder";
 import Memo from "./components/Memo";
 import Calendar from "./components/Calendar";
 import Taskbar from "./components/Taskbar";
@@ -12,6 +12,11 @@ import Weather from "./Apps/Weather/Weather";
 import Map from "./Apps/Map/Map";
 import MemoApp from "./Apps/Memo/Memo";
 import Resume from "./Apps/Resume/Resume";
+import Pokedex from "./Apps/pokedex/pokedex";
+import Tetris from "./Apps/Tetris/Tetris";
+import Speed from "./Apps/Speed/Speed";
+import Maple from "./Apps/Maple/Maple";
+import Music from "./Apps/Music/Music";
 
 function DesktopApp() {
   const [icons, setIcons] = useState([]);
@@ -32,6 +37,11 @@ function DesktopApp() {
   const [showMap, setShowMap] = useState(false);
   const [showMemo, setShowMemo] = useState(false);
   const [showResume, setShowResume] = useState(false);
+  const [showPokeDex, setShowPokedex] = useState(false);
+  const [showTetris, setShowTetris] = useState(false);
+  const [showSpeed, setShowSpeed] = useState(false);
+  const [showMaple, setShowMaple] = useState(false);
+  const [showMusic, setShowMusic] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(
@@ -49,20 +59,30 @@ function DesktopApp() {
   }, []);
 
   const handleIconClick = (icon) => {
-    if (icon.type === "icon" && icon.url === "/calculator") {
+    if (icon.url === "/calculator") {
       setShowCalculator(true);
-    } else if (icon.type === "icon" && icon.url === "/weather") {
+    } else if (icon.url === "/weather") {
       setShowWeather(true);
-    } else if (icon.type === "icon" && icon.url === "/map") {
+    } else if (icon.url === "/map") {
       setShowMap(true);
-    } else if (icon.type === "icon" && icon.url === "/memo") {
+    } else if (icon.url === "/memo") {
       setShowMemo(true);
-    } else if (icon.type === "icon" && icon.url === "/resume") {
+    } else if (icon.url === "/resume") {
       setShowResume(true);
+    } else if (icon.url === "/pokedex") {
+      setShowPokedex(true);
+    } else if (icon.url === "/tetris") {
+      setShowTetris(true);
+    } else if (icon.url === "/speed") {
+      setShowSpeed(true);
+    } else if (icon.url === "/maple") {
+      setShowMaple(true);
+    } else if (icon.url === "/music") {
+      setShowMusic(true);
+    } else if (icon.url && icon.url !== "") {
+      window.location.href = icon.url;
     } else if (icon.type === "folder") {
       setOpenFolder(icon);
-    } else {
-      window.location.href = icon.url;
     }
   };
 
@@ -99,7 +119,14 @@ function DesktopApp() {
         </div>
 
         {openFolder && (
-          <Folder folder={openFolder} onClose={() => setOpenFolder(null)} />
+          <FolderPopup
+            folder={openFolder}
+            onClose={() => setOpenFolder(null)}
+            onIconClick={(icon) => {
+              handleIconClick(icon);
+              setOpenFolder(null);
+            }}
+          />
         )}
 
         {selectedDate && (
@@ -159,6 +186,56 @@ function DesktopApp() {
               <button onClick={() => setShowResume(false)}>닫기 ✖</button>
             </div>
             <Resume />
+          </div>
+        )}
+
+        {showPokeDex && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>PokeDex</span>
+              <button onClick={() => setShowPokedex(false)}>닫기 ✖</button>
+            </div>
+            <Pokedex />
+          </div>
+        )}
+
+        {showTetris && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>테트리스</span>
+              <button onClick={() => setShowTetris(false)}>닫기 ✖</button>
+            </div>
+            <Tetris />
+          </div>
+        )}
+
+        {showSpeed && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>반응속도 테스트</span>
+              <button onClick={() => setShowSpeed(false)}>닫기 ✖</button>
+            </div>
+            <Speed />
+          </div>
+        )}
+
+        {showMaple && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>메이플 위키</span>
+              <button onClick={() => setShowMaple(false)}>닫기 ✖</button>
+            </div>
+            <Maple />
+          </div>
+        )}
+
+        {showMusic && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>뮤직 플레이어</span>
+              <button onClick={() => setShowMusic(false)}>닫기 ✖</button>
+            </div>
+            <Music />
           </div>
         )}
       </div>

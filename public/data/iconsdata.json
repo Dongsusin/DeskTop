@@ -42,6 +42,12 @@
     "url": "/memo"
   },
   {
+    "type": "icon",
+    "name": "뮤직 플레이어",
+    "image": "/image/아이콘/뮤직플레이어.png",
+    "url": "/music"
+  },
+  {
     "type": "folder",
     "name": "(팀) 프로젝트",
     "image": "/image/아이콘/폴더.png",
@@ -69,19 +75,13 @@
         "type": "icon",
         "name": "테트리스",
         "image": "/image/아이콘/테트리스.webp",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "벽돌깨기",
-        "image": "/image/아이콘/벽돌깨기.webp",
-        "url": ""
+        "url": "/tetris"
       },
       {
         "type": "icon",
         "name": "반응속도 테스트",
         "image": "/image/아이콘/반응속도.jpg",
-        "url": ""
+        "url": "/speed"
       }
     ]
   },
@@ -94,74 +94,18 @@
         "type": "icon",
         "name": "메이플",
         "image": "/image/아이콘/메이플.png",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "로스트아크",
-        "image": "/image/아이콘/로스트아크.jpg",
-        "url": ""
+        "url": "/maple"
       },
       {
         "type": "icon",
         "name": "포켓몬",
         "image": "/image/아이콘/포켓몬.png",
-        "url": ""
+        "url": "/pokedex"
       },
       {
         "type": "icon",
         "name": "세븐나이츠",
         "image": "/image/아이콘/세븐나이츠.webp",
-        "url": ""
-      }
-    ]
-  },
-  {
-    "type": "folder",
-    "name": "영화/OTT",
-    "image": "/image/아이콘/폴더.png",
-    "projects": [
-      {
-        "type": "icon",
-        "name": "넷플릭스",
-        "image": "/image/아이콘/넷플릭스.webp",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "디즈니 플러스",
-        "image": "/image/아이콘/디즈니.webp",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "CGV",
-        "image": "/image/아이콘/CGV.png",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "메가박스",
-        "image": "/image/아이콘/메가박스.webp",
-        "url": ""
-      }
-    ]
-  },
-  {
-    "type": "folder",
-    "name": "유튜브",
-    "image": "/image/아이콘/폴더.png",
-    "projects": [
-      {
-        "type": "icon",
-        "name": "유튜브",
-        "image": "/image/아이콘/유튜브.png",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "유튜브 뮤직",
-        "image": "/image/아이콘/유튜브뮤직.png",
         "url": ""
       }
     ]
