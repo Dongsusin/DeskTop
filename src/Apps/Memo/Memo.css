@@ -3,13 +3,11 @@
   height: 500px;
   background: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
 }
 
 .memo-app h2 {
   text-align: center;
   color: #333;
-  margin-bottom: 20px;
 }
 
 .memo-input {

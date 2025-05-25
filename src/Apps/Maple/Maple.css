@@ -1,4 +1,4 @@
-.container {
+.maple-container {
   max-width: 400px;
   margin: 2rem auto;
   text-align: center;
@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.container h1 {
+.maple-container h1 {
   color: white;
 }
 

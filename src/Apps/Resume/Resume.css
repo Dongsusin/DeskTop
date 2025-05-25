@@ -1,33 +1,41 @@
-.app {
+.Resume {
   background-color: #f0f2f5;
   padding: 10px;
+  height: auto;
 }
 
 .resume-container {
   background: #fff;
   border-radius: 12px;
+  color: #000;
 }
 
-header {
+.resume-container header {
   text-align: center;
   margin-bottom: 2rem;
+  color: #fff;
+  border-radius: 10px;
 }
 
-header h1 {
+.resume-container header h1 {
   margin: 5px 0;
+  color: #fff;
 }
 
-section {
+.resume-container section {
   margin-bottom: 10px;
 }
 
-section h2 {
+.resume-container section h2 {
   margin-bottom: 0.5rem;
   color: #333;
   border-bottom: 2px solid #ddd;
   padding-bottom: 0.2rem;
 }
 
-section ul {
+.resume-container section ul {
   padding-left: 1.5rem;
+  li a {
+    text-decoration: none;
+  }
 }

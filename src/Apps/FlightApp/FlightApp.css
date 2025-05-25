@@ -1,0 +1,58 @@
+.flight-container {
+  max-width: 600px;
+  margin: auto;
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.flight-container h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.input-group input {
+  padding: 8px;
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.input-group button {
+  padding: 8px 14px;
+  font-weight: bold;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.input-group button:hover {
+  background-color: #005fcc;
+}
+
+.flight-list {
+  list-style: none;
+  padding: 0;
+}
+
+.flight-card {
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+}

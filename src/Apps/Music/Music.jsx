@@ -66,7 +66,7 @@ export default function App() {
   };
 
   return (
-    <div className="app">
+    <div className="music">
       <header>
         <input
           type="text"
@@ -78,9 +78,6 @@ export default function App() {
       </header>
 
       <div className="main">
-        {/* 좌측 즐겨찾기 영역 제거 */}
-        {/* <aside className="left">삭제됨</aside> */}
-
         <section className="center">
           {currentTrack ? (
             <div className="player">
@@ -139,7 +136,7 @@ export default function App() {
               <img src={track.artworkUrl60} alt="art" />
               <div>
                 <p>{track.trackName}</p>
-                <button onClick={() => handlePlay(track)}>실행</button>
+                <button onClick={() => handlePlay(track)}>재생</button>
               </div>
             </div>
           ))}

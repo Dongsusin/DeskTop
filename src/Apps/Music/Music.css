@@ -1,23 +1,18 @@
-body {
-  margin: 0;
-  background: #121212;
-  color: #eee;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.app {
+.music {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  color: #eee;
+  background-color: #eee;
 }
 
-header {
+.music header {
   padding: 15px;
   background: #1f1f1f;
   text-align: center;
 }
 
-header input {
+.music header input {
   width: 50%;
   max-width: 500px;
   padding: 8px 12px;
@@ -27,7 +22,7 @@ header input {
   outline: none;
 }
 
-.main {
+.music .main {
   flex: 1;
   display: flex;
   gap: 10px;
@@ -37,8 +32,7 @@ header input {
   max-height: 500px;
 }
 
-/* 즐겨찾기 영역 관련 삭제해서 아래부터 시작 */
-.right {
+.music .right {
   flex: 1;
   box-sizing: border-box;
   display: flex;
@@ -54,13 +48,13 @@ header input {
   height: auto;
 }
 
-.right h2 {
+.music .right h2 {
   margin-top: 0;
   border-bottom: 1px solid #444;
   padding-bottom: 8px;
 }
 
-.track {
+.music .track {
   cursor: pointer;
   padding: 6px 8px;
   border-radius: 6px;
@@ -71,25 +65,25 @@ header input {
   gap: 8px;
 }
 
-.track:hover {
+.music .track:hover {
   background: #333;
 }
 
-.track img {
+.music .track img {
   width: 40px;
   height: 40px;
   border-radius: 4px;
   flex-shrink: 0;
 }
 
-.track div {
+.music .track div {
   flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.track button {
+.music .track button {
   background: transparent;
   border: none;
   color: #eee;
@@ -99,11 +93,11 @@ header input {
   white-space: nowrap;
 }
 
-.track button:hover {
-  color: #1db954; /* Spotify green-ish */
+.music .track button:hover {
+  color: #1db954;
 }
 
-.center {
+.music .center {
   flex: 1;
   background: #181818;
   border-radius: 12px;
@@ -116,13 +110,13 @@ header input {
   height: auto;
 }
 
-.player {
+.music .player {
   text-align: center;
   width: 100%;
   max-width: 350px;
 }
 
-.player img {
+.music .player img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -139,7 +133,7 @@ header input {
   }
 }
 
-.player img.playing {
+.music .player img.playing {
   animation-name: rotate;
   animation-duration: 10s;
   animation-timing-function: linear;
@@ -147,19 +141,19 @@ header input {
   animation-play-state: running;
 }
 
-.player h3 {
+.music .player h3 {
   margin: 0 0 12px 0;
   font-weight: 600;
   color: #1db954;
 }
 
-audio {
+.music audio {
   width: 100%;
   outline: none;
   margin-bottom: 15px;
 }
 
-.progress-bar {
+.music .progress-bar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -167,14 +161,14 @@ audio {
   color: #aaa;
 }
 
-.progress-bar span {
+.music .progress-bar span {
   width: 35px;
   text-align: center;
   font-size: 14px;
   user-select: none;
 }
 
-.progress-bar input[type="range"] {
+.music .progress-bar input[type="range"] {
   flex: 1;
   -webkit-appearance: none;
   height: 6px;
@@ -183,7 +177,7 @@ audio {
   cursor: pointer;
 }
 
-.progress-bar input[type="range"]::-webkit-slider-thumb {
+.music .progress-bar input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
@@ -194,7 +188,7 @@ audio {
   box-shadow: 0 0 2px #1db954;
 }
 
-.volume-control {
+.music .volume-control {
   margin-top: 15px;
   display: flex;
   align-items: center;
@@ -204,11 +198,11 @@ audio {
   user-select: none;
 }
 
-.volume-control label {
+.music .volume-control label {
   font-size: 14px;
 }
 
-.volume-control input[type="range"] {
+.music .volume-control input[type="range"] {
   width: 100px;
   -webkit-appearance: none;
   height: 6px;
@@ -217,7 +211,7 @@ audio {
   cursor: pointer;
 }
 
-.volume-control input[type="range"]::-webkit-slider-thumb {
+.music .volume-control input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;

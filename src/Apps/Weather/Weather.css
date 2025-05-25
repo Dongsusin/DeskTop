@@ -1,16 +1,3 @@
-.container {
-  text-align: center;
-  padding: 20px;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f8ff;
-  font-family: sans-serif;
-}
-
 .weather-icon {
   width: 100px;
   height: 100px;

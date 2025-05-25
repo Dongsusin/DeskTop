@@ -119,19 +119,19 @@
         "type": "icon",
         "name": "환률",
         "image": "/image/아이콘/환률.png",
-        "url": ""
+        "url": "/exchange"
       },
       {
         "type": "icon",
         "name": "코인",
         "image": "/image/아이콘/코인.png",
-        "url": ""
+        "url": "/coin"
       },
       {
         "type": "icon",
         "name": "주식",
         "image": "/image/아이콘/주식.png",
-        "url": ""
+        "url": "/stock"
       }
     ]
   },
@@ -144,13 +144,7 @@
         "type": "icon",
         "name": "항공편",
         "image": "/image/아이콘/항공편.png",
-        "url": ""
-      },
-      {
-        "type": "icon",
-        "name": "여행지",
-        "image": "/image/아이콘/여행.png",
-        "url": ""
+        "url": "/flight"
       }
     ]
   }

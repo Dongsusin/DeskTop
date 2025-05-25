@@ -2,7 +2,7 @@ import "./Resume.css";
 
 function Resume() {
   return (
-    <div className="app">
+    <div className="Resume">
       <div className="resume-container">
         <header>
           <h1>신동수</h1>

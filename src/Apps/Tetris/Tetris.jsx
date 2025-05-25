@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Tetris.css";
 
-const ROWS = 10;
+const ROWS = 15;
 const COLS = 10;
 const BLOCK_SIZE = 30;
 
-// 테트리스 블록 모양 (4x4 격자 기준)
 const SHAPES = {
   I: [
     [
@@ -138,7 +137,6 @@ function randomShape() {
 }
 
 function Tetris() {
-  // 보드 상태 초기화
   const emptyBoard = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
 
   const [board, setBoard] = useState(emptyBoard);
@@ -152,7 +150,6 @@ function Tetris() {
 
   const gameRef = useRef();
 
-  // 충돌 검사 함수
   function isValidPosition(shape, x, y) {
     for (let r = 0; r < shape.length; r++) {
       for (let c = 0; c < shape[r].length; c++) {
@@ -173,7 +170,6 @@ function Tetris() {
     return true;
   }
 
-  // 현재 블록을 보드에 고정시키기
   function fixToBoard() {
     const newBoard = board.map((row) => row.slice());
     const { shape, x, y, type } = current;
@@ -190,7 +186,6 @@ function Tetris() {
     clearLines(newBoard);
   }
 
-  // 라인 클리어 및 점수 처리
   function clearLines(newBoard) {
     let linesCleared = 0;
     for (let r = ROWS - 1; r >= 0; r--) {
@@ -198,7 +193,7 @@ function Tetris() {
         newBoard.splice(r, 1);
         newBoard.unshift(Array(COLS).fill(null));
         linesCleared++;
-        r++; // 다시 검사
+        r++;
       }
     }
     if (linesCleared > 0) {
@@ -207,7 +202,6 @@ function Tetris() {
     }
   }
 
-  // 블록 이동 시도
   function move(dx, dy) {
     const { shape, x, y } = current;
     if (isValidPosition(shape, x + dx, y + dy)) {
@@ -217,7 +211,6 @@ function Tetris() {
     return false;
   }
 
-  // 블록 회전
   function rotate() {
     const { type, rotation } = current;
     const rotations = SHAPES[type];
@@ -228,10 +221,8 @@ function Tetris() {
     }
   }
 
-  // 게임 루프 - 블록 아래로 한 칸씩 내리기
   useEffect(() => {
     if (gameOver) return;
-
     gameRef.current = setInterval(() => {
       if (!move(0, 1)) {
         fixToBoard();
@@ -243,12 +234,11 @@ function Tetris() {
         }
         setCurrent({ ...newBlock, x: 3, y: 0 });
       }
-    }, 700);
+    }, 300);
 
     return () => clearInterval(gameRef.current);
   }, [board, current, gameOver]);
 
-  // 키보드 입력 처리
   useEffect(() => {
     function handleKey(e) {
       if (gameOver) return;
@@ -267,7 +257,6 @@ function Tetris() {
           rotate();
           break;
         case " ":
-          // 스페이스바: 즉시 떨어뜨리기
           let dropY = current.y;
           while (isValidPosition(current.shape, current.x, dropY + 1)) {
             dropY++;
@@ -282,7 +271,6 @@ function Tetris() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [current, gameOver]);
 
-  // 렌더링 보드에 현재 블록 합성
   function renderBoard() {
     const displayBoard = board.map((row) => row.slice());
     const { shape, x, y, type } = current;

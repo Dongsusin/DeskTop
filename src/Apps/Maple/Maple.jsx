@@ -40,7 +40,7 @@ function Maple() {
   };
 
   return (
-    <div className="container">
+    <div className="maple-container">
       <h1>메이플 캐릭터 검색</h1>
       <div className="search">
         <input

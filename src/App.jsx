@@ -17,6 +17,10 @@ import Tetris from "./Apps/Tetris/Tetris";
 import Speed from "./Apps/Speed/Speed";
 import Maple from "./Apps/Maple/Maple";
 import Music from "./Apps/Music/Music";
+import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
+import Coin from "./Apps/CoinInfo/CoinInfo";
+import StockInfo from "./Apps/StockInfo/StockInfo";
+import Filght from "./Apps/FlightApp/FlightApp";
 
 function DesktopApp() {
   const [icons, setIcons] = useState([]);
@@ -42,6 +46,10 @@ function DesktopApp() {
   const [showSpeed, setShowSpeed] = useState(false);
   const [showMaple, setShowMaple] = useState(false);
   const [showMusic, setShowMusic] = useState(false);
+  const [showExchangeRate, setShowExchangeRate] = useState(false);
+  const [showCoin, setShowCoin] = useState(false);
+  const [showStockInfo, setShowStockInfo] = useState(false);
+  const [showFilght, setShowFilght] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(
@@ -79,6 +87,14 @@ function DesktopApp() {
       setShowMaple(true);
     } else if (icon.url === "/music") {
       setShowMusic(true);
+    } else if (icon.url === "/exchange") {
+      setShowExchangeRate(true);
+    } else if (icon.url === "/coin") {
+      setShowCoin(true);
+    } else if (icon.url === "/stock") {
+      setShowStockInfo(true);
+    } else if (icon.url === "/flight") {
+      setShowFilght(true);
     } else if (icon.url && icon.url !== "") {
       window.location.href = icon.url;
     } else if (icon.type === "folder") {
@@ -103,7 +119,7 @@ function DesktopApp() {
 
   return (
     <>
-      <div className="desktop split-layout">
+      <div className="desktop">
         <div className="left-pane">
           <IconList icons={icons} onIconClick={handleIconClick} />
         </div>
@@ -236,6 +252,46 @@ function DesktopApp() {
               <button onClick={() => setShowMusic(false)}>닫기 ✖</button>
             </div>
             <Music />
+          </div>
+        )}
+
+        {showExchangeRate && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>환률 정보</span>
+              <button onClick={() => setShowExchangeRate(false)}>닫기 ✖</button>
+            </div>
+            <ExchangeRate />
+          </div>
+        )}
+
+        {showCoin && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>코인 정보</span>
+              <button onClick={() => setShowCoin(false)}>닫기 ✖</button>
+            </div>
+            <Coin />
+          </div>
+        )}
+
+        {showStockInfo && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>주식 정보</span>
+              <button onClick={() => setShowStockInfo(false)}>닫기 ✖</button>
+            </div>
+            <StockInfo />
+          </div>
+        )}
+
+        {showFilght && (
+          <div className="popup">
+            <div className="popup-header">
+              <span>항공편 정보</span>
+              <button onClick={() => setShowFilght(false)}>닫기 ✖</button>
+            </div>
+            <Filght />
           </div>
         )}
       </div>
