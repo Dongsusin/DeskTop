@@ -1,5 +1,5 @@
 // App.js
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import IconList from "./components/IconList";
@@ -7,6 +7,7 @@ import FolderPopup from "./components/Folder";
 import Memo from "./components/Memo";
 import Calendar from "./components/Calendar";
 import Taskbar from "./components/Taskbar";
+import MobileTopbar from "./components/Mobile-Topbar";
 import Calculator from "./Apps/Calculator/Calculator";
 import Weather from "./Apps/Weather/Weather";
 import Map from "./Apps/Map/Map";
@@ -34,6 +35,9 @@ function DesktopApp() {
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
+  const [currentPage, setCurrentPage] = useState(0);
+  const mobilePagesRef = useRef(null);
+  const totalPages = 2;
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [showCalculator, setShowCalculator] = useState(false);
@@ -117,189 +121,238 @@ function DesktopApp() {
     setSelectedDate(null);
   };
 
+  const handleSwipe = (direction) => {
+    setCurrentPage((prev) => {
+      if (direction === "left" && prev < totalPages - 1) return prev + 1;
+      if (direction === "right" && prev > 0) return prev - 1;
+      return prev;
+    });
+  };
+
+  const handleTouchStart = useRef(null);
+  const handleTouchEnd = useRef(null);
+
+  useEffect(() => {
+    const container = mobilePagesRef.current;
+    if (container) {
+      container.style.transform = `translateX(-${currentPage * 50}%)`;
+    }
+  }, [currentPage]);
+
   return (
     <>
-      <div className="desktop">
-        <div className="left-pane">
-          <IconList icons={icons} onIconClick={handleIconClick} />
+      <div className="all">
+        <div className="desktop">
+          <div className="left-pane">
+            <IconList icons={icons} onIconClick={handleIconClick} />
+          </div>
+          <div className="right-pane">
+            {showCalendar && (
+              <Calendar
+                currentDate={currentDate}
+                memos={memos}
+                onDateClick={handleDateClick}
+              />
+            )}
+          </div>
+          <Taskbar
+            time={currentTime}
+            onTimeClick={() => setShowCalendar((prev) => !prev)}
+          />
         </div>
-
-        <div className="right-pane">
-          {showCalendar && (
-            <Calendar
-              currentDate={currentDate}
-              memos={memos}
-              onDateClick={handleDateClick}
+        <div className="mobile">
+          <div
+            className="mobile-container"
+            onTouchStart={(e) =>
+              (handleTouchStart.current = e.touches[0].clientX)
+            }
+            onTouchEnd={(e) => {
+              handleTouchEnd.current = e.changedTouches[0].clientX;
+              const diff = handleTouchStart.current - handleTouchEnd.current;
+              if (diff > 50) handleSwipe("left");
+              else if (diff < -50) handleSwipe("right");
+            }}
+          >
+            <div className="mobile-pages" ref={mobilePagesRef}>
+              <div className="mobile-page">
+                <IconList icons={icons} onIconClick={handleIconClick} />
+              </div>
+              <div className="mobile-page">
+                <Calendar
+                  currentDate={currentDate}
+                  memos={memos}
+                  onDateClick={handleDateClick}
+                />
+              </div>
+            </div>
+          </div>
+          <MobileTopbar time={currentTime} />
+        </div>
+        <div className="popup-content">
+          {openFolder && (
+            <FolderPopup
+              folder={openFolder}
+              onClose={() => setOpenFolder(null)}
+              onIconClick={(icon) => {
+                handleIconClick(icon);
+                setOpenFolder(null);
+              }}
             />
           )}
+
+          {selectedDate && (
+            <Memo
+              selectedDate={selectedDate}
+              memoInput={memoInput}
+              onChange={setMemoInput}
+              onSave={handleSaveMemo}
+              onClose={() => setSelectedDate(null)}
+            />
+          )}
+
+          {showCalculator && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>계산기</span>
+                <button onClick={() => setShowCalculator(false)}>닫기 ✖</button>
+              </div>
+              <Calculator />
+            </div>
+          )}
+
+          {showWeather && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>날씨</span>
+                <button onClick={() => setShowWeather(false)}>닫기 ✖</button>
+              </div>
+              <Weather />
+            </div>
+          )}
+
+          {showMap && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>지도</span>
+                <button onClick={() => setShowMap(false)}>닫기 ✖</button>
+              </div>
+              <Map />
+            </div>
+          )}
+
+          {showMemo && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>메모장</span>
+                <button onClick={() => setShowMemo(false)}>닫기 ✖</button>
+              </div>
+              <MemoApp />
+            </div>
+          )}
+
+          {showResume && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>이력서</span>
+                <button onClick={() => setShowResume(false)}>닫기 ✖</button>
+              </div>
+              <Resume />
+            </div>
+          )}
+
+          {showPokeDex && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>PokeDex</span>
+                <button onClick={() => setShowPokedex(false)}>닫기 ✖</button>
+              </div>
+              <Pokedex />
+            </div>
+          )}
+
+          {showTetris && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>테트리스</span>
+                <button onClick={() => setShowTetris(false)}>닫기 ✖</button>
+              </div>
+              <Tetris />
+            </div>
+          )}
+
+          {showSpeed && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>반응속도 테스트</span>
+                <button onClick={() => setShowSpeed(false)}>닫기 ✖</button>
+              </div>
+              <Speed />
+            </div>
+          )}
+
+          {showMaple && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>메이플 위키</span>
+                <button onClick={() => setShowMaple(false)}>닫기 ✖</button>
+              </div>
+              <Maple />
+            </div>
+          )}
+
+          {showMusic && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>뮤직 플레이어</span>
+                <button onClick={() => setShowMusic(false)}>닫기 ✖</button>
+              </div>
+              <Music />
+            </div>
+          )}
+
+          {showExchangeRate && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>환률 정보</span>
+                <button onClick={() => setShowExchangeRate(false)}>
+                  닫기 ✖
+                </button>
+              </div>
+              <ExchangeRate />
+            </div>
+          )}
+
+          {showCoin && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>코인 정보</span>
+                <button onClick={() => setShowCoin(false)}>닫기 ✖</button>
+              </div>
+              <Coin />
+            </div>
+          )}
+
+          {showStockInfo && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>주식 정보</span>
+                <button onClick={() => setShowStockInfo(false)}>닫기 ✖</button>
+              </div>
+              <StockInfo />
+            </div>
+          )}
+
+          {showFilght && (
+            <div className="popup">
+              <div className="popup-header">
+                <span>항공편 정보</span>
+                <button onClick={() => setShowFilght(false)}>닫기 ✖</button>
+              </div>
+              <Filght />
+            </div>
+          )}
         </div>
-
-        {openFolder && (
-          <FolderPopup
-            folder={openFolder}
-            onClose={() => setOpenFolder(null)}
-            onIconClick={(icon) => {
-              handleIconClick(icon);
-              setOpenFolder(null);
-            }}
-          />
-        )}
-
-        {selectedDate && (
-          <Memo
-            selectedDate={selectedDate}
-            memoInput={memoInput}
-            onChange={setMemoInput}
-            onSave={handleSaveMemo}
-            onClose={() => setSelectedDate(null)}
-          />
-        )}
-
-        {showCalculator && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>계산기</span>
-              <button onClick={() => setShowCalculator(false)}>닫기 ✖</button>
-            </div>
-            <Calculator />
-          </div>
-        )}
-
-        {showWeather && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>날씨</span>
-              <button onClick={() => setShowWeather(false)}>닫기 ✖</button>
-            </div>
-            <Weather />
-          </div>
-        )}
-
-        {showMap && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>지도</span>
-              <button onClick={() => setShowMap(false)}>닫기 ✖</button>
-            </div>
-            <Map />
-          </div>
-        )}
-
-        {showMemo && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>메모장</span>
-              <button onClick={() => setShowMemo(false)}>닫기 ✖</button>
-            </div>
-            <MemoApp />
-          </div>
-        )}
-
-        {showResume && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>이력서</span>
-              <button onClick={() => setShowResume(false)}>닫기 ✖</button>
-            </div>
-            <Resume />
-          </div>
-        )}
-
-        {showPokeDex && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>PokeDex</span>
-              <button onClick={() => setShowPokedex(false)}>닫기 ✖</button>
-            </div>
-            <Pokedex />
-          </div>
-        )}
-
-        {showTetris && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>테트리스</span>
-              <button onClick={() => setShowTetris(false)}>닫기 ✖</button>
-            </div>
-            <Tetris />
-          </div>
-        )}
-
-        {showSpeed && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>반응속도 테스트</span>
-              <button onClick={() => setShowSpeed(false)}>닫기 ✖</button>
-            </div>
-            <Speed />
-          </div>
-        )}
-
-        {showMaple && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>메이플 위키</span>
-              <button onClick={() => setShowMaple(false)}>닫기 ✖</button>
-            </div>
-            <Maple />
-          </div>
-        )}
-
-        {showMusic && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>뮤직 플레이어</span>
-              <button onClick={() => setShowMusic(false)}>닫기 ✖</button>
-            </div>
-            <Music />
-          </div>
-        )}
-
-        {showExchangeRate && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>환률 정보</span>
-              <button onClick={() => setShowExchangeRate(false)}>닫기 ✖</button>
-            </div>
-            <ExchangeRate />
-          </div>
-        )}
-
-        {showCoin && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>코인 정보</span>
-              <button onClick={() => setShowCoin(false)}>닫기 ✖</button>
-            </div>
-            <Coin />
-          </div>
-        )}
-
-        {showStockInfo && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>주식 정보</span>
-              <button onClick={() => setShowStockInfo(false)}>닫기 ✖</button>
-            </div>
-            <StockInfo />
-          </div>
-        )}
-
-        {showFilght && (
-          <div className="popup">
-            <div className="popup-header">
-              <span>항공편 정보</span>
-              <button onClick={() => setShowFilght(false)}>닫기 ✖</button>
-            </div>
-            <Filght />
-          </div>
-        )}
       </div>
-
-      <Taskbar
-        time={currentTime}
-        onTimeClick={() => setShowCalendar((prev) => !prev)}
-      />
     </>
   );
 }
