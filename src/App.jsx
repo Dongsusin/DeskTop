@@ -21,6 +21,7 @@ import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
 import Coin from "./Apps/CoinInfo/CoinInfo";
 import StockInfo from "./Apps/StockInfo/StockInfo";
 import Filght from "./Apps/FlightApp/FlightApp";
+import Seven from "./Apps/Seven/Seven";
 
 function DesktopApp() {
   const [isIntro, setIsIntro] = useState(true);
@@ -111,6 +112,9 @@ function DesktopApp() {
       case "/flight":
         setCurrentPopup({ title: "항공편 정보", component: <Filght /> });
         break;
+      case "/seven":
+        setCurrentPopup({ title: "세븐나이츠", component: <Seven /> });
+        break;
       default:
         if (icon.url) window.location.href = icon.url;
         else if (icon.type === "folder") setOpenFolder(icon);
@@ -158,12 +162,12 @@ function DesktopApp() {
           setTimeout(() => {
             setIsIntro(false);
             setIsLoading(false);
-          }, 300); // 약간의 지연 후 진입
+          }, 300);
           return 100;
         }
-        return prev + 5; // 로딩 증가 속도
+        return prev + 5;
       });
-    }, 100); // 0.1초마다 진행
+    }, 100);
   };
 
   if (isIntro) {
