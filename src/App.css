@@ -320,7 +320,7 @@ html {
 
 .power-button {
   cursor: pointer;
-  background-image: url("/public/image/전원이미지.webp");
+  background-image: url("/image/전원이미지.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
