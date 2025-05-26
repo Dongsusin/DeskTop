@@ -163,6 +163,12 @@
         "name": "항공편",
         "image": "/image/아이콘/항공편.png",
         "url": "/flight"
+      },
+      {
+        "type": "icon",
+        "name": "여행지",
+        "image": "/image/아이콘/여행.png",
+        "url": "/travel"
       }
     ]
   }
