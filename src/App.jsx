@@ -26,6 +26,7 @@ import Paint from "./Apps/PaintApp/PaintApp";
 import News from "./Apps/News/News";
 import BookApp from "./Apps/BookApp/BookApp";
 import Travel from "./Apps/Travel/Travel";
+import Movie from "./Apps/Movies/Movies";
 
 function Popup({ title, onClose, children }) {
   return (
@@ -142,6 +143,9 @@ function DesktopApp() {
         break;
       case "/travel":
         setCurrentPopup({ title: "여행 정보", component: <Travel /> });
+        break;
+      case "/movie":
+        setCurrentPopup({ title: "영화 정보", component: <Movie /> });
         break;
       default:
         if (icon.url) window.location.href = icon.url;

@@ -171,5 +171,18 @@
         "url": "/travel"
       }
     ]
+  },
+  {
+    "type": "folder",
+    "name": "영화",
+    "image": "/image/아이콘/폴더.png",
+    "projects": [
+      {
+        "type": "icon",
+        "name": "영화",
+        "image": "/image/아이콘/CGV.png",
+        "url": "/movie"
+      }
+    ]
   }
 ]
