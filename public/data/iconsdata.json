@@ -43,6 +43,12 @@
   },
   {
     "type": "icon",
+    "name": "그림판",
+    "image": "/image/아이콘/그림판.png",
+    "url": "/paint"
+  },
+  {
+    "type": "icon",
     "name": "뮤직 플레이어",
     "image": "/image/아이콘/뮤직플레이어.png",
     "url": "/music"

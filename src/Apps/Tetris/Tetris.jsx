@@ -290,6 +290,28 @@ function Tetris() {
 
   const displayBoard = renderBoard();
 
+  // 모바일 버튼용 함수
+  function handleMoveLeft() {
+    if (!gameOver) move(-1, 0);
+  }
+  function handleMoveRight() {
+    if (!gameOver) move(1, 0);
+  }
+  function handleMoveDown() {
+    if (!gameOver) move(0, 1);
+  }
+  function handleRotate() {
+    if (!gameOver) rotate();
+  }
+  function handleHardDrop() {
+    if (gameOver) return;
+    let dropY = current.y;
+    while (isValidPosition(current.shape, current.x, dropY + 1)) {
+      dropY++;
+    }
+    setCurrent({ ...current, y: dropY });
+  }
+
   return (
     <div className="tetris-container">
       <div className="score">Score: {score}</div>
@@ -313,6 +335,34 @@ function Tetris() {
         )}
       </div>
       {gameOver && <div className="gameover">Game Over</div>}
+
+      {/* 모바일 컨트롤 버튼 */}
+      <div
+        className="mobile-controls"
+        style={{
+          marginTop: 20,
+          display: "flex",
+          justifyContent: "center",
+          gap: 10,
+          flexWrap: "wrap",
+        }}
+      >
+        <button onClick={handleMoveLeft} style={{ padding: "10px 15px" }}>
+          ←
+        </button>
+        <button onClick={handleMoveRight} style={{ padding: "10px 15px" }}>
+          →
+        </button>
+        <button onClick={handleMoveDown} style={{ padding: "10px 15px" }}>
+          ↓
+        </button>
+        <button onClick={handleRotate} style={{ padding: "10px 15px" }}>
+          ⟳
+        </button>
+        <button onClick={handleHardDrop} style={{ padding: "10px 15px" }}>
+          ⇩
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,57 @@
+.paint-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  touch-action: none;
+  width: 100%;
+}
+
+.toolbar {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+}
+
+.toolbar button {
+  text-wrap: nowrap;
+}
+
+.paint-canvas {
+  border: 2px solid #444;
+  background-color: white;
+  cursor: crosshair;
+  touch-action: none;
+  width: 100%;
+  height: 100%;
+}
+
+label {
+  color: white;
+}
+
+@media screen and (max-width: 426px) {
+  .paint-container {
+    width: 100%;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .toolbar button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .paint-canvas {
+    width: 100%;
+    height: 300px;
+  }
+}

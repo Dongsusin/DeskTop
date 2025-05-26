@@ -20,8 +20,21 @@ import Music from "./Apps/Music/Music";
 import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
 import Coin from "./Apps/CoinInfo/CoinInfo";
 import StockInfo from "./Apps/StockInfo/StockInfo";
-import Filght from "./Apps/FlightApp/FlightApp";
+import Flight from "./Apps/FlightApp/FlightApp"; // 오타 수정
 import Seven from "./Apps/Seven/Seven";
+import Paint from "./Apps/PaintApp/PaintApp";
+
+function Popup({ title, onClose, children }) {
+  return (
+    <div className="popup">
+      <div className="popup-header">
+        <span>{title}</span>
+        <button onClick={onClose}>닫기 ✖</button>
+      </div>
+      {children}
+    </div>
+  );
+}
 
 function DesktopApp() {
   const [isIntro, setIsIntro] = useState(true);
@@ -110,10 +123,13 @@ function DesktopApp() {
         setCurrentPopup({ title: "주식 정보", component: <StockInfo /> });
         break;
       case "/flight":
-        setCurrentPopup({ title: "항공편 정보", component: <Filght /> });
+        setCurrentPopup({ title: "항공편 정보", component: <Flight /> });
         break;
       case "/seven":
         setCurrentPopup({ title: "세븐나이츠", component: <Seven /> });
+        break;
+      case "/paint":
+        setCurrentPopup({ title: "그림판", component: <Paint /> });
         break;
       default:
         if (icon.url) window.location.href = icon.url;
@@ -275,18 +291,6 @@ function DesktopApp() {
           </Popup>
         )}
       </div>
-    </div>
-  );
-}
-
-function Popup({ title, onClose, children }) {
-  return (
-    <div className="popup">
-      <div className="popup-header">
-        <span>{title}</span>
-        <button onClick={onClose}>닫기 ✖</button>
-      </div>
-      {children}
     </div>
   );
 }

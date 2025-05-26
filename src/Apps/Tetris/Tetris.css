@@ -1,3 +1,5 @@
+/* 기존 CSS 유지 */
+
 .tetris-container {
   width: 320px;
   margin: 20px auto;
@@ -5,13 +7,16 @@
   text-align: center;
   user-select: none;
   height: 100%;
+  position: relative;
+  background: #222;
+  padding-bottom: 110px;
 }
 
 .board {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(10, 30px);
-  grid-template-rows: repeat(20, 30px);
+  grid-template-rows: repeat(15, 30px);
   background: #111;
   border: 3px solid #444;
   position: relative;
@@ -38,4 +43,64 @@
   font-size: 1.2rem;
   margin-bottom: 10px;
   color: white;
+}
+
+/* 모바일 컨트롤 버튼 스타일 - 수정 및 5개 버튼 대응 */
+
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  display: grid;
+  /* 5개 버튼에 맞게 3열 2행으로 변경 */
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 50px);
+  gap: 10px;
+  user-select: none;
+}
+
+.controls button {
+  background: #333;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  outline: none;
+  box-shadow: 0 4px #111;
+}
+
+.controls button:active {
+  background: #555;
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+/* 버튼 위치 지정 */
+.controls .left {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.controls .down {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.controls .right {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.controls .rotate {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.controls .drop {
+  grid-column: 3;
+  grid-row: 2;
 }
