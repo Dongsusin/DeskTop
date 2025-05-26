@@ -337,16 +337,7 @@ function Tetris() {
       {gameOver && <div className="gameover">Game Over</div>}
 
       {/* 모바일 컨트롤 버튼 */}
-      <div
-        className="mobile-controls"
-        style={{
-          marginTop: 20,
-          display: "flex",
-          justifyContent: "center",
-          gap: 10,
-          flexWrap: "wrap",
-        }}
-      >
+      <div className="controls">
         <button onClick={handleMoveLeft} style={{ padding: "10px 15px" }}>
           ←
         </button>

@@ -55,11 +55,11 @@
   font-weight: bold;
 }
 
-.pagination {
+.pokedex-container .pagination {
   margin-top: 20px;
 }
 
-.pagination button {
+.pokedex-container .pagination button {
   margin: 0 8px;
   padding: 6px 12px;
   font-size: 0.9rem;
@@ -71,11 +71,11 @@
   transition: background-color 0.2s ease;
 }
 
-.pagination button:disabled {
+.pokedex-container .pagination button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-.pagination button:hover:not(:disabled) {
+.pokedex-container .pagination button:hover:not(:disabled) {
   background-color: #357abd;
 }

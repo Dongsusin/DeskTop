@@ -1,8 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./PaintApp.css";
+
+const MAX_HISTORY = 50;
 
 const PaintApp = () => {
   const canvasRef = useRef(null);
+  const historyRef = useRef([]);
+  const redoStackRef = useRef([]);
+  const lastImageRef = useRef(null);
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
@@ -11,88 +17,112 @@ const PaintApp = () => {
   const [brushType, setBrushType] = useState("round");
   const [shape, setShape] = useState("free");
 
-  const [history, setHistory] = useState([]);
-  const [redoStack, setRedoStack] = useState([]);
-
+  // 캔버스 크기 초기화 및 흰 배경 칠하기
   useEffect(() => {
     const canvas = canvasRef.current;
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    saveHistory();
   }, []);
 
   const getContext = () => {
     const ctx = canvasRef.current.getContext("2d");
     ctx.lineCap = brushType === "eraser" ? "round" : brushType;
     ctx.strokeStyle = brushType === "eraser" ? "#ffffff" : color;
-    ctx.lineWidth = parseInt(lineWidth);
+    ctx.lineWidth = parseInt(lineWidth, 10);
     return ctx;
   };
 
   const getPos = (e) => {
-    const rect = canvasRef.current.getBoundingClientRect();
-    const clientX = e.touches
-      ? e.touches[0].clientX
-      : e.nativeEvent.offsetX + rect.left;
-    const clientY = e.touches
-      ? e.touches[0].clientY
-      : e.nativeEvent.offsetY + rect.top;
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
 
-    return {
-      x: clientX - rect.left,
-      y: clientY - rect.top,
-    };
+    if (e.touches) {
+      return {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top,
+      };
+    } else {
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    }
   };
 
-  const saveHistory = () => {
+  // 히스토리 저장 (최대 MAX_HISTORY)
+  const saveHistory = useCallback(() => {
     const canvas = canvasRef.current;
     const url = canvas.toDataURL();
-    setHistory((prev) => [...prev, url]);
-    setRedoStack([]);
-  };
 
-  const restoreImage = (url) => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    const img = new Image();
-    img.src = url;
-    img.onload = () => ctx.drawImage(img, 0, 0);
-  };
+    historyRef.current = [...historyRef.current, url].slice(-MAX_HISTORY);
+    redoStackRef.current = [];
+  }, []);
 
-  const startDrawing = (e) => {
-    e.preventDefault();
-    const pos = getPos(e);
-    setStartPos(pos);
+  // 이미지 복원 함수 (동기 처리)
+  const restoreImage = useCallback((url) => {
+    return new Promise((resolve) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      const img = new Image();
+      img.src = url;
+      img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        resolve();
+      };
+    });
+  }, []);
 
-    const ctx = getContext();
-    if (shape === "free") {
-      ctx.beginPath();
-      ctx.moveTo(pos.x, pos.y);
-    }
+  const startDrawing = useCallback(
+    (e) => {
+      e.preventDefault();
+      const pos = getPos(e);
+      setStartPos(pos);
 
-    setIsDrawing(true);
-    saveHistory();
-  };
+      const ctx = getContext();
 
-  const draw = (e) => {
-    if (!isDrawing) return;
-    e.preventDefault();
-    const pos = getPos(e);
-    const ctx = getContext();
+      if (shape === "free") {
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      } else if (historyRef.current.length > 0) {
+        // 미리 마지막 이미지 로드
+        const lastUrl = historyRef.current[historyRef.current.length - 1];
+        const img = new Image();
+        img.src = lastUrl;
+        lastImageRef.current = img;
+      }
 
-    if (shape === "free") {
-      ctx.lineTo(pos.x, pos.y);
-      ctx.stroke();
-    } else {
-      const prev = history[history.length - 1];
-      if (prev) {
-        const image = new Image();
-        image.src = prev;
-        image.onload = () => {
-          ctx.clearRect(
-            0,
-            0,
-            canvasRef.current.width,
-            canvasRef.current.height
-          );
-          ctx.drawImage(image, 0, 0);
+      setIsDrawing(true);
+      saveHistory();
+    },
+    [shape, saveHistory, color, lineWidth, brushType]
+  );
+
+  const draw = useCallback(
+    (e) => {
+      if (!isDrawing) return;
+      e.preventDefault();
+      const pos = getPos(e);
+      const ctx = getContext();
+
+      if (shape === "free") {
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      } else {
+        // 도형 그릴 때는 마지막 이미지 복원 후 도형 그림 (동기화 위해 요청 애니메이션 프레임 활용)
+        if (!lastImageRef.current) return;
+
+        const canvas = canvasRef.current;
+
+        requestAnimationFrame(() => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(lastImageRef.current, 0, 0);
 
           ctx.beginPath();
           if (shape === "line") {
@@ -108,41 +138,59 @@ const PaintApp = () => {
             ctx.arc(startPos.x, startPos.y, radius, 0, Math.PI * 2);
             ctx.stroke();
           }
-        };
+        });
       }
-    }
-  };
+    },
+    [isDrawing, shape, startPos, color, lineWidth, brushType]
+  );
 
-  const stopDrawing = (e) => {
-    e.preventDefault();
-    if (isDrawing) {
+  const stopDrawing = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (!isDrawing) return;
       setIsDrawing(false);
-    }
-  };
 
-  const clearCanvas = () => {
+      // 도형 그리기 완료 후 히스토리 저장
+      saveHistory();
+      lastImageRef.current = null;
+    },
+    [isDrawing, saveHistory]
+  );
+
+  const clearCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     saveHistory();
-  };
+  }, [saveHistory]);
 
-  const undo = () => {
-    if (history.length === 0) return;
-    const last = history[history.length - 2];
-    setRedoStack((prev) => [...prev, canvasRef.current.toDataURL()]);
-    setHistory((prev) => prev.slice(0, prev.length - 1));
-    if (last) restoreImage(last);
-    else clearCanvas();
-  };
+  const undo = useCallback(() => {
+    if (historyRef.current.length <= 1) return;
 
-  const redo = () => {
-    if (redoStack.length === 0) return;
-    const next = redoStack.pop();
-    setHistory((prev) => [...prev, next]);
-    setRedoStack([...redoStack]);
+    const last = historyRef.current[historyRef.current.length - 2];
+
+    // 현재 상태를 redo 스택에 저장
+    redoStackRef.current = [
+      ...redoStackRef.current,
+      historyRef.current[historyRef.current.length - 1],
+    ];
+
+    // 히스토리에서 마지막 상태 제거
+    historyRef.current = historyRef.current.slice(0, -1);
+
+    restoreImage(last);
+  }, [restoreImage]);
+
+  const redo = useCallback(() => {
+    if (redoStackRef.current.length === 0) return;
+
+    const next = redoStackRef.current.pop();
+    historyRef.current = [...historyRef.current, next];
+
     restoreImage(next);
-  };
+  }, [restoreImage]);
 
   const saveImage = () => {
     const canvas = canvasRef.current;

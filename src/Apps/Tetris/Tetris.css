@@ -45,18 +45,11 @@
   color: white;
 }
 
-/* 모바일 컨트롤 버튼 스타일 - 수정 및 5개 버튼 대응 */
-
 .controls {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 280px;
-  display: grid;
-  /* 5개 버튼에 맞게 3열 2행으로 변경 */
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 50px);
+  justify-content: center;
+  width: 100%;
+  display: none;
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   user-select: none;
 }
@@ -79,7 +72,6 @@
   transform: translateY(2px);
 }
 
-/* 버튼 위치 지정 */
 .controls .left {
   grid-column: 1;
   grid-row: 1;
@@ -103,4 +95,10 @@
 .controls .drop {
   grid-column: 3;
   grid-row: 2;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    display: grid;
+  }
 }

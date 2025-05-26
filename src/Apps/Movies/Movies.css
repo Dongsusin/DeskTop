@@ -51,7 +51,7 @@
   font-size: 0.9rem;
 }
 
-.pagination {
+.popular-movies .pagination {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
@@ -60,7 +60,7 @@
   color: white;
 }
 
-.pagination button {
+.popular-movies .pagination button {
   padding: 0.4rem 1rem;
   border: none;
   background-color: #2d89ff;
@@ -70,7 +70,7 @@
   font-weight: 600;
 }
 
-.pagination button:disabled {
+.popular-movies .pagination button:disabled {
   background-color: #aaa;
   cursor: default;
 }
