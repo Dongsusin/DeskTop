@@ -54,6 +54,18 @@
     "url": "/music"
   },
   {
+    "type": "icon",
+    "name": "NEWS",
+    "image": "/image/아이콘/뉴스.png",
+    "url": "/news"
+  },
+  {
+    "type": "icon",
+    "name": "도서검색",
+    "image": "/image/아이콘/도서.png",
+    "url": "/book"
+  },
+  {
     "type": "folder",
     "name": "(팀) 프로젝트",
     "image": "/image/아이콘/폴더.png",

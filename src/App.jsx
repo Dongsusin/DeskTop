@@ -20,9 +20,11 @@ import Music from "./Apps/Music/Music";
 import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
 import Coin from "./Apps/CoinInfo/CoinInfo";
 import StockInfo from "./Apps/StockInfo/StockInfo";
-import Flight from "./Apps/FlightApp/FlightApp"; // 오타 수정
+import Flight from "./Apps/FlightApp/FlightApp";
 import Seven from "./Apps/Seven/Seven";
 import Paint from "./Apps/PaintApp/PaintApp";
+import News from "./Apps/News/News";
+import BookApp from "./Apps/BookApp/BookApp";
 
 function Popup({ title, onClose, children }) {
   return (
@@ -130,6 +132,12 @@ function DesktopApp() {
         break;
       case "/paint":
         setCurrentPopup({ title: "그림판", component: <Paint /> });
+        break;
+      case "/news":
+        setCurrentPopup({ title: "뉴스", component: <News /> });
+        break;
+      case "/book":
+        setCurrentPopup({ title: "도서 검색", component: <BookApp /> });
         break;
       default:
         if (icon.url) window.location.href = icon.url;
