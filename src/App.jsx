@@ -1,6 +1,4 @@
-// App.js
 import { useState, useEffect, useRef } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import IconList from "./components/IconList";
 import FolderPopup from "./components/Folder";
@@ -8,6 +6,7 @@ import Memo from "./components/Memo";
 import Calendar from "./components/Calendar";
 import Taskbar from "./components/Taskbar";
 import MobileTopbar from "./components/Mobile-Topbar";
+import MobileBottombar from "./components/Mobile-Bottombar";
 import Calculator from "./Apps/Calculator/Calculator";
 import Weather from "./Apps/Weather/Weather";
 import Map from "./Apps/Map/Map";
@@ -24,6 +23,8 @@ import StockInfo from "./Apps/StockInfo/StockInfo";
 import Filght from "./Apps/FlightApp/FlightApp";
 
 function DesktopApp() {
+  const [isIntro, setIsIntro] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [icons, setIcons] = useState([]);
   const [openFolder, setOpenFolder] = useState(null);
   const [currentDate] = useState(new Date());
@@ -38,22 +39,11 @@ function DesktopApp() {
   const [currentPage, setCurrentPage] = useState(0);
   const mobilePagesRef = useRef(null);
   const totalPages = 2;
-
   const [showCalendar, setShowCalendar] = useState(false);
-  const [showCalculator, setShowCalculator] = useState(false);
-  const [showWeather, setShowWeather] = useState(false);
-  const [showMap, setShowMap] = useState(false);
-  const [showMemo, setShowMemo] = useState(false);
-  const [showResume, setShowResume] = useState(false);
-  const [showPokeDex, setShowPokedex] = useState(false);
-  const [showTetris, setShowTetris] = useState(false);
-  const [showSpeed, setShowSpeed] = useState(false);
-  const [showMaple, setShowMaple] = useState(false);
-  const [showMusic, setShowMusic] = useState(false);
-  const [showExchangeRate, setShowExchangeRate] = useState(false);
-  const [showCoin, setShowCoin] = useState(false);
-  const [showStockInfo, setShowStockInfo] = useState(false);
-  const [showFilght, setShowFilght] = useState(false);
+  const [currentPopup, setCurrentPopup] = useState(null);
+  const handleTouchStart = useRef(null);
+  const handleTouchEnd = useRef(null);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(
@@ -70,39 +60,61 @@ function DesktopApp() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const container = mobilePagesRef.current;
+    if (container) {
+      container.style.transform = `translateX(-${currentPage * 50}%)`;
+    }
+  }, [currentPage]);
+
   const handleIconClick = (icon) => {
-    if (icon.url === "/calculator") {
-      setShowCalculator(true);
-    } else if (icon.url === "/weather") {
-      setShowWeather(true);
-    } else if (icon.url === "/map") {
-      setShowMap(true);
-    } else if (icon.url === "/memo") {
-      setShowMemo(true);
-    } else if (icon.url === "/resume") {
-      setShowResume(true);
-    } else if (icon.url === "/pokedex") {
-      setShowPokedex(true);
-    } else if (icon.url === "/tetris") {
-      setShowTetris(true);
-    } else if (icon.url === "/speed") {
-      setShowSpeed(true);
-    } else if (icon.url === "/maple") {
-      setShowMaple(true);
-    } else if (icon.url === "/music") {
-      setShowMusic(true);
-    } else if (icon.url === "/exchange") {
-      setShowExchangeRate(true);
-    } else if (icon.url === "/coin") {
-      setShowCoin(true);
-    } else if (icon.url === "/stock") {
-      setShowStockInfo(true);
-    } else if (icon.url === "/flight") {
-      setShowFilght(true);
-    } else if (icon.url && icon.url !== "") {
-      window.location.href = icon.url;
-    } else if (icon.type === "folder") {
-      setOpenFolder(icon);
+    switch (icon.url) {
+      case "/calculator":
+        setCurrentPopup({ title: "계산기", component: <Calculator /> });
+        break;
+      case "/weather":
+        setCurrentPopup({ title: "날씨", component: <Weather /> });
+        break;
+      case "/map":
+        setCurrentPopup({ title: "지도", component: <Map /> });
+        break;
+      case "/memo":
+        setCurrentPopup({ title: "메모장", component: <MemoApp /> });
+        break;
+      case "/resume":
+        setCurrentPopup({ title: "이력서", component: <Resume /> });
+        break;
+      case "/pokedex":
+        setCurrentPopup({ title: "PokeDex", component: <Pokedex /> });
+        break;
+      case "/tetris":
+        setCurrentPopup({ title: "테트리스", component: <Tetris /> });
+        break;
+      case "/speed":
+        setCurrentPopup({ title: "반응속도 테스트", component: <Speed /> });
+        break;
+      case "/maple":
+        setCurrentPopup({ title: "메이플 위키", component: <Maple /> });
+        break;
+      case "/music":
+        setCurrentPopup({ title: "뮤직 플레이어", component: <Music /> });
+        break;
+      case "/exchange":
+        setCurrentPopup({ title: "환율 정보", component: <ExchangeRate /> });
+        break;
+      case "/coin":
+        setCurrentPopup({ title: "코인 시세", component: <Coin /> });
+        break;
+      case "/stock":
+        setCurrentPopup({ title: "주식 정보", component: <StockInfo /> });
+        break;
+      case "/flight":
+        setCurrentPopup({ title: "항공편 정보", component: <Filght /> });
+        break;
+      default:
+        if (icon.url) window.location.href = icon.url;
+        else if (icon.type === "folder") setOpenFolder(icon);
+        break;
     }
   };
 
@@ -129,240 +141,150 @@ function DesktopApp() {
     });
   };
 
-  const handleTouchStart = useRef(null);
-  const handleTouchEnd = useRef(null);
+  const handleCloseAll = () => {
+    setCurrentPopup(null);
+    setOpenFolder(null);
+    setSelectedDate(null);
+  };
 
-  useEffect(() => {
-    const container = mobilePagesRef.current;
-    if (container) {
-      container.style.transform = `translateX(-${currentPage * 50}%)`;
-    }
-  }, [currentPage]);
+  const handleStart = () => {
+    setIsLoading(true);
+    setLoadingProgress(0);
+
+    const interval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            setIsIntro(false);
+            setIsLoading(false);
+          }, 300); // 약간의 지연 후 진입
+          return 100;
+        }
+        return prev + 5; // 로딩 증가 속도
+      });
+    }, 100); // 0.1초마다 진행
+  };
+
+  if (isIntro) {
+    return (
+      <div className="intro-screen">
+        {!isLoading ? (
+          <div>
+            <button className="power-button" onClick={handleStart}></button>
+            <p>전원을 클릭하세요</p>
+          </div>
+        ) : (
+          <div className="loading-container">
+            <div className="loading-text">로딩 중... {loadingProgress}%</div>
+            <div className="loading-bar">
+              <div
+                className="loading-fill"
+                style={{ width: `${loadingProgress}%` }}
+              ></div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div className="all">
-        <div className="desktop">
-          <div className="left-pane">
-            <IconList icons={icons} onIconClick={handleIconClick} />
-          </div>
-          <div className="right-pane">
-            {showCalendar && (
+    <div className="all">
+      <div className="desktop">
+        <div className="left-pane">
+          <IconList icons={icons} onIconClick={handleIconClick} />
+        </div>
+        <div className="right-pane">
+          {showCalendar && (
+            <Calendar
+              currentDate={currentDate}
+              memos={memos}
+              onDateClick={handleDateClick}
+            />
+          )}
+        </div>
+        <Taskbar
+          time={currentTime}
+          onTimeClick={() => setShowCalendar((prev) => !prev)}
+        />
+      </div>
+
+      <div className="mobile">
+        <div
+          className="mobile-container"
+          onTouchStart={(e) =>
+            (handleTouchStart.current = e.touches[0].clientX)
+          }
+          onTouchEnd={(e) => {
+            handleTouchEnd.current = e.changedTouches[0].clientX;
+            const diff = handleTouchStart.current - handleTouchEnd.current;
+            if (diff > 50) handleSwipe("left");
+            else if (diff < -50) handleSwipe("right");
+          }}
+        >
+          <div className="mobile-pages" ref={mobilePagesRef}>
+            <div className="mobile-page">
+              <IconList icons={icons} onIconClick={handleIconClick} />
+            </div>
+            <div className="mobile-page">
               <Calendar
                 currentDate={currentDate}
                 memos={memos}
                 onDateClick={handleDateClick}
               />
-            )}
-          </div>
-          <Taskbar
-            time={currentTime}
-            onTimeClick={() => setShowCalendar((prev) => !prev)}
-          />
-        </div>
-        <div className="mobile">
-          <div
-            className="mobile-container"
-            onTouchStart={(e) =>
-              (handleTouchStart.current = e.touches[0].clientX)
-            }
-            onTouchEnd={(e) => {
-              handleTouchEnd.current = e.changedTouches[0].clientX;
-              const diff = handleTouchStart.current - handleTouchEnd.current;
-              if (diff > 50) handleSwipe("left");
-              else if (diff < -50) handleSwipe("right");
-            }}
-          >
-            <div className="mobile-pages" ref={mobilePagesRef}>
-              <div className="mobile-page">
-                <IconList icons={icons} onIconClick={handleIconClick} />
-              </div>
-              <div className="mobile-page">
-                <Calendar
-                  currentDate={currentDate}
-                  memos={memos}
-                  onDateClick={handleDateClick}
-                />
-              </div>
             </div>
           </div>
-          <MobileTopbar time={currentTime} />
         </div>
-        <div className="popup-content">
-          {openFolder && (
-            <FolderPopup
-              folder={openFolder}
-              onClose={() => setOpenFolder(null)}
-              onIconClick={(icon) => {
-                handleIconClick(icon);
-                setOpenFolder(null);
-              }}
-            />
-          )}
-
-          {selectedDate && (
-            <Memo
-              selectedDate={selectedDate}
-              memoInput={memoInput}
-              onChange={setMemoInput}
-              onSave={handleSaveMemo}
-              onClose={() => setSelectedDate(null)}
-            />
-          )}
-
-          {showCalculator && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>계산기</span>
-                <button onClick={() => setShowCalculator(false)}>닫기 ✖</button>
-              </div>
-              <Calculator />
-            </div>
-          )}
-
-          {showWeather && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>날씨</span>
-                <button onClick={() => setShowWeather(false)}>닫기 ✖</button>
-              </div>
-              <Weather />
-            </div>
-          )}
-
-          {showMap && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>지도</span>
-                <button onClick={() => setShowMap(false)}>닫기 ✖</button>
-              </div>
-              <Map />
-            </div>
-          )}
-
-          {showMemo && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>메모장</span>
-                <button onClick={() => setShowMemo(false)}>닫기 ✖</button>
-              </div>
-              <MemoApp />
-            </div>
-          )}
-
-          {showResume && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>이력서</span>
-                <button onClick={() => setShowResume(false)}>닫기 ✖</button>
-              </div>
-              <Resume />
-            </div>
-          )}
-
-          {showPokeDex && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>PokeDex</span>
-                <button onClick={() => setShowPokedex(false)}>닫기 ✖</button>
-              </div>
-              <Pokedex />
-            </div>
-          )}
-
-          {showTetris && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>테트리스</span>
-                <button onClick={() => setShowTetris(false)}>닫기 ✖</button>
-              </div>
-              <Tetris />
-            </div>
-          )}
-
-          {showSpeed && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>반응속도 테스트</span>
-                <button onClick={() => setShowSpeed(false)}>닫기 ✖</button>
-              </div>
-              <Speed />
-            </div>
-          )}
-
-          {showMaple && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>메이플 위키</span>
-                <button onClick={() => setShowMaple(false)}>닫기 ✖</button>
-              </div>
-              <Maple />
-            </div>
-          )}
-
-          {showMusic && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>뮤직 플레이어</span>
-                <button onClick={() => setShowMusic(false)}>닫기 ✖</button>
-              </div>
-              <Music />
-            </div>
-          )}
-
-          {showExchangeRate && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>환률 정보</span>
-                <button onClick={() => setShowExchangeRate(false)}>
-                  닫기 ✖
-                </button>
-              </div>
-              <ExchangeRate />
-            </div>
-          )}
-
-          {showCoin && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>코인 정보</span>
-                <button onClick={() => setShowCoin(false)}>닫기 ✖</button>
-              </div>
-              <Coin />
-            </div>
-          )}
-
-          {showStockInfo && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>주식 정보</span>
-                <button onClick={() => setShowStockInfo(false)}>닫기 ✖</button>
-              </div>
-              <StockInfo />
-            </div>
-          )}
-
-          {showFilght && (
-            <div className="popup">
-              <div className="popup-header">
-                <span>항공편 정보</span>
-                <button onClick={() => setShowFilght(false)}>닫기 ✖</button>
-              </div>
-              <Filght />
-            </div>
-          )}
-        </div>
+        <MobileTopbar time={currentTime} />
+        <MobileBottombar onCloseAll={handleCloseAll} />
       </div>
-    </>
+
+      <div className="popup-content">
+        {openFolder && (
+          <FolderPopup
+            folder={openFolder}
+            onClose={() => setOpenFolder(null)}
+            onIconClick={(icon) => {
+              handleIconClick(icon);
+              setOpenFolder(null);
+            }}
+          />
+        )}
+
+        {selectedDate && (
+          <Memo
+            selectedDate={selectedDate}
+            memoInput={memoInput}
+            onChange={setMemoInput}
+            onSave={handleSaveMemo}
+            onClose={() => setSelectedDate(null)}
+          />
+        )}
+
+        {currentPopup && (
+          <Popup
+            title={currentPopup.title}
+            onClose={() => setCurrentPopup(null)}
+          >
+            {currentPopup.component}
+          </Popup>
+        )}
+      </div>
+    </div>
   );
 }
 
-function App() {
+function Popup({ title, onClose, children }) {
   return (
-    <Router>
-      <DesktopApp />
-    </Router>
+    <div className="popup">
+      <div className="popup-header">
+        <span>{title}</span>
+        <button onClick={onClose}>닫기 ✖</button>
+      </div>
+      {children}
+    </div>
   );
 }
 
-export default App;
+export default DesktopApp;

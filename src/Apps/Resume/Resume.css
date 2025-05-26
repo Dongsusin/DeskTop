@@ -13,13 +13,12 @@
 .resume-container header {
   text-align: center;
   margin-bottom: 2rem;
-  color: #fff;
   border-radius: 10px;
 }
 
 .resume-container header h1 {
   margin: 5px 0;
-  color: #fff;
+  color: #000;
 }
 
 .resume-container section {
