@@ -46,7 +46,7 @@
   color: #fff;
 }
 
-.result {
+.maple-container .result {
   display: flex;
   flex-direction: column;
   align-items: center;
