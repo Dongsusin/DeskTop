@@ -47,6 +47,7 @@ const createEnemies = (stage) => {
         poison: 0,
         stun: 0,
         isBoss: true,
+        resist: Math.min(0.5, 0.1 + stage * 0.05),
       },
     ];
   }
@@ -65,6 +66,7 @@ const createEnemies = (stage) => {
       poison: 0,
       stun: 0,
       isBoss: false,
+      resist: Math.min(0.5, 0.1 + stage * 0.05),
     };
   });
 };
@@ -89,6 +91,8 @@ const baseCards = [
     type: "attack",
     cost: 2,
     value: 10,
+    baseValue: 10,
+    level: 1,
     description: "적 1명에게 10 데미지",
   },
   {
@@ -97,6 +101,8 @@ const baseCards = [
     type: "attack",
     cost: 3,
     value: 20,
+    baseValue: 20,
+    level: 1,
     description: "적 1명에게 20 데미지",
   },
   {
@@ -105,6 +111,8 @@ const baseCards = [
     type: "defend",
     cost: 2,
     value: 10,
+    baseValue: 10,
+    level: 1,
     description: "10 방어력",
   },
   {
@@ -112,7 +120,9 @@ const baseCards = [
     name: "힐",
     type: "heal",
     cost: 3,
-    value: 15,
+    value: 5,
+    baseValue: 5,
+    level: 1,
     description: "15 체력 회복",
   },
   {
@@ -121,6 +131,8 @@ const baseCards = [
     type: "buff",
     cost: 2,
     value: 5,
+    baseValue: 5,
+    level: 1,
     description: "다음 공격 데미지 +5",
   },
   {
@@ -129,6 +141,8 @@ const baseCards = [
     type: "aoe",
     cost: 4,
     value: 10,
+    baseValue: 10,
+    level: 1,
     description: "모든 적에게 10 데미지",
   },
   {
@@ -137,6 +151,8 @@ const baseCards = [
     type: "poison",
     cost: 2,
     value: 5,
+    baseValue: 5,
+    level: 1,
     description: "적 1명에게 5 중독",
   },
   {
@@ -145,6 +161,8 @@ const baseCards = [
     type: "stun",
     cost: 3,
     value: 1,
+    baseValue: 1,
+    level: 1,
     description: "적 1명 1턴 기절",
   },
   {
@@ -153,6 +171,8 @@ const baseCards = [
     type: "aoePoison",
     cost: 4,
     value: 3,
+    baseValue: 3,
+    level: 1,
     description: "모든 적에게 3 중독",
   },
   {
@@ -161,6 +181,8 @@ const baseCards = [
     type: "aoeStun",
     cost: 5,
     value: 1,
+    baseValue: 1,
+    level: 1,
     description: "모든 적 1턴 기절",
   },
 ];
@@ -173,7 +195,8 @@ function TurnBasedCardRPG() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [stage, setStage] = useState(1);
   const [messages, setMessages] = useState([]);
-  const [isGameOver, setIsGameOver] = useState(false); // 추가됨
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [showUpgradeChoice, setShowUpgradeChoice] = useState(false);
 
   const drawCards = (num) => {
     const shuffled = [...deck].sort(() => Math.random() - 0.5);
@@ -227,7 +250,12 @@ function TurnBasedCardRPG() {
       setHand(hand.filter((c) => c !== card));
     } else if (card.type === "aoePoison") {
       const newEnemies = enemies.map((e) => {
-        e.poison += card.value;
+        if (Math.random() >= e.resist) {
+          e.poison += card.value;
+          addMessage(`${e.name} 중독됨!`);
+        } else {
+          addMessage(`${e.name} 중독 저항!`);
+        }
         return e;
       });
       setEnemies(newEnemies);
@@ -236,7 +264,12 @@ function TurnBasedCardRPG() {
       setHand(hand.filter((c) => c !== card));
     } else if (card.type === "aoeStun") {
       const newEnemies = enemies.map((e) => {
-        e.stun = 1;
+        if (Math.random() >= e.resist) {
+          e.stun = 1;
+          addMessage(`${e.name} 기절!`);
+        } else {
+          addMessage(`${e.name} 기절 저항!`);
+        }
         return e;
       });
       setEnemies(newEnemies);
@@ -385,13 +418,50 @@ function TurnBasedCardRPG() {
 
   const nextStage = () => {
     const newStage = stage + 1;
-    const newMaxGauge =
-      newStage % 3 === 0 ? player.maxGauge + 1 : player.maxGauge;
     setStage(newStage);
+
+    if (newStage % 3 === 0) {
+      setShowUpgradeChoice(true);
+    } else {
+      proceedToStage(newStage, player.maxGauge);
+    }
+  };
+
+  const proceedToStage = (stage, newMaxGauge) => {
     setPlayer({ ...initialPlayer, maxGauge: newMaxGauge, gauge: newMaxGauge });
-    setEnemies(createEnemies(newStage));
+    setEnemies(createEnemies(stage));
     setHand(drawCards(5));
-    addMessage(`스테이지 ${newStage} 시작!`);
+    addMessage(`스테이지 ${stage} 시작!`);
+    setShowUpgradeChoice(false);
+  };
+
+  const handleUpgradeChoice = (choice) => {
+    if (choice === "gauge") {
+      proceedToStage(stage, player.maxGauge + 1);
+      addMessage("⚡ 최대 게이지가 증가했습니다!");
+    } else if (choice === "card") {
+      upgradeRandomCard();
+      proceedToStage(stage, player.maxGauge);
+    }
+  };
+
+  const upgradeRandomCard = () => {
+    const upgradable = deck.filter((card) => card.level < 5);
+    if (upgradable.length === 0) {
+      addMessage("더 이상 강화할 카드가 없습니다!");
+      return;
+    }
+
+    const idx = Math.floor(Math.random() * upgradable.length);
+    const cardToUpgrade = upgradable[idx];
+    cardToUpgrade.level += 1;
+    cardToUpgrade.value = cardToUpgrade.baseValue * cardToUpgrade.level;
+    cardToUpgrade.description = `${cardToUpgrade.name} (Lv.${cardToUpgrade.level}): ${cardToUpgrade.value} 효과`;
+
+    setDeck([...deck]);
+    addMessage(
+      `${cardToUpgrade.name} 카드가 Lv.${cardToUpgrade.level}로 강화되었습니다!`
+    );
   };
 
   return (
@@ -424,6 +494,7 @@ function TurnBasedCardRPG() {
                   <div>
                     HP: {enemy.hp} / {enemy.maxHp}
                   </div>
+                  <div>🛡 저항: {Math.round(enemy.resist * 100)}%</div>
                   {enemy.block > 0 && <div>🛡 방어: {enemy.block}</div>}
                   {enemy.poison > 0 && <div>☠ 중독: {enemy.poison}</div>}
                   {enemy.stun > 0 && <div>💫 기절</div>}
@@ -457,6 +528,18 @@ function TurnBasedCardRPG() {
 
             {selectedCard?.type.includes("attack") && (
               <div className="select-target-hint">⚔ 적을 클릭하세요!</div>
+            )}
+
+            {showUpgradeChoice && (
+              <div className="choice-popup">
+                <h3>보상 선택</h3>
+                <button onClick={() => handleUpgradeChoice("gauge")}>
+                  ⚡ 최대 게이지 +1
+                </button>
+                <button onClick={() => handleUpgradeChoice("card")}>
+                  🃏 무작위 카드 강화
+                </button>
+              </div>
             )}
 
             {enemies.every((e) => e.hp <= 0) ? (
