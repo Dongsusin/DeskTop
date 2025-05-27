@@ -4,6 +4,7 @@
   font-family: "Arial", sans-serif;
   background-color: #f5f5f5;
   color: #000;
+  min-width: 50vw;
 }
 
 .pokedex-title {
@@ -15,7 +16,7 @@
 .pokemon-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
+  justify-items: center;
   gap: 16px;
 }
 
@@ -78,6 +79,114 @@
 
 .pokedex-container .pagination button:hover:not(:disabled) {
   background-color: #357abd;
+}
+
+.pokemon-detail-popup {
+  background: white;
+  padding: 5%;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-image {
+  width: 150px;
+  height: 150px;
+}
+
+.close-button {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.ability-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 4px;
+}
+
+.pokemon-abilities {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.ability-list {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.pokemon-stats {
+  margin-top: 1em;
+}
+
+.stat-item {
+  margin: 6px 0;
+}
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bar-background {
+  background-color: #eee;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  background-color: #4caf50;
+  height: 100%;
+  text-align: right;
+  padding-right: 6px;
+  color: white;
+  font-weight: bold;
+}
+
+.detail-pagination {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  gap: 10px;
+}
+
+.detail-pagination button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-wrap: nowrap;
+}
+
+.detail-pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
 }
 
 @media screen and (max-width: 426px) {
