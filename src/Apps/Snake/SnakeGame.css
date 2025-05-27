@@ -4,7 +4,7 @@
   margin-bottom: 40px;
 }
 
-.board {
+.SnakeGame .board {
   display: grid;
   grid-template-columns: repeat(10, 24px);
   grid-template-rows: repeat(10, 24px);

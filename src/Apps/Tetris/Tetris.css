@@ -12,7 +12,7 @@
   padding-bottom: 110px;
 }
 
-.board {
+.tetris-container .board {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(10, 30px);
