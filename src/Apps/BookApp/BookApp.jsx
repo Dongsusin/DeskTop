@@ -20,7 +20,7 @@ export default function BookApp() {
 
   return (
     <div className="book">
-      <h1>📚 도서 검색</h1>
+      <h1>도서 검색</h1>
       <form onSubmit={handleSubmit} className="search-bar">
         <input
           type="text"

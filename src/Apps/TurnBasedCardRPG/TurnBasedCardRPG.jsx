@@ -21,7 +21,7 @@ const bossTypes = [
   {
     name: "드래곤",
     hp: (stage) => 150 + stage * 20,
-    behavior: "bossAttack", // 특수 행동 패턴
+    behavior: "bossAttack",
   },
   {
     name: "리치 마법사",
@@ -224,6 +224,7 @@ function TurnBasedCardRPG() {
           card.value + player.buff
         } 데미지 (방어 적용됨)`
       );
+      setHand(hand.filter((c) => c !== card));
     } else if (card.type === "aoePoison") {
       const newEnemies = enemies.map((e) => {
         e.poison += card.value;
@@ -232,6 +233,7 @@ function TurnBasedCardRPG() {
       setEnemies(newEnemies);
       setPlayer({ ...player, gauge: newGauge });
       addMessage(`전체 중독! 모든 적에게 ${card.value} 중독`);
+      setHand(hand.filter((c) => c !== card));
     } else if (card.type === "aoeStun") {
       const newEnemies = enemies.map((e) => {
         e.stun = 1;
@@ -240,6 +242,7 @@ function TurnBasedCardRPG() {
       setEnemies(newEnemies);
       setPlayer({ ...player, gauge: newGauge });
       addMessage(`전체 기절! 모든 적 1턴 동안 행동 불가`);
+      setHand(hand.filter((c) => c !== card));
     } else if (card.type === "defend") {
       setPlayer({
         ...player,
@@ -247,13 +250,16 @@ function TurnBasedCardRPG() {
         gauge: newGauge,
       });
       addMessage(`방어 사용! ${card.value} 방어력`);
+      setHand(hand.filter((c) => c !== card));
     } else if (card.type === "heal") {
       const healed = Math.min(player.maxHp, player.hp + card.value);
       setPlayer({ ...player, hp: healed, gauge: newGauge });
       addMessage(`힐 사용! ${card.value} 회복`);
+      setHand(hand.filter((c) => c !== card));
     } else if (card.type === "buff") {
       setPlayer({ ...player, buff: player.buff + card.value, gauge: newGauge });
       addMessage(`강화 사용! 다음 공격 +${card.value}`);
+      setHand(hand.filter((c) => c !== card));
     }
   };
 
@@ -291,6 +297,7 @@ function TurnBasedCardRPG() {
 
     setEnemies(newEnemies);
     setSelectedCard(null);
+    setHand(hand.filter((c) => c !== card));
   };
 
   const endTurn = () => {
@@ -304,7 +311,7 @@ function TurnBasedCardRPG() {
 
         if (enemy.hp === 0) {
           addMessage(`${enemy.name}은(는) 중독으로 쓰러졌습니다!`);
-          return enemy; // 남은 행동 스킵
+          return enemy;
         }
       }
 
@@ -338,7 +345,7 @@ function TurnBasedCardRPG() {
         addMessage(`${enemy.name} 회복! +${heal}`);
       }
       if (enemy.behavior === "bossAttack") {
-        const dmg = 12 + Math.floor(Math.random() * 8); // 강한 데미지
+        const dmg = 12 + Math.floor(Math.random() * 8);
         const actual = Math.max(0, dmg - newPlayer.block);
         newPlayer.block = Math.max(0, newPlayer.block - dmg);
         newPlayer.hp = Math.max(0, newPlayer.hp - actual);

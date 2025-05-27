@@ -290,7 +290,6 @@ function Tetris() {
 
   const displayBoard = renderBoard();
 
-  // 모바일 버튼용 함수
   function handleMoveLeft() {
     if (!gameOver) move(-1, 0);
   }
@@ -336,7 +335,6 @@ function Tetris() {
       </div>
       {gameOver && <div className="gameover">Game Over</div>}
 
-      {/* 모바일 컨트롤 버튼 */}
       <div className="controls">
         <button onClick={handleMoveLeft} style={{ padding: "10px 15px" }}>
           ←

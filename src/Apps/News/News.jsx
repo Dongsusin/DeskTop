@@ -26,7 +26,7 @@ export default function News() {
 
   return (
     <div className="News">
-      <h1>📰 News Feed</h1>
+      <h1>뉴스</h1>
       <form onSubmit={handleSearch} className="search-bar">
         <input
           type="text"
@@ -34,7 +34,7 @@ export default function News() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button type="submit">Search</button>
+        <button type="submit">검샏</button>
       </form>
 
       <div className="news-list">
@@ -47,7 +47,7 @@ export default function News() {
               <h3>{article.title}</h3>
               <p>{article.description}</p>
               <a href={article.url} target="_blank" rel="noreferrer">
-                Read more →
+                더보기 →
               </a>
             </div>
           </div>

@@ -53,12 +53,12 @@ const Travel = () => {
   };
 
   useEffect(() => {
-    fetchCities(); // 초기 검색
+    fetchCities();
   }, []);
 
   return (
     <div className="Travel">
-      <h1>🌍 여행지 검색</h1>
+      <h1>여행지 검색</h1>
       <div className="search-box">
         <input
           type="text"
@@ -128,7 +128,7 @@ const Travel = () => {
             rel="noreferrer"
             className="map-button"
           >
-            🗺️ Google Maps에서 보기
+            Google Maps에서 보기
           </a>
         </div>
       )}

@@ -102,7 +102,7 @@ export default function SnakeGame() {
 
   return (
     <div className="SnakeGame">
-      <h1>🐍 Snake Game</h1>
+      <h1>Snake Game</h1>
       <div className="score">점수: {score}</div>
       <div className="board">
         {[...Array(BOARD_SIZE)].map((_, y) =>

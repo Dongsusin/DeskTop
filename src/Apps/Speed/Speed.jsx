@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import "./Speed.css";
 
 function Speed() {
-  const [status, setStatus] = useState("ready"); // ready, waiting, now, result
+  const [status, setStatus] = useState("ready");
   const [message, setMessage] = useState("클릭해서 시작하세요");
   const [reactionTime, setReactionTime] = useState(null);
   const startTimeRef = useRef(null);

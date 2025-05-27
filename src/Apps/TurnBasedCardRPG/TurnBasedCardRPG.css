@@ -200,13 +200,16 @@
   .player {
     font-size: 16px;
   }
+  .messages {
+    height: 100%;
+    max-height: none;
+  }
 }
 
 @media screen and (max-width: 426px) {
   .TurnBasedCardRPG {
     flex-direction: column;
   }
-
   .messages {
     width: 100%;
   }

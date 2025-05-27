@@ -64,7 +64,7 @@ export default function MemoryGame() {
   const matchedCount = cards.filter((card) => card.matched).length;
   const status =
     matchedCount === cardSymbols.length * 2
-      ? "🎉 완료!"
+      ? "완료!"
       : `맞춘 쌍: ${matchedCount / 2}`;
 
   return (

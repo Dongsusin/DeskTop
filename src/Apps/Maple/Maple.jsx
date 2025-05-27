@@ -13,7 +13,6 @@ function Maple() {
   const [favorites, setFavorites] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
 
-  // 즐겨찾기 로드 (localStorage)
   useEffect(() => {
     const savedFav = localStorage.getItem("mapleFavorites");
     if (savedFav) {
@@ -25,13 +24,11 @@ function Maple() {
     }
   }, []);
 
-  // 즐겨찾기 저장
   const saveFavorites = (newFavs) => {
     setFavorites(newFavs);
     localStorage.setItem("mapleFavorites", JSON.stringify(newFavs));
   };
 
-  // 검색 기록 저장
   const saveSearchHistory = (newHistory) => {
     setSearchHistory(newHistory);
     localStorage.setItem("mapleSearchHistory", JSON.stringify(newHistory));
@@ -48,7 +45,6 @@ function Maple() {
     setLoading(true);
 
     try {
-      // 1단계: 닉네임으로 ocid 검색
       const ocidRes = await axios.get(
         `https://open.api.nexon.com/maplestory/v1/id?character_name=${name}`,
         {
@@ -58,7 +54,6 @@ function Maple() {
 
       const ocid = ocidRes.data.ocid;
 
-      // 2단계: ocid로 캐릭터 기본 정보 조회
       const charRes = await axios.get(
         `https://open.api.nexon.com/maplestory/v1/character/basic?ocid=${ocid}`,
         {
@@ -68,7 +63,6 @@ function Maple() {
 
       setCharacterData(charRes.data);
 
-      // 검색 기록 업데이트 (중복 제외하고 최대 10개)
       const updatedHistory = [
         name,
         ...searchHistory.filter((n) => n !== name),
@@ -82,7 +76,6 @@ function Maple() {
     }
   };
 
-  // 즐겨찾기 토글
   const toggleFavorite = () => {
     if (!characterData) return;
     const isFav = favorites.some(
@@ -99,13 +92,11 @@ function Maple() {
     saveFavorites(newFavs);
   };
 
-  // 즐겨찾기 클릭 시 캐릭터 조회
   const handleFavClick = (name) => {
     setNickname(name);
     handleSearch(name);
   };
 
-  // 경험치 진행률 계산 함수 (가정: characterData에 character_exp와 next_exp 필드 존재 시)
   const getExpPercent = () => {
     if (!characterData?.character_exp || !characterData?.next_exp) return 0;
     return Math.min(
@@ -145,7 +136,6 @@ function Maple() {
               <p>길드: {characterData.guild_name}</p>
             )}
 
-            {/* 경험치 ProgressBar */}
             {characterData.character_exp !== undefined &&
               characterData.next_exp !== undefined && (
                 <div className="exp-bar">
@@ -157,7 +147,6 @@ function Maple() {
                 </div>
               )}
 
-            {/* 즐겨찾기 토글 */}
             <button onClick={toggleFavorite}>
               {favorites.some(
                 (c) => c.character_name === characterData.character_name
@@ -169,7 +158,6 @@ function Maple() {
         </div>
       )}
 
-      {/* 즐겨찾기 리스트 */}
       {favorites.length > 0 && (
         <div className="favorites">
           <h3>즐겨찾기 목록</h3>
@@ -186,7 +174,6 @@ function Maple() {
         </div>
       )}
 
-      {/* 검색 기록 */}
       {searchHistory.length > 0 && (
         <div className="search-history">
           <h3>최근 검색어</h3>
