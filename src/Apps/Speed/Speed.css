@@ -23,17 +23,17 @@
 }
 
 .speed-container.waiting {
-  background-color: #d9534f; /* red */
+  background-color: #d9534f;
   color: white;
 }
 
 .speed-container.now {
-  background-color: #5cb85c; /* green */
+  background-color: #5cb85c;
   color: white;
 }
 
 .speed-container.result {
-  background-color: #0275d8; /* blue */
+  background-color: #0275d8;
   color: white;
 }
 
@@ -47,4 +47,14 @@
   margin-top: 15px;
   font-size: 14px;
   opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .speed-container {
+    height: 100%;
+  }
+
+  .speed-container h1 {
+    font-size: 30px;
+  }
 }

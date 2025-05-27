@@ -33,7 +33,6 @@ const CoinInfo = () => {
   if (loading) return <div className="loading">로딩중...</div>;
   if (error) return <div className="error">에러: {error}</div>;
 
-  // lastUpdated를 보기 좋은 형식으로 변환 (예: YYYY-MM-DD HH:mm)
   const formatDate = (dateStr) => {
     const d = new Date(dateStr);
     if (isNaN(d)) return "";
@@ -59,7 +58,7 @@ const CoinInfo = () => {
           <tr>
             <th>코인</th>
             <th>현재가 (USD)</th>
-            <th>시가총액</th>
+            <th className="pc">시가총액</th>
             <th>24시간 변동률</th>
           </tr>
         </thead>
@@ -71,7 +70,7 @@ const CoinInfo = () => {
                 {coin.name}
               </td>
               <td>${coin.current_price.toLocaleString()}</td>
-              <td>${coin.market_cap.toLocaleString()}</td>
+              <td className="pc">${coin.market_cap.toLocaleString()}</td>
               <td
                 className={coin.price_change_percentage_24h > 0 ? "up" : "down"}
               >

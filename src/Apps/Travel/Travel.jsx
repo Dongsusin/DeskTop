@@ -62,7 +62,7 @@ const Travel = () => {
       <div className="search-box">
         <input
           type="text"
-          placeholder="도시 이름을 입력하세요"
+          placeholder="도시이름 입력"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && fetchCities(input)}

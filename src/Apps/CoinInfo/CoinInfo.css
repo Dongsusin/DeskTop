@@ -1,5 +1,6 @@
 .coin-container {
   max-width: 700px;
+  width: 100%;
   margin: 40px auto;
   text-align: center;
 }
@@ -64,4 +65,17 @@ th {
   font-size: 18px;
   color: #666;
   margin-top: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  td {
+    background-color: #f7f7f7;
+    font-weight: 600;
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .pc {
+    display: none;
+  }
 }

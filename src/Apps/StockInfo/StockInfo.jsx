@@ -38,7 +38,7 @@ export default function StockInfo() {
       <div className="search-box">
         <input
           type="text"
-          placeholder="주식 심볼 입력 (예: AAPL)"
+          placeholder="주식심볼 입력"
           value={symbol}
           onChange={(e) => setSymbol(e.target.value)}
           onKeyDown={(e) => {

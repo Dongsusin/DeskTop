@@ -13,8 +13,8 @@
 }
 
 .pokemon-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   gap: 16px;
 }
@@ -78,4 +78,16 @@
 
 .pokedex-container .pagination button:hover:not(:disabled) {
   background-color: #357abd;
+}
+
+@media screen and (max-width: 426px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .pokemon-card {
+    width: 125px;
+  }
 }
