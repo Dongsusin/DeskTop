@@ -437,8 +437,10 @@ function TurnBasedCardRPG() {
                   key={card.id + Math.random()}
                   className={`card ${
                     selectedCard?.id === card.id ? "selected" : ""
-                  }`}
-                  onClick={() => handleCardClick(card)}
+                  } ${player.gauge < card.cost ? "disabled" : ""}`}
+                  onClick={() => {
+                    if (player.gauge >= card.cost) handleCardClick(card);
+                  }}
                 >
                   <div className="card-title">
                     {card.name} ({card.cost})
