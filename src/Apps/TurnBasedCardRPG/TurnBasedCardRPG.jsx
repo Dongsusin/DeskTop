@@ -598,6 +598,8 @@ function TurnBasedCardRPG() {
 
   const [showMonsterDex, setShowMonsterDex] = useState(false);
   const [showBossDex, setShowBossDex] = useState(false);
+  const [showDeck, setShowDeck] = useState(false);
+  const [showLog, setShowLog] = useState(false);
 
   return (
     <div className="TurnBasedCardRPG">
@@ -792,26 +794,46 @@ function TurnBasedCardRPG() {
               </div>
             )}
 
-            {enemies.every((e) => e.hp <= 0) ? (
-              <button onClick={nextStage} className="end-turn">
-                다음 스테이지
-              </button>
-            ) : (
-              <button onClick={endTurn} className="end-turn">
-                턴 종료
-              </button>
-            )}
+            <div className="bottom-bar">
+              <button onClick={() => setShowDeck((prev) => !prev)}>덱</button>
+              {enemies.every((e) => e.hp <= 0) ? (
+                <button onClick={nextStage} className="end-turn">
+                  다음 스테이지
+                </button>
+              ) : (
+                <button onClick={endTurn} className="end-turn">
+                  턴 종료
+                </button>
+              )}
+              <button onClick={() => setShowLog((prev) => !prev)}>로그</button>
+            </div>
           </>
         )}
       </div>
 
-      <div className="messages">
-        {messages.map((msg, i) => (
-          <div key={i} className="message">
-            {msg}
-          </div>
-        ))}
-      </div>
+      {showDeck && (
+        <div className="deck-window">
+          <h3>현재 덱</h3>
+          <ul>
+            {deck.map((card, idx) => (
+              <li key={idx}>
+                <strong>{card.name}</strong> (Lv.{card.level}, Cost: {card.cost}
+                ) - {card.description}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {showLog && (
+        <div className="messages">
+          {messages.map((msg, i) => (
+            <div key={i} className="message">
+              {msg}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
