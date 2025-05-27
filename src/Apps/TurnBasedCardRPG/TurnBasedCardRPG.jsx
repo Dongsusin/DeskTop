@@ -55,12 +55,12 @@ const getMonsterImageByType = (type) => {
 const bossTypes = [
   {
     name: "드래곤",
-    hp: (stage) => 150 + stage * 20,
+    hp: (stage) => 150 + stage * 10,
     behavior: "bossAttack",
   },
   {
     name: "리치 마법사",
-    hp: (stage) => 120 + stage * 25,
+    hp: (stage) => 120 + stage * 15,
     behavior: "bossMixed",
   },
 ];
@@ -78,12 +78,12 @@ const createEnemies = (stage) => {
         behavior: boss.behavior,
         hp: boss.hp(stage),
         maxHp: boss.hp(stage),
-        block: 0,
+        block: stage > 1 ? Math.floor(stage / 2) : 0,
         poison: 0,
         stun: 0,
         isBoss: true,
-        resist: Math.min(0.5, 0.1 + stage * 0.05),
-        damage: 12 + stage * 2.5,
+        resist: Math.min(0.99, 0.1 + stage * 0.05),
+        damage: 12 + stage * 1.5,
         image: getMonsterImageByType(boss.name),
       },
     ];
@@ -99,12 +99,12 @@ const createEnemies = (stage) => {
       behavior: type.behavior,
       hp: type.hp(stage),
       maxHp: type.hp(stage),
-      block: 0,
+      block: stage > 1 ? Math.floor(stage / 2) : 0,
       poison: 0,
       stun: 0,
       isBoss: false,
-      resist: Math.min(0.5, 0.1 + stage * 0.05),
-      damage: 6 + stage * 1.5,
+      resist: Math.min(0.3, 0.05 + stage * 0.05),
+      damage: 6 + stage * 1,
       image: getMonsterImageByType(type.name),
     };
   });
@@ -487,8 +487,8 @@ function TurnBasedCardRPG() {
         setPlayer((prev) => ({
           ...prev,
           gold: prev.gold - 50,
+          maxGauge: prev.maxGauge + 1,
         }));
-        proceedToStage(stage, player.maxGauge + 1);
         addMessage("⚡ 최대 게이지 +1 (50골드)");
       } else {
         addMessage("골드가 부족합니다!");
@@ -500,7 +500,6 @@ function TurnBasedCardRPG() {
           gold: prev.gold - 50,
         }));
         upgradeRandomCard();
-        proceedToStage(stage, player.maxGauge);
       } else {
         addMessage("골드가 부족합니다!");
       }
@@ -524,7 +523,6 @@ function TurnBasedCardRPG() {
         });
 
         addMessage(`🛡 '${newEquip.name}' 장비 구매 완료! (50골드)`);
-        proceedToStage(stage, updated.maxGauge);
       } else {
         addMessage("골드가 부족합니다!");
       }
@@ -633,36 +631,38 @@ function TurnBasedCardRPG() {
               | 💰 골드: {player.gold}
             </div>
 
-            <div className="enemies">
+            {!showUpgradeChoice && (
               <div className="enemies">
-                {enemies.map((enemy, i) => (
-                  <div
-                    key={enemy.id}
-                    className={`enemy ${enemy.hp <= 0 ? "dead" : ""} ${
-                      enemy.isBoss ? "boss" : ""
-                    }`}
-                    onClick={() => handleEnemyClick(i)}
-                  >
-                    {enemy.image && (
-                      <img
-                        src={enemy.image}
-                        alt={enemy.name}
-                        style={{ width: "80px", height: "80px" }}
-                      />
-                    )}
-                    <div>{enemy.name}</div>
-                    <div>
-                      HP: {enemy.hp} / {enemy.maxHp}
+                <div className="enemies">
+                  {enemies.map((enemy, i) => (
+                    <div
+                      key={enemy.id}
+                      className={`enemy ${enemy.hp <= 0 ? "dead" : ""} ${
+                        enemy.isBoss ? "boss" : ""
+                      }`}
+                      onClick={() => handleEnemyClick(i)}
+                    >
+                      {enemy.image && (
+                        <img
+                          src={enemy.image}
+                          alt={enemy.name}
+                          style={{ width: "80px", height: "80px" }}
+                        />
+                      )}
+                      <div>{enemy.name}</div>
+                      <div>
+                        HP: {enemy.hp} / {enemy.maxHp}
+                      </div>
+                      <div>⚔ 공격력: {enemy.damage}</div>
+                      <div>🛡 저항: {Math.round(enemy.resist * 100)}%</div>
+                      {enemy.block > 0 && <div>🛡 방어: {enemy.block}</div>}
+                      {enemy.poison > 0 && <div>☠ 중독: {enemy.poison}</div>}
+                      {enemy.stun > 0 && <div>💫 기절</div>}
                     </div>
-                    <div>⚔ 공격력: {enemy.damage}</div>
-                    <div>🛡 저항: {Math.round(enemy.resist * 100)}%</div>
-                    {enemy.block > 0 && <div>🛡 방어: {enemy.block}</div>}
-                    {enemy.poison > 0 && <div>☠ 중독: {enemy.poison}</div>}
-                    {enemy.stun > 0 && <div>💫 기절</div>}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="hand">
               {hand.map((card) => (
