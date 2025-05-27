@@ -17,7 +17,6 @@ const PaintApp = () => {
   const [brushType, setBrushType] = useState("round");
   const [shape, setShape] = useState("free");
 
-  // 캔버스 크기 초기화 및 흰 배경 칠하기
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = canvas.clientWidth;
@@ -55,7 +54,6 @@ const PaintApp = () => {
     }
   };
 
-  // 히스토리 저장 (최대 MAX_HISTORY)
   const saveHistory = useCallback(() => {
     const canvas = canvasRef.current;
     const url = canvas.toDataURL();
@@ -64,7 +62,6 @@ const PaintApp = () => {
     redoStackRef.current = [];
   }, []);
 
-  // 이미지 복원 함수 (동기 처리)
   const restoreImage = useCallback((url) => {
     return new Promise((resolve) => {
       const canvas = canvasRef.current;
@@ -91,7 +88,6 @@ const PaintApp = () => {
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
       } else if (historyRef.current.length > 0) {
-        // 미리 마지막 이미지 로드
         const lastUrl = historyRef.current[historyRef.current.length - 1];
         const img = new Image();
         img.src = lastUrl;
@@ -115,7 +111,6 @@ const PaintApp = () => {
         ctx.lineTo(pos.x, pos.y);
         ctx.stroke();
       } else {
-        // 도형 그릴 때는 마지막 이미지 복원 후 도형 그림 (동기화 위해 요청 애니메이션 프레임 활용)
         if (!lastImageRef.current) return;
 
         const canvas = canvasRef.current;
@@ -149,8 +144,6 @@ const PaintApp = () => {
       e.preventDefault();
       if (!isDrawing) return;
       setIsDrawing(false);
-
-      // 도형 그리기 완료 후 히스토리 저장
       saveHistory();
       lastImageRef.current = null;
     },
@@ -171,13 +164,11 @@ const PaintApp = () => {
 
     const last = historyRef.current[historyRef.current.length - 2];
 
-    // 현재 상태를 redo 스택에 저장
     redoStackRef.current = [
       ...redoStackRef.current,
       historyRef.current[historyRef.current.length - 1],
     ];
 
-    // 히스토리에서 마지막 상태 제거
     historyRef.current = historyRef.current.slice(0, -1);
 
     restoreImage(last);
