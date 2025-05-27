@@ -69,8 +69,7 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 75%;
-  height: auto;
-  max-height: 650px;
+  height: 100%;
   background-color: rgba(30, 30, 30, 0.95);
   border: 2px solid #ccc;
   border-radius: 6px;

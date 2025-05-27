@@ -8,14 +8,49 @@ const initialPlayer = {
   gauge: 5,
   maxGauge: 5,
   buff: 0,
+  equipment: {},
+  atk: 0,
+  startBlock: 0,
+  gold: 0,
+};
+
+const equipmentTypes = ["투구", "갑옷", "무기", "신발", "장갑"];
+
+const applyEquipmentEffects = (base, equipment) => {
+  const modified = { ...base };
+  for (const item of Object.values(equipment)) {
+    if (!item?.effect) continue;
+    for (const key in item.effect) {
+      const mappedKey =
+        {
+          공격력: "atk",
+          방어력: "startBlock",
+          체력: "maxHp",
+        }[key] || key;
+      modified[mappedKey] = (modified[mappedKey] || 0) + item.effect[key];
+    }
+  }
+  return modified;
 };
 
 const monsterTypes = [
-  { name: "슬라임", hp: (stage) => 25 + stage * 5, behavior: "heal" },
+  { name: "거미", hp: (stage) => 25 + stage * 5, behavior: "heal" },
   { name: "고블린", hp: (stage) => 30 + stage * 10, behavior: "attack" },
-  { name: "오크", hp: (stage) => 50 + stage * 15, behavior: "block" },
+  { name: "멧돼지", hp: (stage) => 50 + stage * 15, behavior: "block" },
   { name: "마법사", hp: (stage) => 35 + stage * 8, behavior: "mixed" },
 ];
+
+const getMonsterImageByType = (type) => {
+  const map = {
+    거미: "/image/game/거미.jpg",
+    고블린: "/image/game/고블린.jpg",
+    멧돼지: "/image/game/멧돼지.jpg",
+    마법사: "/image/game/마법사.jpg",
+    드래곤: "/image/game/드래곤.jpg",
+    "리치 마법사": "/image/game/리치.jpg",
+  };
+  return map[type] || "/images/default.png";
+};
 
 const bossTypes = [
   {
@@ -48,6 +83,8 @@ const createEnemies = (stage) => {
         stun: 0,
         isBoss: true,
         resist: Math.min(0.5, 0.1 + stage * 0.05),
+        damage: 12 + stage * 2.5,
+        image: getMonsterImageByType(boss.name),
       },
     ];
   }
@@ -67,21 +104,10 @@ const createEnemies = (stage) => {
       stun: 0,
       isBoss: false,
       resist: Math.min(0.5, 0.1 + stage * 0.05),
+      damage: 6 + stage * 1.5,
+      image: getMonsterImageByType(type.name),
     };
   });
-};
-
-const resetGame = () => {
-  const stage = 1;
-  const maxGauge = 5;
-  setPlayer({ ...initialPlayer, gauge: maxGauge, maxGauge });
-  setStage(stage);
-  setEnemies(createEnemies(stage));
-  setDeck([...baseCards]);
-  setHand(drawCards(5));
-  setMessages(["게임이 재시작되었습니다!"]);
-  setSelectedCard(null);
-  setIsGameOver(false);
 };
 
 const baseCards = [
@@ -233,7 +259,7 @@ function TurnBasedCardRPG() {
       return;
     } else if (card.type === "aoe") {
       const newEnemies = enemies.map((e) => {
-        const dmg = card.value + player.buff;
+        const dmg = card.value + player.buff + (player.atk || 0);
         const blocked = Math.min(dmg, e.block);
         const actualDmg = dmg - blocked;
         e.block = Math.max(0, e.block - dmg);
@@ -309,7 +335,7 @@ function TurnBasedCardRPG() {
     const enemy = newEnemies[index];
 
     if (card.type === "attack") {
-      const dmg = card.value + player.buff;
+      const dmg = card.value + player.buff + (player.atk || 0);
       const blocked = Math.min(dmg, enemy.block);
       const actualDmg = dmg - blocked;
       enemy.block = Math.max(0, enemy.block - dmg);
@@ -361,7 +387,7 @@ function TurnBasedCardRPG() {
         (behavior === "attack" && roll < 0.7) ||
         (behavior === "mixed" && roll < 0.5)
       ) {
-        const dmg = 6 + Math.floor(Math.random() * 5);
+        const dmg = enemy.damage ?? 6 + Math.floor(Math.random() * 5);
         const actual = Math.max(0, dmg - newPlayer.block);
         newPlayer.block = Math.max(0, newPlayer.block - dmg);
         newPlayer.hp = Math.max(0, newPlayer.hp - actual);
@@ -378,7 +404,7 @@ function TurnBasedCardRPG() {
         addMessage(`${enemy.name} 회복! +${heal}`);
       }
       if (enemy.behavior === "bossAttack") {
-        const dmg = 12 + Math.floor(Math.random() * 8);
+        const dmg = enemy.damage ?? 12 + Math.floor(Math.random() * 8);
         const actual = Math.max(0, dmg - newPlayer.block);
         newPlayer.block = Math.max(0, newPlayer.block - dmg);
         newPlayer.hp = Math.max(0, newPlayer.hp - actual);
@@ -386,7 +412,7 @@ function TurnBasedCardRPG() {
       } else if (enemy.behavior === "bossMixed") {
         const roll = Math.random();
         if (roll < 0.4) {
-          const dmg = 10 + Math.floor(Math.random() * 6);
+          const dmg = enemy.damage ?? 12 + Math.floor(Math.random() * 8);
           const actual = Math.max(0, dmg - newPlayer.block);
           newPlayer.block = Math.max(0, newPlayer.block - dmg);
           newPlayer.hp = Math.max(0, newPlayer.hp - actual);
@@ -406,7 +432,8 @@ function TurnBasedCardRPG() {
 
     if (newPlayer.hp <= 0) {
       setIsGameOver(true);
-      addMessage("💀 게임 오버! 당신은 쓰러졌습니다.");
+      addMessage("💀 게임 오버!");
+      saveBestScore(stage);
       return;
     }
 
@@ -419,6 +446,9 @@ function TurnBasedCardRPG() {
   const nextStage = () => {
     const newStage = stage + 1;
     setStage(newStage);
+    const goldReward = 20 + newStage * 5;
+    setPlayer((prev) => ({ ...prev, gold: prev.gold + goldReward }));
+    addMessage(`💰 ${goldReward} 골드를 획득했습니다!`);
 
     if (newStage % 3 === 0) {
       setShowUpgradeChoice(true);
@@ -428,7 +458,23 @@ function TurnBasedCardRPG() {
   };
 
   const proceedToStage = (stage, newMaxGauge) => {
-    setPlayer({ ...initialPlayer, maxGauge: newMaxGauge, gauge: newMaxGauge });
+    setPlayer((prev) => {
+      const updatedStats = applyEquipmentEffects(
+        { ...initialPlayer },
+        prev.equipment
+      );
+      const startBlock = updatedStats.startBlock || 0;
+      return {
+        ...updatedStats,
+        hp: updatedStats.maxHp,
+        gauge: newMaxGauge,
+        maxGauge: newMaxGauge,
+        block: startBlock,
+        equipment: { ...prev.equipment },
+        gold: prev.gold,
+      };
+    });
+
     setEnemies(createEnemies(stage));
     setHand(drawCards(5));
     addMessage(`스테이지 ${stage} 시작!`);
@@ -437,11 +483,51 @@ function TurnBasedCardRPG() {
 
   const handleUpgradeChoice = (choice) => {
     if (choice === "gauge") {
-      proceedToStage(stage, player.maxGauge + 1);
-      addMessage("⚡ 최대 게이지가 증가했습니다!");
+      if (player.gold >= 50) {
+        setPlayer((prev) => ({
+          ...prev,
+          gold: prev.gold - 50,
+        }));
+        proceedToStage(stage, player.maxGauge + 1);
+        addMessage("⚡ 최대 게이지 +1 (50골드)");
+      } else {
+        addMessage("골드가 부족합니다!");
+      }
     } else if (choice === "card") {
-      upgradeRandomCard();
-      proceedToStage(stage, player.maxGauge);
+      if (player.gold >= 50) {
+        setPlayer((prev) => ({
+          ...prev,
+          gold: prev.gold - 50,
+        }));
+        upgradeRandomCard();
+        proceedToStage(stage, player.maxGauge);
+      } else {
+        addMessage("골드가 부족합니다!");
+      }
+    } else if (choice === "equipment") {
+      if (player.gold >= 50) {
+        const newEquip = generateGuaranteedEquipment(stage);
+        const newEquipment = { ...player.equipment, [newEquip.type]: newEquip };
+        const updated = applyEquipmentEffects(
+          { ...initialPlayer },
+          newEquipment
+        );
+        const startBlock = updated.startBlock || 0;
+
+        setPlayer({
+          ...updated,
+          hp: updated.maxHp,
+          gauge: updated.maxGauge,
+          block: startBlock,
+          gold: player.gold - 50,
+          equipment: newEquipment,
+        });
+
+        addMessage(`🛡 '${newEquip.name}' 장비 구매 완료! (50골드)`);
+        proceedToStage(stage, updated.maxGauge);
+      } else {
+        addMessage("골드가 부족합니다!");
+      }
     }
   };
 
@@ -464,6 +550,55 @@ function TurnBasedCardRPG() {
     );
   };
 
+  const resetGame = () => {
+    const stage = 1;
+    const maxGauge = 5;
+    setPlayer({ ...initialPlayer, gauge: maxGauge, maxGauge });
+    setStage(stage);
+    setEnemies(createEnemies(stage));
+    setDeck([...baseCards]);
+    setHand(drawCards(5));
+    setMessages(["게임이 재시작되었습니다!"]);
+    setSelectedCard(null);
+    setIsGameOver(false);
+  };
+
+  const [showEquipment, setShowEquipment] = useState(false);
+
+  const [bestScores, setBestScores] = useState(() => {
+    const saved = localStorage.getItem("bestScores");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [showBest, setShowBest] = useState(false);
+
+  const saveBestScore = (stage) => {
+    const updated = [...bestScores, stage].sort((a, b) => b - a).slice(0, 5);
+    setBestScores(updated);
+    localStorage.setItem("bestScores", JSON.stringify(updated));
+  };
+
+  const generateGuaranteedEquipment = (stage) => {
+    const type =
+      equipmentTypes[Math.floor(Math.random() * equipmentTypes.length)];
+    const stat = Math.floor(stage * 2 + Math.random() * 5);
+    const effects = {
+      투구: { 체력: stat },
+      갑옷: { 방어력: stat },
+      무기: { 공격력: stat },
+      신발: { 방어력: stat },
+      장갑: { 공격력: Math.floor(stat / 2) },
+    };
+
+    return {
+      name: `${type} +${stat}`,
+      type,
+      effect: effects[type],
+    };
+  };
+
+  const [showMonsterDex, setShowMonsterDex] = useState(false);
+  const [showBossDex, setShowBossDex] = useState(false);
+
   return (
     <div className="TurnBasedCardRPG">
       <div className="container">
@@ -475,31 +610,56 @@ function TurnBasedCardRPG() {
           </div>
         ) : (
           <>
-            <h2>스테이지 {stage}</h2>
+            <div className="header">
+              <button onClick={() => setShowEquipment((prev) => !prev)}>
+                장비창
+              </button>
+              <button onClick={() => setShowMonsterDex((prev) => !prev)}>
+                몬스터 도감
+              </button>
+              <h2>스테이지 {stage}</h2>
+              <button onClick={() => setShowBossDex((prev) => !prev)}>
+                보스 도감
+              </button>
+              <button onClick={() => setShowBest((prev) => !prev)}>
+                {showBest ? "기록 닫기" : "최고기록"}
+              </button>
+            </div>
             <div className="player">
-              ❤️ {player.hp}/{player.maxHp} | 🛡 {player.block} | ⚡{" "}
-              {player.gauge}/{player.maxGauge} | 💪 버프 {player.buff}
+              ❤️ HP: {player.hp}/{player.maxHp} | 🛡 방어력: {player.block} | ⚡
+              게이지: {player.gauge}/{player.maxGauge} | 💪 버프: {player.buff}{" "}
+              | 💰 골드: {player.gold}
             </div>
 
             <div className="enemies">
-              {enemies.map((enemy, i) => (
-                <div
-                  key={enemy.id}
-                  className={`enemy ${enemy.hp <= 0 ? "dead" : ""} ${
-                    enemy.isBoss ? "boss" : ""
-                  }`}
-                  onClick={() => handleEnemyClick(i)}
-                >
-                  <div>{enemy.name}</div>
-                  <div>
-                    HP: {enemy.hp} / {enemy.maxHp}
+              <div className="enemies">
+                {enemies.map((enemy, i) => (
+                  <div
+                    key={enemy.id}
+                    className={`enemy ${enemy.hp <= 0 ? "dead" : ""} ${
+                      enemy.isBoss ? "boss" : ""
+                    }`}
+                    onClick={() => handleEnemyClick(i)}
+                  >
+                    {enemy.image && (
+                      <img
+                        src={enemy.image}
+                        alt={enemy.name}
+                        style={{ width: "80px", height: "80px" }}
+                      />
+                    )}
+                    <div>{enemy.name}</div>
+                    <div>
+                      HP: {enemy.hp} / {enemy.maxHp}
+                    </div>
+                    <div>⚔ 공격력: {enemy.damage}</div>
+                    <div>🛡 저항: {Math.round(enemy.resist * 100)}%</div>
+                    {enemy.block > 0 && <div>🛡 방어: {enemy.block}</div>}
+                    {enemy.poison > 0 && <div>☠ 중독: {enemy.poison}</div>}
+                    {enemy.stun > 0 && <div>💫 기절</div>}
                   </div>
-                  <div>🛡 저항: {Math.round(enemy.resist * 100)}%</div>
-                  {enemy.block > 0 && <div>🛡 방어: {enemy.block}</div>}
-                  {enemy.poison > 0 && <div>☠ 중독: {enemy.poison}</div>}
-                  {enemy.stun > 0 && <div>💫 기절</div>}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <div className="hand">
@@ -519,8 +679,13 @@ function TurnBasedCardRPG() {
                   <div className="card-desc">
                     {card.description}
                     {card.type === "attack" &&
-                      player.buff > 0 &&
-                      ` (실제 ${card.value + player.buff})`}
+                      (player.atk > 0 || player.buff > 0) && (
+                        <>
+                          {" "}
+                          (실제{" "}
+                          {card.value + (player.atk || 0) + (player.buff || 0)})
+                        </>
+                      )}
                   </div>
                 </div>
               ))}
@@ -532,13 +697,98 @@ function TurnBasedCardRPG() {
 
             {showUpgradeChoice && (
               <div className="choice-popup">
-                <h3>보상 선택</h3>
+                <h3>상점 보상 선택 (50골드)</h3>
                 <button onClick={() => handleUpgradeChoice("gauge")}>
                   ⚡ 최대 게이지 +1
                 </button>
                 <button onClick={() => handleUpgradeChoice("card")}>
                   🃏 무작위 카드 강화
                 </button>
+                <button onClick={() => handleUpgradeChoice("equipment")}>
+                  🛡 무작위 장비 구매
+                </button>
+              </div>
+            )}
+
+            {showEquipment && (
+              <div className="equipment-window">
+                💪 공격력: {player.atk || 0}
+                🛡 시작 방어력: {player.startBlock || 0}
+                <h3>🛡 현재 착용 중인 장비</h3>
+                <ul>
+                  {equipmentTypes.map((type) => {
+                    const item = player.equipment[type];
+                    return (
+                      <li key={type}>
+                        <strong>{type}:</strong>{" "}
+                        {item
+                          ? `${item.name} (${Object.entries(item.effect)
+                              .map(([k, v]) => `${k}+${v}`)
+                              .join(", ")})`
+                          : "없음"}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {showBest && (
+              <div className="best-score-window">
+                <h3>🏆 최고 스테이지 기록</h3>
+                <ol>
+                  {bestScores.length > 0 ? (
+                    bestScores.map((score, idx) => (
+                      <li key={idx}>스테이지 {score}</li>
+                    ))
+                  ) : (
+                    <p>기록 없음</p>
+                  )}
+                </ol>
+              </div>
+            )}
+
+            {showMonsterDex && (
+              <div className="dex-window">
+                <h3>몬스터 도감</h3>
+                <div className="dex-list">
+                  {monsterTypes.map((mon, idx) => (
+                    <div key={idx} className="dex-card">
+                      <img
+                        src={getMonsterImageByType(mon.name)}
+                        alt={mon.name}
+                        width={60}
+                      />
+                      <div>
+                        <strong>{mon.name}</strong>
+                      </div>
+                      <div>💖 HP: {mon.hp(1)}</div>
+                      <div>📈 증가량: {mon.hp.toString()}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {showBossDex && (
+              <div className="dex-window">
+                <h3>보스 도감</h3>
+                <div className="dex-list">
+                  {bossTypes.map((boss, idx) => (
+                    <div key={idx} className="dex-card">
+                      <img
+                        src={getMonsterImageByType(boss.name)}
+                        alt={boss.name}
+                        width={60}
+                      />
+                      <div>
+                        <strong>{boss.name}</strong>
+                      </div>
+                      <div>💖 HP: {boss.hp(1)}</div>
+                      <div>📈 증가량: {boss.hp.toString()}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 

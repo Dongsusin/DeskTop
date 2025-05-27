@@ -9,14 +9,23 @@
 
 .container {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: auto;
   padding-left: 20px;
   padding-right: 20px;
   box-sizing: border-box;
+}
+
+.header {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00c0ff;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
 }
 
 .player {
@@ -32,7 +41,6 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 20px;
   flex-wrap: nowrap;
 }
 
@@ -119,7 +127,8 @@
   }
 }
 
-.end-turn {
+.end-turn,
+.header button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 16px;
@@ -129,9 +138,11 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
+  margin-bottom: 20px;
 }
 
-.end-turn:hover {
+.end-turn:hover,
+.header button:hover {
   background: #666;
 }
 
@@ -141,7 +152,6 @@
   align-items: center;
   justify-content: center;
   width: 50%;
-  max-height: 400px;
   overflow-y: auto;
   background: rgba(30, 30, 30, 0.8);
   border: 2px solid #444;
@@ -178,6 +188,116 @@
   background-color: #300;
   font-weight: bold;
   color: #f88;
+}
+
+.choice-popup {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.choice-popup button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.choice-popup button:hover {
+  background: #666;
+}
+
+.equipment-window {
+  background: #222;
+  color: #fff;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #888;
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-bonus-stats ul,
+.equipment-window ul {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.player-bonus-stats li,
+.equipment-window li {
+  margin: 2px 0;
+}
+
+.best-score-window {
+  background-color: #1c1c1c;
+  color: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.best-score-window ol {
+  padding-left: 20px;
+}
+
+.best-score-window li {
+  margin-bottom: 4px;
+}
+
+.dex-window {
+  background-color: #1c1c1c;
+  color: #fff;
+  border: 2px solid #888;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+.dex-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+.dex-card {
+  border: 1px solid #aaa;
+  padding: 8px;
+  width: auto;
+  text-align: center;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 768px) {
