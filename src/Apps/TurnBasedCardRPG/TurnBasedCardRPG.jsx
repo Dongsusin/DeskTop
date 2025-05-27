@@ -301,6 +301,11 @@ function TurnBasedCardRPG() {
       if (enemy.poison > 0) {
         enemy.hp = Math.max(0, enemy.hp - enemy.poison);
         addMessage(`${enemy.name} 중독으로 ${enemy.poison} 피해`);
+
+        if (enemy.hp === 0) {
+          addMessage(`${enemy.name}은(는) 중독으로 쓰러졌습니다!`);
+          return enemy; // 남은 행동 스킵
+        }
       }
 
       if (enemy.stun > 0) {
