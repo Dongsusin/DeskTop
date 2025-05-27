@@ -1,0 +1,153 @@
+.TurnBasedCardRPG {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #1e1e2f;
+  color: #f1f1f1;
+  text-align: center;
+  height: 100%;
+}
+
+.player {
+  font-size: 18px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+}
+
+.enemies {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: nowrap;
+}
+
+.enemy {
+  background: #2e2e42;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 2px solid #888;
+  cursor: pointer;
+  transition: transform 0.2s;
+  min-width: 100px;
+}
+
+.enemy:hover {
+  transform: scale(1.05);
+  border-color: #fff;
+}
+
+.enemy.dead {
+  opacity: 0.4;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+.hand {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.hand .card {
+  background: #333;
+  border: 2px solid #555;
+  border-radius: 10px;
+  padding: 12px;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.hand .card:hover {
+  transform: translateY(-5px);
+  border-color: #bbb;
+}
+
+.hand .card.selected {
+  border-color: #00ff88;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+.hand .card-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.hand .card-desc {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.select-target-hint {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #ffcc00;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.end-turn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.end-turn:hover {
+  background: #666;
+}
+
+.message {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #00c0ff;
+}
+
+@media screen and (max-width: 768px) {
+  .hand {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .hand > :nth-child(1),
+  .hand > :nth-child(2),
+  .hand > :nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .hand > :nth-child(4),
+  .hand > :nth-child(5) {
+    grid-column: span 3;
+  }
+
+  .hand .card {
+    padding: 6px;
+  }
+
+  .player {
+    font-size: 16px;
+  }
+}

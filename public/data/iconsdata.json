@@ -100,6 +100,30 @@
         "name": "반응속도 테스트",
         "image": "/image/아이콘/반응속도.jpg",
         "url": "/speed"
+      },
+      {
+        "type": "icon",
+        "name": "틱택토",
+        "image": "/image/아이콘/틱택토.png",
+        "url": "/tictactoe"
+      },
+      {
+        "type": "icon",
+        "name": "카드 뒤집기",
+        "image": "/image/아이콘/카드.png",
+        "url": "/memory"
+      },
+      {
+        "type": "icon",
+        "name": "스네이크",
+        "image": "/image/아이콘/스네이크.png",
+        "url": "/snake"
+      },
+      {
+        "type": "icon",
+        "name": "턴제카드게임",
+        "image": "/image/아이콘/턴카드.png",
+        "url": "/turncard"
       }
     ]
   },
@@ -180,7 +204,7 @@
       {
         "type": "icon",
         "name": "영화",
-        "image": "/image/아이콘/CGV.png",
+        "image": "/image/아이콘/영화.png",
         "url": "/movie"
       }
     ]

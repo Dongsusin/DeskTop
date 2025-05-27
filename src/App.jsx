@@ -27,6 +27,10 @@ import News from "./Apps/News/News";
 import BookApp from "./Apps/BookApp/BookApp";
 import Travel from "./Apps/Travel/Travel";
 import Movie from "./Apps/Movies/Movies";
+import TicTacToe from "./Apps/TicTacToe/TicTacToe";
+import MemoryGame from "./Apps/MemoryGame/MemoryGame";
+import SnakeGame from "./Apps/Snake/SnakeGame";
+import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
 
 function Popup({ title, onClose, children }) {
   return (
@@ -146,6 +150,21 @@ function DesktopApp() {
         break;
       case "/movie":
         setCurrentPopup({ title: "영화 정보", component: <Movie /> });
+        break;
+      case "/tictactoe":
+        setCurrentPopup({ title: "틱택토", component: <TicTacToe /> });
+        break;
+      case "/memory":
+        setCurrentPopup({ title: "카드 뒤집기", component: <MemoryGame /> });
+        break;
+      case "/snake":
+        setCurrentPopup({ title: "스네이크 게임", component: <SnakeGame /> });
+        break;
+      case "/turncard":
+        setCurrentPopup({
+          title: "턴제 카드 RPG",
+          component: <TurnBasedCardRPG />,
+        });
         break;
       default:
         if (icon.url) window.location.href = icon.url;
@@ -276,7 +295,7 @@ function DesktopApp() {
         <MobileBottombar onCloseAll={handleCloseAll} />
       </div>
 
-      <div className="popup-content">
+      <div>
         {openFolder && (
           <FolderPopup
             folder={openFolder}
