@@ -286,6 +286,10 @@ function TurnBasedCardRPG() {
         e.block = Math.max(0, e.block - dmg);
         e.hp = Math.max(0, e.hp - actualDmg);
         attack1Sound.current?.play(); // 클릭 사운드
+        if (enemy.hp === 0) {
+          deadSound.current?.play(); // 클릭 사운드
+          return enemy;
+        }
         return e;
       });
       attack1Sound.current?.play(); // 클릭 사운드
@@ -379,7 +383,7 @@ function TurnBasedCardRPG() {
       addMessage(
         `${card.name} 사용! ${enemy.name}에게 ${actualDmg} 데미지 (방어 ${blocked})`
       );
-      if (enemy.hp === 0) {
+      if (enemy.hp <= 0) {
         deadSound.current?.play(); // 클릭 사운드
         return enemy;
       }
