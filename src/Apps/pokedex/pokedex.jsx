@@ -181,51 +181,53 @@ function PokedexApp() {
 
       {selectedPokemon && (
         <div className="pokemon-detail-popup">
-          <button
-            className="close-button"
-            onClick={() => setSelectedPokemon(null)}
-          >
-            닫기
-          </button>
+          <div className="detail-header">
+            <button
+              className="close-button"
+              onClick={() => setSelectedPokemon(null)}
+            >
+              닫기
+            </button>
 
-          <img
-            className="detail-image"
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${selectedPokemon.id}.gif`}
-            alt={selectedPokemon.name}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = selectedPokemon.image;
-            }}
-          />
+            <img
+              className="detail-image"
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${selectedPokemon.id}.gif`}
+              alt={selectedPokemon.name}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = selectedPokemon.image;
+              }}
+            />
 
-          <h2>{selectedPokemon.name}</h2>
+            <h2>{selectedPokemon.name}</h2>
 
-          <div>
-            {selectedPokemon.types.map((type, i) => (
-              <span
-                key={i}
-                className="type-badge"
-                style={{ backgroundColor: typeColorMap[type] }}
-              >
-                {type}
-              </span>
-            ))}
-          </div>
-
-          <div className="pokemon-abilities">
-            <strong>특성:</strong>
-            <ul className="ability-list">
-              {selectedPokemon.abilities.map((ability, i) => (
-                <li key={i}>
-                  <button
-                    className="ability-btn"
-                    onClick={() => setAbilityModal(ability)}
-                  >
-                    {ability.name}
-                  </button>
-                </li>
+            <div>
+              {selectedPokemon.types.map((type, i) => (
+                <span
+                  key={i}
+                  className="type-badge"
+                  style={{ backgroundColor: typeColorMap[type] }}
+                >
+                  {type}
+                </span>
               ))}
-            </ul>
+            </div>
+
+            <div className="pokemon-abilities">
+              <strong>특성:</strong>
+              <ul className="ability-list">
+                {selectedPokemon.abilities.map((ability, i) => (
+                  <li key={i}>
+                    <button
+                      className="ability-btn"
+                      onClick={() => setAbilityModal(ability)}
+                    >
+                      {ability.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="pokemon-stats">

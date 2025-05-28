@@ -89,6 +89,13 @@ function DesktopApp() {
     }
   }, [currentPage]);
 
+  // 사운드 객체 참조 저장
+  const clickSoundRef = useRef(null);
+  useEffect(() => {
+    // 오디오 객체 초기화 (최초 1회만)
+    clickSoundRef.current = new Audio("/sound/클릭.mp3");
+  }, []);
+
   const handleIconClick = (icon) => {
     switch (icon.url) {
       case "/calculator":
@@ -171,6 +178,7 @@ function DesktopApp() {
         else if (icon.type === "folder") setOpenFolder(icon);
         break;
     }
+    clickSoundRef.current?.play(); // 클릭 사운드
   };
 
   const handleDateClick = (day) => {
@@ -179,6 +187,7 @@ function DesktopApp() {
     }-${day}`;
     setSelectedDate(key);
     setMemoInput(memos[key] || "");
+    clickSoundRef.current?.play(); // 클릭 사운드
   };
 
   const handleSaveMemo = () => {
@@ -186,6 +195,7 @@ function DesktopApp() {
     setMemos(updated);
     localStorage.setItem("calendarMemos", JSON.stringify(updated));
     setSelectedDate(null);
+    clickSoundRef.current?.play(); // 클릭 사운드
   };
 
   const handleSwipe = (direction) => {
@@ -200,6 +210,7 @@ function DesktopApp() {
     setCurrentPopup(null);
     setOpenFolder(null);
     setSelectedDate(null);
+    clickSoundRef.current?.play(); // 클릭 사운드
   };
 
   const handleStart = () => {
@@ -219,6 +230,7 @@ function DesktopApp() {
         return prev + 5;
       });
     }, 100);
+    clickSoundRef.current?.play(); // 클릭 사운드
   };
 
   if (isIntro) {

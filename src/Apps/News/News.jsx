@@ -34,7 +34,7 @@ export default function News() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button type="submit">검샏</button>
+        <button type="submit">검색</button>
       </form>
 
       <div className="news-list">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./TurnBasedCardRPG.css";
 
 const initialPlayer = {
@@ -224,6 +224,26 @@ function TurnBasedCardRPG() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [showUpgradeChoice, setShowUpgradeChoice] = useState(false);
 
+  // 사운드 객체 참조 저장
+  const clickSoundRef = useRef(null);
+  const gameOverSound = useRef(null);
+  const levelSound = useRef(null);
+  const bulfSound = useRef(null);
+  const attack1Sound = useRef(null);
+  const attack2Sound = useRef(null);
+  const deadSound = useRef(null);
+
+  useEffect(() => {
+    // 오디오 객체 초기화 (최초 1회만)
+    clickSoundRef.current = new Audio("/sound/클릭.mp3");
+    gameOverSound.current = new Audio("/sound/게임/게임오버.mp3");
+    levelSound.current = new Audio("/sound/게임/레벨업.mp3");
+    bulfSound.current = new Audio("/sound/게임/버프.mp3");
+    attack1Sound.current = new Audio("/sound/게임/베기.mp3");
+    attack2Sound.current = new Audio("/sound/게임/찌르기.mp3");
+    deadSound.current = new Audio("/sound/게임/사망.mp3");
+  }, []);
+
   const drawCards = (num) => {
     const shuffled = [...deck].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, num);
@@ -246,6 +266,7 @@ function TurnBasedCardRPG() {
   }, [selectedCard]);
 
   const handleCardClick = (card) => {
+    clickSoundRef.current?.play(); // 클릭 사운드
     if (player.gauge < card.cost) {
       addMessage("게이지가 부족합니다!");
       return;
@@ -264,8 +285,10 @@ function TurnBasedCardRPG() {
         const actualDmg = dmg - blocked;
         e.block = Math.max(0, e.block - dmg);
         e.hp = Math.max(0, e.hp - actualDmg);
+        attack1Sound.current?.play(); // 클릭 사운드
         return e;
       });
+      attack1Sound.current?.play(); // 클릭 사운드
       setEnemies(newEnemies);
       setPlayer({ ...player, gauge: newGauge, buff: 0 });
       addMessage(
@@ -274,6 +297,10 @@ function TurnBasedCardRPG() {
         } 데미지 (방어 적용됨)`
       );
       setHand(hand.filter((c) => c !== card));
+      if (enemy.hp === 0) {
+        deadSound.current?.play(); // 클릭 사운드
+        return enemy;
+      }
     } else if (card.type === "aoePoison") {
       const newEnemies = enemies.map((e) => {
         if (Math.random() >= e.resist) {
@@ -282,8 +309,10 @@ function TurnBasedCardRPG() {
         } else {
           addMessage(`${e.name} 중독 저항!`);
         }
+        attack2Sound.current?.play(); // 클릭 사운드
         return e;
       });
+      attack2Sound.current?.play(); // 클릭 사운드
       setEnemies(newEnemies);
       setPlayer({ ...player, gauge: newGauge });
       addMessage(`전체 중독! 모든 적에게 ${card.value} 중독`);
@@ -296,8 +325,10 @@ function TurnBasedCardRPG() {
         } else {
           addMessage(`${e.name} 기절 저항!`);
         }
+        attack1Sound.current?.play(); // 클릭 사운드
         return e;
       });
+      attack1Sound.current?.play(); // 클릭 사운드
       setEnemies(newEnemies);
       setPlayer({ ...player, gauge: newGauge });
       addMessage(`전체 기절! 모든 적 1턴 동안 행동 불가`);
@@ -308,14 +339,17 @@ function TurnBasedCardRPG() {
         block: player.block + card.value,
         gauge: newGauge,
       });
+      bulfSound.current?.play(); // 클릭 사운드
       addMessage(`방어 사용! ${card.value} 방어력`);
       setHand(hand.filter((c) => c !== card));
     } else if (card.type === "heal") {
+      bulfSound.current?.play(); // 클릭 사운드
       const healed = Math.min(player.maxHp, player.hp + card.value);
       setPlayer({ ...player, hp: healed, gauge: newGauge });
       addMessage(`힐 사용! ${card.value} 회복`);
       setHand(hand.filter((c) => c !== card));
     } else if (card.type === "buff") {
+      bulfSound.current?.play(); // 클릭 사운드
       setPlayer({ ...player, buff: player.buff + card.value, gauge: newGauge });
       addMessage(`강화 사용! 다음 공격 +${card.value}`);
       setHand(hand.filter((c) => c !== card));
@@ -340,15 +374,22 @@ function TurnBasedCardRPG() {
       const actualDmg = dmg - blocked;
       enemy.block = Math.max(0, enemy.block - dmg);
       enemy.hp = Math.max(0, enemy.hp - actualDmg);
+      attack1Sound.current?.play(); // 클릭 사운드
       setPlayer({ ...player, gauge: newGauge, buff: 0 });
       addMessage(
         `${card.name} 사용! ${enemy.name}에게 ${actualDmg} 데미지 (방어 ${blocked})`
       );
+      if (enemy.hp === 0) {
+        deadSound.current?.play(); // 클릭 사운드
+        return enemy;
+      }
     } else if (card.type === "poison") {
       enemy.poison += card.value;
+      attack2Sound.current?.play(); // 클릭 사운드
       setPlayer({ ...player, gauge: newGauge });
       addMessage(`중독! ${enemy.name}에게 ${card.value} 중독`);
     } else if (card.type === "stun") {
+      attack1Sound.current?.play(); // 클릭 사운드
       enemy.stun = 1;
       setPlayer({ ...player, gauge: newGauge });
       addMessage(`${enemy.name}을(를) 기절시켰습니다!`);
@@ -369,6 +410,7 @@ function TurnBasedCardRPG() {
         addMessage(`${enemy.name} 중독으로 ${enemy.poison} 피해`);
 
         if (enemy.hp === 0) {
+          deadSound.current?.play(); // 클릭 사운드
           addMessage(`${enemy.name}은(는) 중독으로 쓰러졌습니다!`);
           return enemy;
         }
@@ -431,6 +473,7 @@ function TurnBasedCardRPG() {
     });
 
     if (newPlayer.hp <= 0) {
+      gameOverSound.current?.play(); // 클릭 사운드
       setIsGameOver(true);
       addMessage("💀 게임 오버!");
       saveBestScore(stage);
@@ -444,6 +487,7 @@ function TurnBasedCardRPG() {
   };
 
   const nextStage = () => {
+    levelSound.current?.play(); // 클릭 사운드
     const newStage = stage + 1;
     setStage(newStage);
     const goldReward = 20 + newStage * 5;

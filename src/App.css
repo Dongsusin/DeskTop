@@ -65,11 +65,11 @@ html {
 
 .popup {
   position: absolute;
-  top: 50%;
+  top: 47.5%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 75%;
-  height: 100%;
+  height: 90%;
   background-color: rgba(30, 30, 30, 0.95);
   border: 2px solid #ccc;
   border-radius: 6px;

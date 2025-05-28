@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./TicTacToe.css";
 
 export default function TicTacToe() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isX, setIsX] = useState(true);
   const winner = calculateWinner(board);
+
+  // 사운드 객체 참조 저장
+  const clickSoundRef = useRef(null);
+
+  useEffect(() => {
+    // 오디오 객체 초기화 (최초 1회만)
+    clickSoundRef.current = new Audio("/sound/클릭.mp3");
+  }, []);
 
   useEffect(() => {
     if (!isX && !winner) {
@@ -17,6 +25,9 @@ export default function TicTacToe() {
 
   const handleClick = (index) => {
     if (board[index] || winner || !isX) return;
+
+    clickSoundRef.current?.play(); // 클릭 사운드
+
     const newBoard = [...board];
     newBoard[index] = "X";
     setBoard(newBoard);
@@ -32,6 +43,8 @@ export default function TicTacToe() {
 
     const randomIndex =
       emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+    clickSoundRef.current?.play(); // 클릭 사운드
+
     const newBoard = [...board];
     newBoard[randomIndex] = "O";
     setBoard(newBoard);
@@ -73,6 +86,7 @@ export default function TicTacToe() {
   );
 }
 
+// 승리자 판정 함수
 function calculateWinner(cells) {
   const lines = [
     [0, 1, 2],

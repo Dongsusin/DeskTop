@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./MemoryGame.css";
 
 const cardSymbols = ["🐶", "🐱", "🐹", "🦊", "🐻", "🐼"];
@@ -19,6 +19,14 @@ export default function MemoryGame() {
   const [cards, setCards] = useState([]);
   const [selected, setSelected] = useState([]);
   const [isChecking, setIsChecking] = useState(false);
+
+  // 사운드 객체 참조 저장
+  const clickSoundRef = useRef(null);
+
+  useEffect(() => {
+    // 오디오 객체 초기화 (최초 1회만)
+    clickSoundRef.current = new Audio("/sound/클릭.mp3");
+  }, []);
 
   useEffect(() => {
     resetGame();
@@ -53,6 +61,7 @@ export default function MemoryGame() {
     newCards[index].flipped = true;
     setCards(newCards);
     setSelected((prev) => [...prev, newCards[index]]);
+    clickSoundRef.current?.play(); // 클릭 사운드
   };
 
   const resetGame = () => {

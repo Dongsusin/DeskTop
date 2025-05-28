@@ -20,7 +20,7 @@ const PaintApp = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+    canvas.height = canvas.clientHeight * 2;
 
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "#ffffff";
