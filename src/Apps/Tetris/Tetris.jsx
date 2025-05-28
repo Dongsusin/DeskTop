@@ -1,11 +1,11 @@
-// Tetris.jsx (전체 기능 포함)
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Tetris.css";
 
 const ROWS = 15;
 const COLS = 10;
 const BLOCK_SIZE = 30;
 
+// 블록 도형 정의
 const SHAPES = {
   I: [
     [
@@ -121,6 +121,7 @@ const SHAPES = {
   ],
 };
 
+// 각 도형의 색상
 const COLORS = {
   I: "cyan",
   O: "yellow",
@@ -131,15 +132,15 @@ const COLORS = {
   L: "orange",
 };
 
+// 랜덤 도형 생성
 function randomShape() {
-  const keys = Object.keys(SHAPES);
-  const rand = keys[Math.floor(Math.random() * keys.length)];
-  return { type: rand, rotation: 0, shape: SHAPES[rand][0] };
+  const types = Object.keys(SHAPES);
+  const type = types[Math.floor(Math.random() * types.length)];
+  return { type, rotation: 0, shape: SHAPES[type][0] };
 }
 
 function Tetris() {
   const emptyBoard = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
-
   const [board, setBoard] = useState(emptyBoard);
   const [current, setCurrent] = useState({ ...randomShape(), x: 3, y: 0 });
   const [gameOver, setGameOver] = useState(false);
@@ -151,156 +152,136 @@ function Tetris() {
   const [level, setLevel] = useState(1);
   const [comboText, setComboText] = useState("");
   const [blinkingRows, setBlinkingRows] = useState([]);
+  const prevLevelRef = useRef(1);
 
-  // 사운드 객체 참조 저장
-  const moveSound = useRef(null);
-  const gameoverSound = useRef(null);
-  const levelSound = useRef(null);
-  const deleteSound = useRef(null);
-  const BGMSound = useRef(null);
+  // 사운드 참조
+  const gameoverSound = useRef();
+  const levelSound = useRef();
+  const deleteSound = useRef();
+  const BGMSound = useRef();
+
   useEffect(() => {
-    // 오디오 객체 초기화
-    moveSound.current = new Audio("/sound/게임/이동.mp3");
     gameoverSound.current = new Audio("/sound/게임/게임오버.mp3");
     levelSound.current = new Audio("/sound/게임/레벨업.mp3");
     deleteSound.current = new Audio("/sound/게임/줄삭제.mp3");
-    BGMSound.current = new Audio("/sound/게임/테트리스.mp4");
-
-    BGMSound.current.loop = true;
-    BGMSound.current.volume = 0.2; // 배경음 크기 조절
   }, []);
 
-  function getDropInterval(level) {
-    return Math.max(100, 500 - (level - 1) * 50);
-  }
+  const isValidPosition = useCallback(
+    (shape, x, y) => {
+      return shape.every((row, r) =>
+        row.every((cell, c) => {
+          if (!cell) return true;
+          const nx = x + c,
+            ny = y + r;
+          return (
+            nx >= 0 && nx < COLS && ny < ROWS && (!board[ny] || !board[ny][nx])
+          );
+        })
+      );
+    },
+    [board]
+  );
 
-  function isValidPosition(shape, x, y) {
-    for (let r = 0; r < shape.length; r++) {
-      for (let c = 0; c < shape[r].length; c++) {
-        if (shape[r][c]) {
-          const newX = x + c;
-          const newY = y + r;
-          if (
-            newX < 0 ||
-            newX >= COLS ||
-            newY >= ROWS ||
-            (newY >= 0 && board[newY][newX])
-          ) {
-            return false;
-          }
-        }
+  const move = useCallback(
+    (dx, dy) => {
+      const { shape, x, y } = current;
+      if (isValidPosition(shape, x + dx, y + dy)) {
+        setCurrent((prev) => ({ ...prev, x: x + dx, y: y + dy }));
+        return true;
       }
-    }
-    return true;
-  }
-  const prevLevelRef = useRef(1); // 초기값은 기본 레벨
+      return false;
+    },
+    [current, isValidPosition]
+  );
 
-  function clearLines(newBoard) {
-    const rowsToClear = [];
-    for (let r = ROWS - 1; r >= 0; r--) {
-      if (newBoard[r].every((cell) => cell !== null)) {
-        rowsToClear.push(r);
-      }
-    }
-    if (rowsToClear.length > 0) {
-      setBlinkingRows(rowsToClear);
-      setTimeout(() => {
-        const updatedBoard = [...newBoard];
-        rowsToClear.forEach((r) => {
-          updatedBoard.splice(r, 1);
-          updatedBoard.unshift(Array(COLS).fill(null));
-        });
-        deleteSound.current?.play(); // 줄 삭제 사운드
-
-        const newScore = score + rowsToClear.length * 100;
-        const newLevel = Math.floor(newScore / 500) + 1;
-
-        // 이전 레벨과 새 레벨 비교
-        if (newLevel > prevLevelRef.current) {
-          levelSound.current?.play(); // 레벨업 사운드
-        }
-
-        prevLevelRef.current = newLevel; // 이전 레벨 갱신
-
-        setScore(newScore);
-        setLevel(newLevel);
-        setBoard(updatedBoard);
-        setBlinkingRows([]);
-        setComboText(
-          `+${rowsToClear.length * 100}${
-            rowsToClear.length >= 2 ? " Combo!" : ""
-          }`
-        );
-        setTimeout(() => setComboText(""), 800);
-      }, 250);
-    }
-  }
-
-  function move(dx, dy) {
-    const { shape, x, y } = current;
-    if (isValidPosition(shape, x + dx, y + dy)) {
-      setCurrent({ ...current, x: x + dx, y: y + dy });
-      return true;
-    }
-    return false;
-  }
-
-  function rotate() {
+  const rotate = useCallback(() => {
     const { type, rotation } = current;
     const rotations = SHAPES[type];
     const nextRotation = (rotation + 1) % rotations.length;
     const nextShape = rotations[nextRotation];
     if (isValidPosition(nextShape, current.x, current.y)) {
-      setCurrent({ ...current, rotation: nextRotation, shape: nextShape });
+      setCurrent((prev) => ({
+        ...prev,
+        rotation: nextRotation,
+        shape: nextShape,
+      }));
     }
-    moveSound.current?.play(); // 사운드
-  }
+  }, [current, isValidPosition]);
 
-  function handleHardDrop() {
+  const clearLines = useCallback(
+    (newBoard) => {
+      const rowsToClear = newBoard
+        .map((row, idx) => (row.every((cell) => cell !== null) ? idx : -1))
+        .filter((i) => i >= 0);
+      if (rowsToClear.length > 0) {
+        setBlinkingRows(rowsToClear);
+        setTimeout(() => {
+          const updatedBoard = [...newBoard];
+          rowsToClear.forEach((r) => {
+            updatedBoard.splice(r, 1);
+            updatedBoard.unshift(Array(COLS).fill(null));
+          });
+          deleteSound.current?.play();
+          const newScore = score + rowsToClear.length * 100;
+          const newLevel = Math.floor(newScore / 500) + 1;
+          if (newLevel > prevLevelRef.current) levelSound.current?.play();
+          prevLevelRef.current = newLevel;
+          setScore(newScore);
+          setLevel(newLevel);
+          setBoard(updatedBoard);
+          setBlinkingRows([]);
+          setComboText(
+            `+${rowsToClear.length * 100}${
+              rowsToClear.length >= 2 ? " Combo!" : ""
+            }`
+          );
+          setTimeout(() => setComboText(""), 800);
+        }, 250);
+      }
+    },
+    [score]
+  );
+
+  const handleHardDrop = useCallback(() => {
     if (gameOver) return;
     const { shape, x, y, type } = current;
     let dropY = y;
-    while (isValidPosition(shape, x, dropY + 1)) {
-      dropY++;
-    }
+    while (isValidPosition(shape, x, dropY + 1)) dropY++;
     const newBoard = board.map((row) => row.slice());
-    shape.forEach((row, r) => {
+    shape.forEach((row, r) =>
       row.forEach((cell, c) => {
         if (cell) {
-          const boardY = dropY + r;
-          const boardX = x + c;
-          if (boardY >= 0) newBoard[boardY][boardX] = type;
+          const ny = dropY + r,
+            nx = x + c;
+          if (ny >= 0) newBoard[ny][nx] = type;
         }
-      });
-    });
+      })
+    );
     setBoard(newBoard);
     clearLines(newBoard);
-    const newBlock = randomShape();
-    if (!isValidPosition(newBlock.shape, 3, 0)) {
-      gameoverSound.current?.play(); // 사운드
+    const next = randomShape();
+    if (!isValidPosition(next.shape, 3, 0)) {
+      gameoverSound.current?.play();
       setGameOver(true);
       if (score > highScore) {
         localStorage.setItem("tetrisHighScore", score.toString());
         setHighScore(score);
       }
     } else {
-      setCurrent({ ...newBlock, x: 3, y: 0 });
+      setCurrent({ ...next, x: 3, y: 0 });
     }
-    moveSound.current?.play(); // 사운드
-  }
+  }, [board, current, gameOver, highScore, score, isValidPosition, clearLines]);
 
   useEffect(() => {
-    if (gameOver || !started) return;
+    if (!started || gameOver) return;
     const interval = setInterval(() => {
-      if (!move(0, 1)) {
-        handleHardDrop();
-      }
-    }, getDropInterval(level));
+      if (!move(0, 1)) handleHardDrop();
+    }, Math.max(100, 500 - (level - 1) * 50));
     return () => clearInterval(interval);
-  }, [board, current, gameOver, level, started]);
+  }, [started, gameOver, level, move, handleHardDrop]);
 
   useEffect(() => {
-    function handleKey(e) {
+    const handleKey = (e) => {
       if (gameOver) return;
       switch (e.key) {
         case "ArrowLeft":
@@ -321,47 +302,45 @@ function Tetris() {
         default:
           break;
       }
-    }
+    };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [current, gameOver]);
+  }, [move, rotate, handleHardDrop, gameOver]);
 
-  function getGhostY(shape, x, y) {
-    let ghostY = y;
-    while (isValidPosition(shape, x, ghostY + 1)) ghostY++;
-    return ghostY;
-  }
+  const renderBoard = () => {
+    const ghostY = (() => {
+      let gy = current.y;
+      while (isValidPosition(current.shape, current.x, gy + 1)) gy++;
+      return gy;
+    })();
 
-  function renderBoard() {
-    const displayBoard = board.map((row) => row.slice());
-    const { shape, x, y, type } = current;
-    const ghostY = getGhostY(shape, x, y);
-    shape.forEach((row, r) => {
+    const ghostBoard = board.map((row) => [...row]);
+    current.shape.forEach((row, r) =>
       row.forEach((cell, c) => {
         if (cell) {
-          const boardY = ghostY + r;
-          const boardX = x + c;
-          if (boardY >= 0 && boardY < ROWS && boardX >= 0 && boardX < COLS) {
-            displayBoard[boardY][boardX] = `ghost-${type}`;
+          const gy = ghostY + r,
+            gx = current.x + c;
+          if (gy >= 0 && gy < ROWS && gx >= 0 && gx < COLS) {
+            ghostBoard[gy][gx] = `ghost-${current.type}`;
           }
         }
-      });
-    });
-    shape.forEach((row, r) => {
+      })
+    );
+
+    current.shape.forEach((row, r) =>
       row.forEach((cell, c) => {
         if (cell) {
-          const boardY = y + r;
-          const boardX = x + c;
-          if (boardY >= 0 && boardY < ROWS && boardX >= 0 && boardX < COLS) {
-            displayBoard[boardY][boardX] = type;
+          const y = current.y + r,
+            x = current.x + c;
+          if (y >= 0 && y < ROWS && x >= 0 && x < COLS) {
+            ghostBoard[y][x] = current.type;
           }
         }
-      });
-    });
-    return displayBoard;
-  }
+      })
+    );
 
-  const displayBoard = renderBoard();
+    return ghostBoard;
+  };
 
   if (!started) {
     return (
@@ -372,6 +351,8 @@ function Tetris() {
       </div>
     );
   }
+
+  const displayBoard = renderBoard();
 
   return (
     <div className="tetris-container">

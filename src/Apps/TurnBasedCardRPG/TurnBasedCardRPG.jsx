@@ -279,12 +279,14 @@ function TurnBasedCardRPG() {
       addMessage(`${card.name} 카드를 선택했습니다! 적을 클릭하세요.`);
       return;
     } else if (card.type === "aoe") {
+      // 예: aoe 카드
       const newEnemies = enemies.map((e) => {
         const dmg = card.value + player.buff + (player.atk || 0);
         const blocked = Math.min(dmg, e.block);
         const actualDmg = dmg - blocked;
         e.block = Math.max(0, e.block - dmg);
         e.hp = Math.max(0, e.hp - actualDmg);
+        if (e.hp <= 0) deadSound.current?.play(); // 수정된 부분
         return e;
       });
       attack1Sound.current?.play(); // 클릭 사운드
@@ -638,7 +640,7 @@ function TurnBasedCardRPG() {
   const [showMonsterDex, setShowMonsterDex] = useState(false);
   const [showDeck, setShowDeck] = useState(false);
   const [showLog, setShowLog] = useState(false);
-  const [showhelp, setShowhelf] = useState(false);
+  const [showhelp, setShowhelp] = useState(false);
 
   return (
     <div className="TurnBasedCardRPG">
