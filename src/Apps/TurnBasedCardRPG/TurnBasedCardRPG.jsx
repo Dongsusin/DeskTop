@@ -595,9 +595,9 @@ function TurnBasedCardRPG() {
   };
 
   const [showMonsterDex, setShowMonsterDex] = useState(false);
-  const [showBossDex, setShowBossDex] = useState(false);
   const [showDeck, setShowDeck] = useState(false);
   const [showLog, setShowLog] = useState(false);
+  const [showhelp, setShowhelf] = useState(false);
 
   return (
     <div className="TurnBasedCardRPG">
@@ -618,8 +618,8 @@ function TurnBasedCardRPG() {
                 몬스터 도감
               </button>
               <h2>스테이지 {stage}</h2>
-              <button onClick={() => setShowBossDex((prev) => !prev)}>
-                보스 도감
+              <button onClick={() => setShowhelf((prev) => !prev)}>
+                도움말
               </button>
               <button onClick={() => setShowBest((prev) => !prev)}>
                 {showBest ? "기록 닫기" : "최고기록"}
@@ -750,6 +750,20 @@ function TurnBasedCardRPG() {
               </div>
             )}
 
+            {showhelp && (
+              <div className="help-window">
+                <h3>도움말</h3>
+                <ul>
+                  <li>HP:투구로 증가</li>
+                  <li>공격력:무기,장갑으로 증가</li>
+                  <li>방어력:갑옷,신발로 증가</li>
+                  <li>저항:상태이상 저항확률</li>
+                  <li>중독:매턴 데미지</li>
+                  <li>기절:1턴간 행동불가</li>
+                </ul>
+              </div>
+            )}
+
             {showMonsterDex && (
               <div className="dex-window">
                 <h3>몬스터 도감</h3>
@@ -765,17 +779,8 @@ function TurnBasedCardRPG() {
                         <strong>{mon.name}</strong>
                       </div>
                       <div>💖 HP: {mon.hp(1)}</div>
-                      <div>📈 증가량: {mon.hp.toString()}</div>
                     </div>
                   ))}
-                </div>
-              </div>
-            )}
-
-            {showBossDex && (
-              <div className="dex-window">
-                <h3>보스 도감</h3>
-                <div className="dex-list">
                   {bossTypes.map((boss, idx) => (
                     <div key={idx} className="dex-card">
                       <img
@@ -786,8 +791,7 @@ function TurnBasedCardRPG() {
                       <div>
                         <strong>{boss.name}</strong>
                       </div>
-                      <div>💖 HP: {boss.hp(1)}</div>
-                      <div>📈 증가량: {boss.hp.toString()}</div>
+                      <div>💖 HP: {boss.hp(stage)}</div>
                     </div>
                   ))}
                 </div>

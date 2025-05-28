@@ -288,9 +288,9 @@
   flex-direction: column;
 }
 .dex-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  flex-wrap: nowrap;
 }
 .dex-card {
   border: 1px solid #aaa;
@@ -309,7 +309,8 @@
   border-top: 2px solid #444;
 }
 
-.deck-window {
+.deck-window,
+.help-window {
   background-color: #1c1c1c;
   color: #fff;
   border: 2px solid #888;
@@ -333,13 +334,15 @@
   margin: 0;
 }
 
-.deck-window ul {
+.deck-window ul,
+.help-window ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.deck-window li {
+.deck-window li,
+.help-window li {
   padding: 6px 0;
   border-bottom: 1px solid #ddd;
   font-size: 0.95em;
@@ -404,10 +407,10 @@
   .messages {
     width: 100%;
     max-width: none;
-    height: 85%;
+    height: 75%;
     overflow-y: auto;
     position: absolute;
-    top: 0;
+    top: 10%;
     left: 0;
     padding: 10px;
     box-sizing: border-box;
@@ -426,5 +429,9 @@
   .enemy {
     min-width: 60px;
     padding: 4px 5px;
+  }
+  .dex-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
   }
 }
