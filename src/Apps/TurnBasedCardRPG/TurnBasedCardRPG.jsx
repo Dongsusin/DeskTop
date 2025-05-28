@@ -298,7 +298,6 @@ function TurnBasedCardRPG() {
       setHand(hand.filter((c) => c !== card));
       if (enemy.hp <= 0) {
         deadSound.current?.play(); // 클릭 사운드
-        return enemy;
       }
     } else if (card.type === "aoePoison") {
       const newEnemies = enemies.map((e) => {
@@ -380,7 +379,6 @@ function TurnBasedCardRPG() {
       );
       if (enemy.hp <= 0) {
         deadSound.current?.play(); // 클릭 사운드
-        return enemy;
       }
     } else if (card.type === "poison") {
       enemy.poison += card.value;
