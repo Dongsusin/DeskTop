@@ -1,6 +1,6 @@
 .weather {
-  width: 800px;
-  margin: 40px auto;
+  margin: 0px auto;
+  margin-bottom: 60px;
   text-align: center;
   padding: 20px;
   border-radius: 12px;
@@ -25,6 +25,7 @@ button {
   cursor: pointer;
   transition: background 0.3s;
   margin: 5px;
+  text-wrap: nowrap;
 }
 
 .weather.dark button,
@@ -53,6 +54,7 @@ input {
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
+  width: auto;
 }
 
 .forecast-container {
@@ -124,6 +126,7 @@ body:not(.dark) {
   height: 100%;
   transform: translate(-50%, -50%);
   border: #f0f0f0 3px solid;
+  z-index: 1000;
 }
 
 .favorite-item {
@@ -166,13 +169,77 @@ button:disabled {
   justify-items: center;
 }
 
-@media (max-width: 640px) {
-  .weather > div > div[style*="display: flex"] {
-    flex-direction: column;
-    gap: 15px;
+@media (max-width: 768px) {
+  .weather {
+    width: 95%;
+    padding: 5px;
   }
-  .weather-box {
-    min-width: unset;
+
+  .weather > div > div[style*="display: flex"],
+  .weather-box,
+  .forecast-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
     width: 100%;
+  }
+
+  .weather-box,
+  .forecast-container {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .forecast-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
+
+  .weather-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .weather-detail {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .favorites {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: auto;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  .favorite-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  input {
+    width: 95%;
+    margin: 0 0 10px 0;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+  .buttons button {
+    width: auto;
+  }
+
+  .controls button {
+    width: 40%;
+  }
+
+  .remove-favorite-btn {
+    width: 100%;
+    text-align: center;
   }
 }
