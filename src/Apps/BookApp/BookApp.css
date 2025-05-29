@@ -1,10 +1,10 @@
 .book-app {
   max-width: 960px;
-  margin: auto;
+  margin: 0 auto;
+  margin-bottom: 75px;
   padding: 2rem 1rem;
 }
 
-/* 제목 */
 .book-app h1 {
   text-align: center;
   color: white;
@@ -12,7 +12,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* 검색 바 */
 .search-bar {
   display: flex;
   justify-content: center;
@@ -27,6 +26,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   transition: all 0.2s ease;
+  margin: 0;
 }
 
 .search-bar input:focus {
@@ -50,7 +50,6 @@
   background-color: #0056b3;
 }
 
-/* 최근 검색어 */
 .recent-searches {
   text-align: center;
   margin-bottom: 1rem;
@@ -72,7 +71,6 @@
   background-color: #ccc;
 }
 
-/* 정렬 */
 .sort-bar {
   text-align: center;
   margin-bottom: 1rem;
@@ -86,7 +84,6 @@
   border: 1px solid #ccc;
 }
 
-/* 로딩 및 에러 */
 .loader,
 .error {
   text-align: center;
@@ -97,7 +94,6 @@
   color: #e74c3c;
 }
 
-/* 도서 리스트 */
 .book-list {
   display: flex;
   flex-wrap: wrap;
@@ -105,7 +101,6 @@
   justify-content: center;
 }
 
-/* 도서 카드 */
 .book-card {
   background: white;
   border-radius: 12px;
@@ -154,7 +149,6 @@
   background-color: #e2e2e2;
 }
 
-/* 즐겨찾기 */
 .favorites {
   margin-top: 2rem;
   background: #ffffff;
@@ -180,7 +174,6 @@
   font-size: 0.95rem;
 }
 
-/* 상세 페이지 */
 .book-detail {
   background: #fff;
   padding: 2rem;
@@ -210,7 +203,6 @@
   text-decoration: underline;
 }
 
-/* 페이지네이션 */
 .book-app > div[style*="text-align: center"] button {
   margin: 0 6px;
   padding: 6px 14px;
@@ -233,23 +225,25 @@
   color: white;
 }
 
-/* 반응형 개선 */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .book-app {
+    padding: 0;
+  }
   .search-bar {
     flex-direction: column;
     align-items: center;
   }
 
   .search-bar input {
-    width: 100%;
+    width: 80%;
   }
 
   .book-list {
-    flex-direction: column;
     align-items: center;
   }
 
   .book-card {
-    width: 90%;
+    width: 30%;
+    height: 320px;
   }
 }
