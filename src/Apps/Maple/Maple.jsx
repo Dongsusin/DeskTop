@@ -10,24 +10,14 @@ function Maple() {
   const [characterData, setCharacterData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
 
   useEffect(() => {
-    const savedFav = localStorage.getItem("mapleFavorites");
-    if (savedFav) {
-      setFavorites(JSON.parse(savedFav));
-    }
     const savedHistory = localStorage.getItem("mapleSearchHistory");
     if (savedHistory) {
       setSearchHistory(JSON.parse(savedHistory));
     }
   }, []);
-
-  const saveFavorites = (newFavs) => {
-    setFavorites(newFavs);
-    localStorage.setItem("mapleFavorites", JSON.stringify(newFavs));
-  };
 
   const saveSearchHistory = (newHistory) => {
     setSearchHistory(newHistory);
@@ -74,22 +64,6 @@ function Maple() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const toggleFavorite = () => {
-    if (!characterData) return;
-    const isFav = favorites.some(
-      (c) => c.character_name === characterData.character_name
-    );
-    let newFavs;
-    if (isFav) {
-      newFavs = favorites.filter(
-        (c) => c.character_name !== characterData.character_name
-      );
-    } else {
-      newFavs = [characterData, ...favorites];
-    }
-    saveFavorites(newFavs);
   };
 
   const handleFavClick = (name) => {
@@ -146,31 +120,7 @@ function Maple() {
                   <span>{getExpPercent()}%</span>
                 </div>
               )}
-
-            <button onClick={toggleFavorite}>
-              {favorites.some(
-                (c) => c.character_name === characterData.character_name
-              )
-                ? "즐겨찾기 삭제"
-                : "즐겨찾기 추가"}
-            </button>
           </div>
-        </div>
-      )}
-
-      {favorites.length > 0 && (
-        <div className="favorites">
-          <h3>즐겨찾기 목록</h3>
-          <ul>
-            {favorites.map((fav) => (
-              <li
-                key={fav.character_name}
-                onClick={() => handleFavClick(fav.character_name)}
-              >
-                {fav.character_name} (레벨: {fav.character_level})
-              </li>
-            ))}
-          </ul>
         </div>
       )}
 

@@ -48,246 +48,381 @@ function PokedexApp() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
-  const [abilityModal, setAbilityModal] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+  const [favorites, setFavorites] = useState(() =>
+    JSON.parse(localStorage.getItem("favorites") || "[]")
+  );
+  const [recent, setRecent] = useState(() =>
+    JSON.parse(localStorage.getItem("recent") || "[]")
+  );
   const limit = 30;
+  const [typeFilteredAll, setTypeFilteredAll] = useState([]);
 
-  useEffect(() => {
-    const fetchPokemonList = async () => {
-      setLoading(true);
-      const offset = (page - 1) * limit;
+  const fetchPokemonList = async (pageNum) => {
+    setLoading(true);
+    const offset = (pageNum - 1) * limit;
 
-      try {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-        );
-        const data = await res.json();
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+      );
+      const data = await res.json();
 
-        const detailedData = await Promise.all(
-          data.results.map(async (pokemon) => {
-            const resDetail = await fetch(pokemon.url);
-            const detail = await resDetail.json();
+      const detailedData = await Promise.all(
+        data.results.map(async (pokemon) => {
+          const resDetail = await fetch(pokemon.url);
+          const detail = await resDetail.json();
 
-            const resSpecies = await fetch(
-              `https://pokeapi.co/api/v2/pokemon-species/${detail.id}/`
-            );
-            const species = await resSpecies.json();
-            const koreanName =
-              species.names.find((n) => n.language.name === "ko")?.name ||
-              detail.name;
+          const resSpecies = await fetch(
+            `https://pokeapi.co/api/v2/pokemon-species/${detail.id}/`
+          );
+          const species = await resSpecies.json();
+          const koreanName =
+            species.names.find((n) => n.language.name === "ko")?.name ||
+            detail.name;
 
-            const abilities = await Promise.all(
-              detail.abilities.map(async (ab) => {
-                const resAb = await fetch(ab.ability.url);
-                const abData = await resAb.json();
-                const koName =
-                  abData.names.find((n) => n.language.name === "ko")?.name ||
-                  ab.ability.name;
-                const koEffect =
-                  abData.effect_entries.find((e) => e.language.name === "ko")
-                    ?.effect || "설명 없음";
+          return {
+            id: detail.id,
+            name: koreanName,
+            image: detail.sprites.front_default,
+            types: detail.types.map((t) => typeKoMap[t.type.name]),
+            stats: detail.stats.map((s) => ({
+              name: s.stat.name,
+              value: s.base_stat,
+            })),
+          };
+        })
+      );
 
-                return { name: koName, effect: koEffect };
-              })
-            );
+      setPokemonList(detailedData);
+    } catch (err) {
+      alert("포켓몬 데이터를 불러오는 중 오류가 발생했습니다.");
+      setPokemonList([]);
+    }
 
-            return {
-              id: detail.id,
-              name: koreanName,
-              image: detail.sprites.front_default,
-              types: detail.types.map((t) => typeKoMap[t.type.name]),
-              stats: detail.stats.map((s) => ({
-                name: s.stat.name,
-                value: s.base_stat,
-              })),
-              abilities: abilities,
-            };
-          })
-        );
+    setLoading(false);
+  };
 
-        setPokemonList(detailedData);
-      } catch (err) {
-        console.error("포켓몬 데이터를 불러오는 중 오류:", err);
+  const fetchTypeFilteredList = async (type) => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/type/${type.toLowerCase()}`
+      );
+      if (!res.ok) throw new Error("타입 데이터를 불러올 수 없습니다.");
+      const data = await res.json();
+      const allTypePokemons = data.pokemon.map((p) => p.pokemon);
+      setTypeFilteredAll(allTypePokemons);
+    } catch (err) {
+      alert("타입 필터 데이터를 불러오는 중 오류가 발생했습니다.");
+      setTypeFilteredAll([]);
+    }
+    setLoading(false);
+  };
+
+  const fetchFilteredPageDetails = async (pageNum) => {
+    setLoading(true);
+    const offset = (pageNum - 1) * limit;
+    const pagePokemons = typeFilteredAll.slice(offset, offset + limit);
+
+    try {
+      const detailedData = await Promise.all(
+        pagePokemons.map(async (p) => {
+          const resDetail = await fetch(p.url);
+          const detail = await resDetail.json();
+
+          const resSpecies = await fetch(
+            `https://pokeapi.co/api/v2/pokemon-species/${detail.id}/`
+          );
+          const species = await resSpecies.json();
+          const koreanName =
+            species.names.find((n) => n.language.name === "ko")?.name ||
+            detail.name;
+
+          return {
+            id: detail.id,
+            name: koreanName,
+            image: detail.sprites.front_default,
+            types: detail.types.map((t) => typeKoMap[t.type.name]),
+            stats: detail.stats.map((s) => ({
+              name: s.stat.name,
+              value: s.base_stat,
+            })),
+          };
+        })
+      );
+
+      setPokemonList(detailedData);
+    } catch {
+      alert("포켓몬 상세 데이터를 불러오는 중 오류가 발생했습니다.");
+      setPokemonList([]);
+    }
+    setLoading(false);
+  };
+
+  const handleSearch = async () => {
+    if (!searchTerm.trim()) return;
+
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`
+      );
+      if (!res.ok) {
+        alert("포켓몬을 찾을 수 없습니다.");
+        return;
       }
 
-      setLoading(false);
-    };
+      const detail = await res.json();
+      const resSpecies = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${detail.id}/`
+      );
+      const species = await resSpecies.json();
+      const koreanName =
+        species.names.find((n) => n.language.name === "ko")?.name ||
+        detail.name;
 
-    fetchPokemonList();
+      const result = {
+        id: detail.id,
+        name: koreanName,
+        image: detail.sprites.front_default,
+        types: detail.types.map((t) => typeKoMap[t.type.name]),
+        stats: detail.stats.map((s) => ({
+          name: s.stat.name,
+          value: s.base_stat,
+        })),
+      };
+
+      setSelectedPokemon(result);
+      setRecent((prev) =>
+        [result, ...prev.filter((p) => p.id !== result.id)].slice(0, 5)
+      );
+    } catch {
+      alert("검색 중 오류가 발생했습니다.");
+    }
+  };
+
+  const loadPokemonById = async (id) => {
+    try {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+      if (!res.ok) return null;
+      const detail = await res.json();
+
+      const resSpecies = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${id}`
+      );
+      const species = await resSpecies.json();
+      const koreanName =
+        species.names.find((n) => n.language.name === "ko")?.name ||
+        detail.name;
+
+      return {
+        id: detail.id,
+        name: koreanName,
+        image: detail.sprites.front_default,
+        types: detail.types.map((t) => typeKoMap[t.type.name]),
+        stats: detail.stats.map((s) => ({
+          name: s.stat.name,
+          value: s.base_stat,
+        })),
+      };
+    } catch {
+      return null;
+    }
+  };
+
+  const toggleFavorite = (pokemon) => {
+    setFavorites((prev) =>
+      prev.some((p) => p.id === pokemon.id)
+        ? prev.filter((p) => p.id !== pokemon.id)
+        : [...prev, pokemon]
+    );
+  };
+
+  const handleDetailPrev = async () => {
+    if (!selectedPokemon || selectedPokemon.id <= 1) return;
+    const prevId = selectedPokemon.id - 1;
+    const pokemon = await loadPokemonById(prevId);
+    if (pokemon) setSelectedPokemon(pokemon);
+  };
+
+  const handleDetailNext = async () => {
+    if (!selectedPokemon) return;
+    const nextId = selectedPokemon.id + 1;
+    const pokemon = await loadPokemonById(nextId);
+    if (pokemon) setSelectedPokemon(pokemon);
+  };
+
+  useEffect(() => {
+    if (typeFilter === "favorite") {
+      setPokemonList(favorites);
+    } else if (typeFilter) {
+      fetchTypeFilteredList(
+        Object.keys(typeKoMap).find((key) => typeKoMap[key] === typeFilter)
+      );
+    } else {
+      setTypeFilteredAll([]);
+      setPage(1);
+      fetchPokemonList(1);
+    }
+  }, [typeFilter, favorites]);
+
+  useEffect(() => {
+    if (typeFilter && typeFilter !== "favorite" && typeFilteredAll.length > 0) {
+      setPage(1);
+      fetchFilteredPageDetails(1);
+    }
+  }, [typeFilteredAll]);
+
+  useEffect(() => {
+    if (typeFilter === "favorite") {
+      setPokemonList(favorites);
+    } else if (typeFilter) {
+      fetchFilteredPageDetails(page);
+    } else {
+      fetchPokemonList(page);
+    }
   }, [page]);
 
-  const handlePrev = () => {
-    if (page > 1) setPage(page - 1);
-  };
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
-  const handleNext = () => {
-    setPage(page + 1);
-  };
+  useEffect(() => {
+    localStorage.setItem("recent", JSON.stringify(recent));
+  }, [recent]);
 
-  const handleDetailPrev = () => {
-    if (!selectedPokemon) return;
-    const currentIndex = pokemonList.findIndex(
-      (p) => p.id === selectedPokemon.id
-    );
-    if (currentIndex > 0) setSelectedPokemon(pokemonList[currentIndex - 1]);
-  };
-
-  const handleDetailNext = () => {
-    if (!selectedPokemon) return;
-    const currentIndex = pokemonList.findIndex(
-      (p) => p.id === selectedPokemon.id
-    );
-    if (currentIndex < pokemonList.length - 1)
-      setSelectedPokemon(pokemonList[currentIndex + 1]);
-  };
+  useEffect(() => {
+    fetchPokemonList(page);
+  }, []);
 
   return (
     <div className="pokedex-container">
-      <h1 className="pokedex-title">포켓몬 도감</h1>
+      <header>
+        <h1>포켓몬 도감</h1>
+        <input
+          type="text"
+          placeholder="포켓몬 이름 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        />
+        <button onClick={handleSearch}>검색</button>
 
-      {loading ? (
-        <p>로딩 중...</p>
-      ) : (
-        <div
-          className="pokemon-grid"
-          style={{ display: selectedPokemon ? "none" : "grid" }}
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
         >
-          {pokemonList.map((pokemon) => (
-            <div
-              className="pokemon-card"
-              key={pokemon.id}
-              onClick={() => setSelectedPokemon(pokemon)}
-            >
-              <img
-                className="pokemon-image"
-                src={pokemon.image}
-                alt={pokemon.name}
-              />
-              <p className="pokemon-name">{pokemon.name}</p>
-              <div>
-                {pokemon.types.map((type, i) => (
-                  <span
-                    key={i}
-                    className="type-badge"
-                    style={{ backgroundColor: typeColorMap[type] }}
-                  >
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <option value="favorite">⭐ 즐겨찾기</option>
+          <option value="">전체 타입</option>
+          {Object.values(typeKoMap).map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
           ))}
-        </div>
+        </select>
+      </header>
+
+      {loading && <div className="loading">로딩 중...</div>}
+
+      {!selectedPokemon && (
+        <main>
+          <ul className="pokemon-list">
+            {pokemonList.map((p) => (
+              <li
+                key={p.id}
+                className="pokemon-item"
+                onClick={() => setSelectedPokemon(p)}
+                style={{
+                  borderColor: p.types.length
+                    ? typeColorMap[p.types[0]]
+                    : "#000",
+                }}
+              >
+                <img src={p.image} alt={p.name} />
+                <h3>{p.name}</h3>
+                <div className="types">
+                  {p.types.map((t) => (
+                    <span
+                      key={t}
+                      className="type"
+                      style={{ backgroundColor: typeColorMap[t] }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {typeFilter !== "favorite" && (
+            <div className="pagination">
+              <button
+                disabled={page <= 1}
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+              >
+                이전
+              </button>
+              <span>{page} 페이지</span>
+              <button
+                onClick={() =>
+                  setPage((prev) =>
+                    prev * limit < (typeFilter ? typeFilteredAll.length : 1118)
+                      ? prev + 1
+                      : prev
+                  )
+                }
+              >
+                다음
+              </button>
+            </div>
+          )}
+        </main>
       )}
 
       {selectedPokemon && (
-        <div className="pokemon-detail-popup">
-          <div className="detail-header">
-            <button
-              className="close-button"
-              onClick={() => setSelectedPokemon(null)}
-            >
-              닫기
+        <div className="modal">
+          <div className="modal-content">
+            <button className="close" onClick={() => setSelectedPokemon(null)}>
+              ×
             </button>
-
-            <img
-              className="detail-image"
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${selectedPokemon.id}.gif`}
-              alt={selectedPokemon.name}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = selectedPokemon.image;
-              }}
-            />
-
             <h2>{selectedPokemon.name}</h2>
-
-            <div>
-              {selectedPokemon.types.map((type, i) => (
+            <img src={selectedPokemon.image} alt={selectedPokemon.name} />
+            <div className="types">
+              {selectedPokemon.types.map((t) => (
                 <span
-                  key={i}
-                  className="type-badge"
-                  style={{ backgroundColor: typeColorMap[type] }}
+                  key={t}
+                  className="type"
+                  style={{ backgroundColor: typeColorMap[t] }}
                 >
-                  {type}
+                  {t}
                 </span>
               ))}
             </div>
-
-            <div className="pokemon-abilities">
-              <strong>특성:</strong>
-              <ul className="ability-list">
-                {selectedPokemon.abilities.map((ability, i) => (
-                  <li key={i}>
-                    <button
-                      className="ability-btn"
-                      onClick={() => setAbilityModal(ability)}
-                    >
-                      {ability.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="pokemon-stats">
-            <strong>능력치:</strong>
-            <div className="stats-bar">
-              {selectedPokemon.stats.map((stat, i) => (
-                <div key={i} className="stat-item">
-                  <div className="stat-name">{stat.name}</div>
-                  <div className="bar-background">
-                    <div
-                      className="bar-fill"
-                      style={{ width: `${stat.value / 2}%` }}
-                    >
-                      {stat.value}
-                    </div>
-                  </div>
+            <div className="stats">
+              {selectedPokemon.stats.map((s) => (
+                <div key={s.name} className="stat">
+                  <span>{s.name}</span>
+                  <span>{s.value}</span>
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="detail-pagination">
-            <button
-              onClick={handleDetailPrev}
-              disabled={
-                pokemonList.findIndex((p) => p.id === selectedPokemon.id) === 0
-              }
-            >
-              이전 포켓몬
+            <button onClick={() => toggleFavorite(selectedPokemon)}>
+              {favorites.some((p) => p.id === selectedPokemon.id)
+                ? "즐겨찾기 해제"
+                : "즐겨찾기 추가"}
             </button>
-            <button
-              onClick={handleDetailNext}
-              disabled={
-                pokemonList.findIndex((p) => p.id === selectedPokemon.id) ===
-                pokemonList.length - 1
-              }
-            >
-              다음 포켓몬
-            </button>
+            <div className="detail-nav">
+              <button
+                onClick={handleDetailPrev}
+                disabled={selectedPokemon.id <= 1}
+              >
+                이전 포켓몬
+              </button>
+              <button onClick={handleDetailNext}>다음 포켓몬</button>
+            </div>
           </div>
-        </div>
-      )}
-
-      {abilityModal && (
-        <div className="modal-overlay" onClick={() => setAbilityModal(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3>{abilityModal.name}</h3>
-            <p>{abilityModal.effect}</p>
-            <button onClick={() => setAbilityModal(null)}>닫기</button>
-          </div>
-        </div>
-      )}
-
-      {!selectedPokemon && (
-        <div className="pagination">
-          <button onClick={handlePrev} disabled={page === 1}>
-            이전
-          </button>
-          <span>페이지 {page}</span>
-          <button onClick={handleNext}>다음</button>
         </div>
       )}
     </div>
