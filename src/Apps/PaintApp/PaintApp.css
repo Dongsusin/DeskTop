@@ -33,7 +33,7 @@
   height: 100%;
 }
 
-label {
+.toolbar label {
   color: white;
   display: flex;
   align-items: center;
