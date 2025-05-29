@@ -1,13 +1,48 @@
 .Resume {
   background-color: #f0f2f5;
   padding: 10px;
-  height: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* 상단 네비게이션 버튼 */
+.navigation {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.nav-btn {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: #ccc;
+}
+
+.nav-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* 콘텐츠 박스 */
 .resume-container {
   background: #fff;
   border-radius: 12px;
   color: #000;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .resume-container header {
@@ -22,7 +57,7 @@
 }
 
 .resume-container section {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .resume-container section h2 {
@@ -34,7 +69,88 @@
 
 .resume-container section ul {
   padding-left: 1.5rem;
-  li a {
-    text-decoration: none;
+}
+
+.resume-container section ul li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.resume-container section ul li a:hover {
+  text-decoration: underline;
+}
+
+/* 페이지 전환 버튼 */
+.page-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.page-controls button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.page-controls button:hover {
+  background-color: #0056b3;
+}
+
+.page-controls span {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* 프로젝트 내부 네비게이션 버튼 */
+.project-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.PortfolioInfo {
+  h4 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h1 {
+    font-size: 1rem;
+  }
+  .image-contect {
+    display: flex;
+    width: auto;
+    gap: 10px;
+  }
+  img {
+    width: 50%;
+  }
+  .full {
+    width: 100%;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+.projects {
+  h2 {
+    font-size: 2rem;
+  }
+  img {
+    width: 100%;
+  }
+  p {
+    font-size: 16px;
   }
 }

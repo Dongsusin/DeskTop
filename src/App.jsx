@@ -28,7 +28,6 @@ import StockInfo from "./Apps/StockInfo/StockInfo";
 import Flight from "./Apps/FlightApp/FlightApp";
 import Seven from "./Apps/Seven/Seven";
 import Paint from "./Apps/PaintApp/PaintApp";
-import News from "./Apps/News/News";
 import BookApp from "./Apps/BookApp/BookApp";
 import Travel from "./Apps/Travel/Travel";
 import Movie from "./Apps/Movies/Movies";
@@ -136,7 +135,6 @@ function DesktopApp() {
       "/flight": { title: "항공편 정보", component: <Flight /> },
       "/seven": { title: "세븐나이츠", component: <Seven /> },
       "/paint": { title: "그림판", component: <Paint /> },
-      "/news": { title: "뉴스", component: <News /> },
       "/book": { title: "도서 검색", component: <BookApp /> },
       "/travel": { title: "여행 정보", component: <Travel /> },
       "/movie": { title: "영화 정보", component: <Movie /> },
