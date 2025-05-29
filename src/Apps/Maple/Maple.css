@@ -2,7 +2,6 @@
   max-width: 400px;
   margin: 2rem auto;
   text-align: center;
-  font-family: "Arial", sans-serif;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   padding: 1rem;
@@ -27,7 +26,6 @@
   text-shadow: 0 0 6px #ffcc00;
 }
 
-/* 검색 영역 */
 .search {
   display: flex;
   gap: 8px;
@@ -67,7 +65,6 @@
   transform: scale(1.05);
 }
 
-/* 결과 영역 */
 .result {
   display: flex;
   flex-direction: column;
@@ -133,7 +130,6 @@
   }
 }
 
-/* 최근 검색 기록 */
 .search-history {
   margin-top: 20px;
   text-align: left;
@@ -189,7 +185,6 @@
   transform: scale(1.05);
 }
 
-/* 결과 내 버튼 */
 .info button {
   margin-top: 10px;
   padding: 8px 16px;
@@ -208,7 +203,6 @@
   transform: scale(1.05);
 }
 
-/* 탭 버튼 */
 .tabs {
   margin: 1rem 0;
   display: flex;
@@ -238,4 +232,12 @@
   color: #222;
   box-shadow: 0 0 10px #ffcc00;
   transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .maple-container {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 75px;
+  }
 }

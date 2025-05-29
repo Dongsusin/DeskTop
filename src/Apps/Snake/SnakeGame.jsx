@@ -5,9 +5,9 @@ const BOARD_SIZE = 10;
 const INITIAL_SNAKE = [{ x: 4, y: 4 }];
 const INITIAL_DIRECTION = { x: 1, y: 0 };
 const SPEEDS = {
-  Slow: 700,
-  Normal: 500,
-  Fast: 300,
+  쉬움: 700,
+  보통: 500,
+  어려움: 300,
 };
 
 export default function SnakeGame() {
@@ -16,8 +16,8 @@ export default function SnakeGame() {
   const [direction, setDirection] = useState(INITIAL_DIRECTION);
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
-  const [gameSpeed, setGameSpeed] = useState("Normal");
-  const [screen, setScreen] = useState("intro"); // intro, game, ranking
+  const [gameSpeed, setGameSpeed] = useState("보통");
+  const [screen, setScreen] = useState("intro");
   const [ranking, setRanking] = useState(() => {
     const saved = localStorage.getItem("snakeRanking");
     return saved ? JSON.parse(saved) : [];
@@ -29,7 +29,6 @@ export default function SnakeGame() {
   const nextDirectionRef = useRef(nextDirection);
   const isGameOverRef = useRef(isGameOver);
 
-  // 사운드 효과
   const eatSoundRef = useRef(null);
   const gameOverSoundRef = useRef(null);
 
@@ -49,7 +48,6 @@ export default function SnakeGame() {
     moveRef.current = moveSnake;
   });
 
-  // 게임 루프
   useEffect(() => {
     if (screen !== "game") return;
 
@@ -60,7 +58,6 @@ export default function SnakeGame() {
     return () => clearInterval(interval);
   }, [screen, gameSpeed]);
 
-  // 키보드 방향 입력 처리 (방향 미리보기 포함)
   useEffect(() => {
     const handleKey = (e) => {
       let newDir = null;
@@ -86,7 +83,6 @@ export default function SnakeGame() {
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
-  // 모바일 터치 제스처 방향
   useEffect(() => {
     if (screen !== "game") return;
 
@@ -105,14 +101,12 @@ export default function SnakeGame() {
       const dy = touch.clientY - startY;
 
       if (Math.abs(dx) > Math.abs(dy)) {
-        // 좌우 이동
         if (dx > 30 && directionRef.current.x === 0) {
           setNextDirection({ x: 1, y: 0 });
         } else if (dx < -30 && directionRef.current.x === 0) {
           setNextDirection({ x: -1, y: 0 });
         }
       } else {
-        // 상하 이동
         if (dy > 30 && directionRef.current.y === 0) {
           setNextDirection({ x: 0, y: 1 });
         } else if (dy < -30 && directionRef.current.y === 0) {
@@ -133,11 +127,10 @@ export default function SnakeGame() {
   function moveSnake() {
     if (isGameOverRef.current) return;
 
-    // 방향 업데이트 (nextDirection 저장해뒀다가 한 틱에 한 번만 적용)
     const dir = nextDirectionRef.current;
     if (
       dir.x !== -directionRef.current.x ||
-      dir.y !== -directionRef.current.y // 역방향이 아니면
+      dir.y !== -directionRef.current.y
     ) {
       setDirection(dir);
     }
@@ -174,10 +167,9 @@ export default function SnakeGame() {
     setSnake(newSnake);
   }
 
-  // 점수 저장 및 랭킹 업데이트
   function updateRanking(newScore) {
-    if (newScore === 0) return; // 0점은 랭킹에 안 넣음
-    const newRanking = [...ranking, newScore].sort((a, b) => b - a).slice(0, 5); // 상위 5개만 저장
+    if (newScore === 0) return;
+    const newRanking = [...ranking, newScore].sort((a, b) => b - a).slice(0, 5);
     setRanking(newRanking);
     localStorage.setItem("snakeRanking", JSON.stringify(newRanking));
   }
@@ -191,7 +183,6 @@ export default function SnakeGame() {
     setScore(0);
   }
 
-  // 화면 전환 핸들러
   function startGame() {
     resetGame();
     setScreen("game");
@@ -205,7 +196,6 @@ export default function SnakeGame() {
     setScreen("intro");
   }
 
-  // 뱀 방향 문자 변환
   function directionToString(dir) {
     if (dir.x === 1) return "→";
     if (dir.x === -1) return "←";
@@ -229,15 +219,14 @@ export default function SnakeGame() {
     );
   }
 
-  // 렌더링 분기
   if (screen === "intro") {
     return (
       <div className="SnakeGame intro">
-        <h1>Snake Game</h1>
+        <h1>스네이크 게임</h1>
 
         <div>
           <label>
-            속도:
+            난이도:
             <select
               value={gameSpeed}
               onChange={(e) => setGameSpeed(e.target.value)}
@@ -270,7 +259,6 @@ export default function SnakeGame() {
     );
   }
 
-  // screen === "game"
   return (
     <div className="SnakeGame">
       <h1>Snake Game</h1>
@@ -284,7 +272,6 @@ export default function SnakeGame() {
           .flat()}
       </div>
 
-      {/* 모바일 터치 컨트롤 */}
       <div className="mobile-controls">
         <div>
           <button onClick={() => tryChangeDirection({ x: 0, y: -1 })}>↑</button>
@@ -302,7 +289,6 @@ export default function SnakeGame() {
         다시 시작
       </button>
 
-      {/* 사운드 효과 오디오 태그 */}
       <audio
         ref={eatSoundRef}
         src="/sound/게임/먹기-스네이크.mp3"
@@ -316,7 +302,6 @@ export default function SnakeGame() {
     </div>
   );
 
-  // 모바일 버튼용 방향 변경 함수
   function tryChangeDirection(newDir) {
     if (
       (newDir.x !== -direction.x || newDir.y !== -direction.y) &&

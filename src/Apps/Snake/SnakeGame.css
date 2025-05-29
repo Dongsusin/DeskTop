@@ -130,6 +130,11 @@
 .mobile-controls button:hover {
   background-color: #777;
 }
+
+.SnakeGame label {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .mobile-controls {
     display: block;
