@@ -1,7 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./MemoryGame.css";
 
-const cardSymbols = ["🐶", "🐱", "🐹", "🦊", "🐻", "🐼"];
+const allCardSymbols = [
+  "🐶",
+  "🐱",
+  "🐹",
+  "🦊",
+  "🐻",
+  "🐼",
+  "🐨",
+  "🐯",
+  "🦁",
+  "🐸",
+  "🐵",
+  "🐰",
+]; // 최대 12쌍까지 확장 가능
 
 function shuffleArray(array) {
   return array
@@ -20,17 +33,20 @@ export default function MemoryGame() {
   const [selected, setSelected] = useState([]);
   const [isChecking, setIsChecking] = useState(false);
 
-  // 사운드 객체 참조 저장
+  const [showIntro, setShowIntro] = useState(true);
+  const [gameSize, setGameSize] = useState(6); // 기본 6쌍
+
   const clickSoundRef = useRef(null);
 
   useEffect(() => {
-    // 오디오 객체 초기화 (최초 1회만)
     clickSoundRef.current = new Audio("/sound/클릭.mp3");
   }, []);
 
   useEffect(() => {
-    resetGame();
-  }, []);
+    if (!showIntro) {
+      resetGame();
+    }
+  }, [showIntro]);
 
   useEffect(() => {
     if (selected.length === 2) {
@@ -61,26 +77,56 @@ export default function MemoryGame() {
     newCards[index].flipped = true;
     setCards(newCards);
     setSelected((prev) => [...prev, newCards[index]]);
-    clickSoundRef.current?.play(); // 클릭 사운드
+    clickSoundRef.current?.play();
   };
 
   const resetGame = () => {
-    setCards(shuffleArray(cardSymbols));
+    const selectedSymbols = allCardSymbols.slice(0, gameSize);
+    setCards(shuffleArray(selectedSymbols));
     setSelected([]);
     setIsChecking(false);
   };
 
   const matchedCount = cards.filter((card) => card.matched).length;
   const status =
-    matchedCount === cardSymbols.length * 2
-      ? "완료!"
-      : `맞춘 쌍: ${matchedCount / 2}`;
+    matchedCount === gameSize * 2 ? "완료!" : `맞춘 쌍: ${matchedCount / 2}`;
+
+  // 인트로 화면
+  if (showIntro) {
+    return (
+      <div className="MemoryGame Intro">
+        <h1>카드 뒤집기 게임</h1>
+        <div className="game-select">
+          <label htmlFor="gameSize">게임판 크기</label>
+          <select
+            id="gameSize"
+            value={gameSize}
+            onChange={(e) =>
+              setGameSize(Math.min(12, Math.max(1, Number(e.target.value))))
+            }
+          >
+            {[...Array(12)].map((_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1} 쌍 ({(i + 1) * 2}장)
+              </option>
+            ))}
+          </select>
+        </div>
+        <button onClick={() => setShowIntro(false)}>게임 시작</button>
+      </div>
+    );
+  }
 
   return (
     <div className="MemoryGame">
       <h1>카드 뒤집기</h1>
       <div className="status">{status}</div>
-      <div className="card-grid">
+      <div
+        className="card-grid"
+        style={{
+          gridTemplateColumns: `repeat(${Math.min(6, gameSize)}, 1fr)`,
+        }}
+      >
         {cards.map((card, i) => (
           <div
             key={card.id}
@@ -94,6 +140,13 @@ export default function MemoryGame() {
       </div>
       <button className="reset" onClick={resetGame}>
         다시 시작
+      </button>
+      <button
+        className="reset"
+        onClick={() => setShowIntro(true)}
+        style={{ marginLeft: 8 }}
+      >
+        메인으로
       </button>
     </div>
   );
