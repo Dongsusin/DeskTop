@@ -91,7 +91,7 @@
   color: #ddd;
 }
 
-.controls {
+.tetris-container .controls {
   display: none;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
@@ -100,7 +100,7 @@
   user-select: none;
 }
 
-.controls button {
+.tetris-container .controls button {
   background: #333;
   color: white;
   font-size: 1.2rem;
@@ -113,7 +113,7 @@
   box-shadow: 0 4px #111;
 }
 
-.controls button:active {
+.tetris-container .controls button:active {
   background: #555;
   box-shadow: none;
   transform: translateY(2px);
@@ -209,7 +209,7 @@
 }
 
 @media (max-width: 768px) {
-  .controls {
+  .tetris-container .controls {
     display: grid;
   }
 }

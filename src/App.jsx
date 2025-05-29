@@ -1,5 +1,8 @@
+// 라이브러리 및 스타일/컴포넌트 임포트
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+
+// 공통 UI 컴포넌트
 import IconList from "./components/IconList";
 import FolderPopup from "./components/Folder";
 import Memo from "./components/Memo";
@@ -7,6 +10,8 @@ import Calendar from "./components/Calendar";
 import Taskbar from "./components/Taskbar";
 import MobileTopbar from "./components/Mobile-Topbar";
 import MobileBottombar from "./components/Mobile-Bottombar";
+
+// 앱 컴포넌트
 import Calculator from "./Apps/Calculator/Calculator";
 import Weather from "./Apps/Weather/Weather";
 import Map from "./Apps/Map/Map";
@@ -32,6 +37,7 @@ import MemoryGame from "./Apps/MemoryGame/MemoryGame";
 import SnakeGame from "./Apps/Snake/SnakeGame";
 import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
 
+// 팝업 UI 컴포넌트
 function Popup({ title, onClose, children }) {
   return (
     <div className="popup">
@@ -44,29 +50,37 @@ function Popup({ title, onClose, children }) {
   );
 }
 
+// 메인 데스크톱 앱 컴포넌트
 function DesktopApp() {
+  // 상태 변수들
   const [isIntro, setIsIntro] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
   const [icons, setIcons] = useState([]);
   const [openFolder, setOpenFolder] = useState(null);
+  const [currentPopup, setCurrentPopup] = useState(null);
+
   const [currentDate] = useState(new Date());
   const [memos, setMemos] = useState(
     () => JSON.parse(localStorage.getItem("calendarMemos")) || {}
   );
   const [selectedDate, setSelectedDate] = useState(null);
   const [memoInput, setMemoInput] = useState("");
+
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
+  const [showCalendar, setShowCalendar] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(0);
   const mobilePagesRef = useRef(null);
   const totalPages = 2;
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [currentPopup, setCurrentPopup] = useState(null);
-  const handleTouchStart = useRef(null);
-  const handleTouchEnd = useRef(null);
-  const [loadingProgress, setLoadingProgress] = useState(0);
 
+  const clickSoundRef = useRef(null);
+  const touchStartX = useRef(0);
+
+  // 현재 시간 업데이트
   useEffect(() => {
     const timer = setInterval(
       () => setCurrentTime(new Date().toLocaleTimeString()),
@@ -75,6 +89,7 @@ function DesktopApp() {
     return () => clearInterval(timer);
   }, []);
 
+  // 아이콘 데이터 불러오기
   useEffect(() => {
     fetch("/data/iconsdata.json")
       .then((res) => res.json())
@@ -82,122 +97,84 @@ function DesktopApp() {
       .catch(console.error);
   }, []);
 
+  // 모바일 페이지 전환 처리
   useEffect(() => {
-    const container = mobilePagesRef.current;
-    if (container) {
-      container.style.transform = `translateX(-${currentPage * 50}%)`;
+    if (mobilePagesRef.current) {
+      mobilePagesRef.current.style.transform = `translateX(-${
+        currentPage * 50
+      }%)`;
     }
   }, [currentPage]);
 
-  // 사운드 객체 참조 저장
-  const clickSoundRef = useRef(null);
+  // 클릭 사운드 오디오 로드
   useEffect(() => {
-    // 오디오 객체 초기화 (최초 1회만)
     clickSoundRef.current = new Audio("/sound/클릭.mp3");
   }, []);
 
-  const handleIconClick = (icon) => {
-    switch (icon.url) {
-      case "/calculator":
-        setCurrentPopup({ title: "계산기", component: <Calculator /> });
-        break;
-      case "/weather":
-        setCurrentPopup({ title: "날씨", component: <Weather /> });
-        break;
-      case "/map":
-        setCurrentPopup({ title: "지도", component: <Map /> });
-        break;
-      case "/memo":
-        setCurrentPopup({ title: "메모장", component: <MemoApp /> });
-        break;
-      case "/resume":
-        setCurrentPopup({ title: "이력서", component: <Resume /> });
-        break;
-      case "/pokedex":
-        setCurrentPopup({ title: "PokeDex", component: <Pokedex /> });
-        break;
-      case "/tetris":
-        setCurrentPopup({ title: "테트리스", component: <Tetris /> });
-        break;
-      case "/speed":
-        setCurrentPopup({ title: "반응속도 테스트", component: <Speed /> });
-        break;
-      case "/maple":
-        setCurrentPopup({ title: "메이플 위키", component: <Maple /> });
-        break;
-      case "/music":
-        setCurrentPopup({ title: "뮤직 플레이어", component: <Music /> });
-        break;
-      case "/exchange":
-        setCurrentPopup({ title: "환율 정보", component: <ExchangeRate /> });
-        break;
-      case "/coin":
-        setCurrentPopup({ title: "코인 시세", component: <Coin /> });
-        break;
-      case "/stock":
-        setCurrentPopup({ title: "주식 정보", component: <StockInfo /> });
-        break;
-      case "/flight":
-        setCurrentPopup({ title: "항공편 정보", component: <Flight /> });
-        break;
-      case "/seven":
-        setCurrentPopup({ title: "세븐나이츠", component: <Seven /> });
-        break;
-      case "/paint":
-        setCurrentPopup({ title: "그림판", component: <Paint /> });
-        break;
-      case "/news":
-        setCurrentPopup({ title: "뉴스", component: <News /> });
-        break;
-      case "/book":
-        setCurrentPopup({ title: "도서 검색", component: <BookApp /> });
-        break;
-      case "/travel":
-        setCurrentPopup({ title: "여행 정보", component: <Travel /> });
-        break;
-      case "/movie":
-        setCurrentPopup({ title: "영화 정보", component: <Movie /> });
-        break;
-      case "/tictactoe":
-        setCurrentPopup({ title: "틱택토", component: <TicTacToe /> });
-        break;
-      case "/memory":
-        setCurrentPopup({ title: "카드 뒤집기", component: <MemoryGame /> });
-        break;
-      case "/snake":
-        setCurrentPopup({ title: "스네이크 게임", component: <SnakeGame /> });
-        break;
-      case "/turncard":
-        setCurrentPopup({
-          title: "턴제 카드 RPG",
-          component: <TurnBasedCardRPG />,
-        });
-        break;
-      default:
-        if (icon.url) window.location.href = icon.url;
-        else if (icon.type === "folder") setOpenFolder(icon);
-        break;
-    }
-    clickSoundRef.current?.play(); // 클릭 사운드
+  // 공통 팝업 열기 함수
+  const openPopup = (title, component) => {
+    setCurrentPopup({ title, component });
+    clickSoundRef.current?.play();
   };
 
+  // 아이콘 클릭 핸들러
+  const handleIconClick = (icon) => {
+    const appMap = {
+      "/calculator": { title: "계산기", component: <Calculator /> },
+      "/weather": { title: "날씨", component: <Weather /> },
+      "/map": { title: "지도", component: <Map /> },
+      "/memo": { title: "메모장", component: <MemoApp /> },
+      "/resume": { title: "이력서", component: <Resume /> },
+      "/pokedex": { title: "PokeDex", component: <Pokedex /> },
+      "/tetris": { title: "테트리스", component: <Tetris /> },
+      "/speed": { title: "반응속도 테스트", component: <Speed /> },
+      "/maple": { title: "메이플 위키", component: <Maple /> },
+      "/music": { title: "뮤직 플레이어", component: <Music /> },
+      "/exchange": { title: "환율 정보", component: <ExchangeRate /> },
+      "/coin": { title: "코인 시세", component: <Coin /> },
+      "/stock": { title: "주식 정보", component: <StockInfo /> },
+      "/flight": { title: "항공편 정보", component: <Flight /> },
+      "/seven": { title: "세븐나이츠", component: <Seven /> },
+      "/paint": { title: "그림판", component: <Paint /> },
+      "/news": { title: "뉴스", component: <News /> },
+      "/book": { title: "도서 검색", component: <BookApp /> },
+      "/travel": { title: "여행 정보", component: <Travel /> },
+      "/movie": { title: "영화 정보", component: <Movie /> },
+      "/tictactoe": { title: "틱택토", component: <TicTacToe /> },
+      "/memory": { title: "카드 뒤집기", component: <MemoryGame /> },
+      "/snake": { title: "스네이크 게임", component: <SnakeGame /> },
+      "/turncard": { title: "턴제 카드 RPG", component: <TurnBasedCardRPG /> },
+    };
+
+    if (icon.url && appMap[icon.url]) {
+      openPopup(appMap[icon.url].title, appMap[icon.url].component);
+    } else if (icon.type === "folder") {
+      setOpenFolder(icon);
+    } else if (icon.url) {
+      window.location.href = icon.url;
+    }
+  };
+
+  // 날짜 클릭 시 메모 보기
   const handleDateClick = (day) => {
     const key = `${currentDate.getFullYear()}-${
       currentDate.getMonth() + 1
     }-${day}`;
     setSelectedDate(key);
     setMemoInput(memos[key] || "");
-    clickSoundRef.current?.play(); // 클릭 사운드
+    clickSoundRef.current?.play();
   };
 
+  // 메모 저장
   const handleSaveMemo = () => {
     const updated = { ...memos, [selectedDate]: memoInput };
     setMemos(updated);
     localStorage.setItem("calendarMemos", JSON.stringify(updated));
     setSelectedDate(null);
-    clickSoundRef.current?.play(); // 클릭 사운드
+    clickSoundRef.current?.play();
   };
 
+  // 모바일 스와이프 제스처 처리
   const handleSwipe = (direction) => {
     setCurrentPage((prev) => {
       if (direction === "left" && prev < totalPages - 1) return prev + 1;
@@ -206,13 +183,15 @@ function DesktopApp() {
     });
   };
 
+  // 팝업/폴더/메모 모두 닫기
   const handleCloseAll = () => {
     setCurrentPopup(null);
     setOpenFolder(null);
     setSelectedDate(null);
-    clickSoundRef.current?.play(); // 클릭 사운드
+    clickSoundRef.current?.play();
   };
 
+  // 인트로 화면 → 로딩 → 데스크탑 시작
   const handleStart = () => {
     setIsLoading(true);
     setLoadingProgress(0);
@@ -230,9 +209,10 @@ function DesktopApp() {
         return prev + 5;
       });
     }, 100);
-    clickSoundRef.current?.play(); // 클릭 사운드
+    clickSoundRef.current?.play();
   };
 
+  // 인트로 화면
   if (isIntro) {
     return (
       <div className="intro-screen">
@@ -256,6 +236,7 @@ function DesktopApp() {
     );
   }
 
+  // 데스크탑 UI
   return (
     <div className="all">
       <div className="desktop">
@@ -277,36 +258,33 @@ function DesktopApp() {
         />
       </div>
 
-      <div className="mobile">
-        <div
-          className="mobile-container"
-          onTouchStart={(e) =>
-            (handleTouchStart.current = e.touches[0].clientX)
-          }
-          onTouchEnd={(e) => {
-            handleTouchEnd.current = e.changedTouches[0].clientX;
-            const diff = handleTouchStart.current - handleTouchEnd.current;
-            if (diff > 50) handleSwipe("left");
-            else if (diff < -50) handleSwipe("right");
-          }}
-        >
-          <div className="mobile-pages" ref={mobilePagesRef}>
-            <div className="mobile-page">
-              <IconList icons={icons} onIconClick={handleIconClick} />
-            </div>
-            <div className="mobile-page">
-              <Calendar
-                currentDate={currentDate}
-                memos={memos}
-                onDateClick={handleDateClick}
-              />
-            </div>
+      {/* 모바일 UI */}
+      <div
+        className="mobile"
+        onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
+        onTouchEnd={(e) => {
+          const diff = touchStartX.current - e.changedTouches[0].clientX;
+          if (diff > 50) handleSwipe("left");
+          else if (diff < -50) handleSwipe("right");
+        }}
+      >
+        <div className="mobile-pages" ref={mobilePagesRef}>
+          <div className="mobile-page">
+            <IconList icons={icons} onIconClick={handleIconClick} />
+          </div>
+          <div className="mobile-page">
+            <Calendar
+              currentDate={currentDate}
+              memos={memos}
+              onDateClick={handleDateClick}
+            />
           </div>
         </div>
         <MobileTopbar time={currentTime} />
         <MobileBottombar onCloseAll={handleCloseAll} />
       </div>
 
+      {/* 팝업/폴더/메모 */}
       <div>
         {openFolder && (
           <FolderPopup
@@ -318,7 +296,6 @@ function DesktopApp() {
             }}
           />
         )}
-
         {selectedDate && (
           <Memo
             selectedDate={selectedDate}
@@ -328,7 +305,6 @@ function DesktopApp() {
             onClose={() => setSelectedDate(null)}
           />
         )}
-
         {currentPopup && (
           <Popup
             title={currentPopup.title}
