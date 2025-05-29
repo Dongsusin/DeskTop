@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from "react";
 import "./ExchangeRate.css";
 
-const ExchangeRate = () => {
+export default function ExchangeRate() {
+  const [tab, setTab] = useState("coin");
+
+  // 🔹 코인 정보 관련 상태
+  const [coins, setCoins] = useState([]);
+  const [coinLoading, setCoinLoading] = useState(true);
+  const [coinError, setCoinError] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
+
+  // 🔹 환율 관련 상태
   const [base, setBase] = useState("USD");
   const [rates, setRates] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [rateLoading, setRateLoading] = useState(true);
   const [currencies, setCurrencies] = useState([]);
+
+  // 🔹 주식 관련 상태
+  const [symbol, setSymbol] = useState("");
+  const [stockData, setStockData] = useState(null);
+  const [stockError, setStockError] = useState(null);
+  const [stockLoading, setStockLoading] = useState(false);
+
+  const API_KEY = "d0pgs09r01qgccu9225gd0pgs09r01qgccu92260";
 
   const currencyNamesKR = {
     USD: "미국 달러",
@@ -175,66 +192,227 @@ const ExchangeRate = () => {
     TVD: "투발루 달러",
     XCG: "코모로 프랑",
   };
+  // 🔹 코인 정보 가져오기
+  const fetchCoins = async () => {
+    try {
+      setCoinLoading(true);
+      const res = await fetch(
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,ripple,litecoin,cardano"
+      );
+      if (!res.ok) throw new Error("API 호출 실패");
+      const data = await res.json();
+      setCoins(data);
+      if (data.length > 0) {
+        setLastUpdated(data[0].last_updated);
+      }
+    } catch (err) {
+      setCoinError(err.message);
+    } finally {
+      setCoinLoading(false);
+    }
+  };
 
-  useEffect(() => {
-    const fetchRates = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
-        const data = await res.json();
+  // 🔹 환율 정보 가져오기
+  const fetchRates = async () => {
+    setRateLoading(true);
+    try {
+      const res = await fetch(`https://open.er-api.com/v6/latest/${base}`);
+      const data = await res.json();
 
-        if (data.result === "success") {
-          setRates(data.rates || {});
-          setCurrencies(Object.keys(data.rates).filter((cur) => cur !== base));
-        } else {
-          setRates({});
-          setCurrencies([]);
-          console.error("API 에러:", data["error-type"]);
-        }
-      } catch (error) {
-        console.error("환율 데이터를 가져오는 중 오류 발생:", error);
+      if (data.result === "success") {
+        setRates(data.rates || {});
+        setCurrencies(Object.keys(data.rates).filter((cur) => cur !== base));
+      } else {
         setRates({});
         setCurrencies([]);
       }
-      setLoading(false);
-    };
+    } catch (error) {
+      setRates({});
+      setCurrencies([]);
+    }
+    setRateLoading(false);
+  };
 
+  // 🔹 주식 정보 가져오기
+  const fetchStockData = async () => {
+    if (!symbol) return;
+    setStockLoading(true);
+    setStockError(null);
+    setStockData(null);
+    try {
+      const res = await fetch(
+        `https://finnhub.io/api/v1/quote?symbol=${symbol.toUpperCase()}&token=${API_KEY}`
+      );
+      const data = await res.json();
+      if (data && data.c) {
+        setStockData(data);
+      } else {
+        setStockError("해당 주식 정보를 찾을 수 없습니다.");
+      }
+    } catch (e) {
+      setStockError("데이터를 불러오는 중 오류가 발생했습니다.");
+    } finally {
+      setStockLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCoins();
+  }, []);
+
+  useEffect(() => {
     fetchRates();
   }, [base]);
 
-  return (
-    <div className="ExchangeRate">
-      <h1>환율 비교</h1>
-      <select value={base} onChange={(e) => setBase(e.target.value)}>
-        {[base, ...currencies].map((cur) => (
-          <option key={cur} value={cur}>
-            {cur}
-          </option>
-        ))}
-      </select>
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return "";
+    return d.toLocaleString();
+  };
 
-      {loading ? (
-        <p>로딩 중...</p>
-      ) : (
-        <div className="rates">
-          {currencies.map((cur) => (
-            <div key={cur} className="rate-card">
-              <h2>
-                {cur}
-                <br />
-                <small className="currency-name">
-                  ({currencyNamesKR[cur] || ""})
-                </small>
-              </h2>
-              <p>
-                1 {base} = {rates[cur]?.toFixed(4) || "N/A"} {cur}
-              </p>
+  return (
+    <div className="dashboard-container">
+      <h1 className="main-title">📊 금융 정보 대시보드</h1>
+      <div className="tabs">
+        <button
+          onClick={() => setTab("coin")}
+          className={tab === "coin" ? "active" : ""}
+        >
+          💰 코인
+        </button>
+        <button
+          onClick={() => setTab("exchange")}
+          className={tab === "exchange" ? "active" : ""}
+        >
+          💱 환율
+        </button>
+        <button
+          onClick={() => setTab("stock")}
+          className={tab === "stock" ? "active" : ""}
+        >
+          📈 주식
+        </button>
+      </div>
+
+      <div className="tab-content">
+        {tab === "coin" && (
+          <div className="coin-container">
+            <h2>코인 시세 정보</h2>
+            {lastUpdated && (
+              <div className="updated-date">
+                (기준: {formatDate(lastUpdated)})
+              </div>
+            )}
+            {coinLoading ? (
+              <div>로딩 중...</div>
+            ) : coinError ? (
+              <div className="error">에러: {coinError}</div>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>코인</th>
+                    <th>현재가 (USD)</th>
+                    <th>시가총액</th>
+                    <th>24시간 변동률</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {coins.map((coin) => (
+                    <tr key={coin.id}>
+                      <td>
+                        <img src={coin.image} alt={coin.name} width={20} />{" "}
+                        {coin.name}
+                      </td>
+                      <td>${coin.current_price.toLocaleString()}</td>
+                      <td>${coin.market_cap.toLocaleString()}</td>
+                      <td
+                        className={
+                          coin.price_change_percentage_24h > 0 ? "up" : "down"
+                        }
+                      >
+                        {coin.price_change_percentage_24h.toFixed(2)}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        )}
+
+        {tab === "exchange" && (
+          <div className="exchange-container">
+            <h2>환율 정보</h2>
+            <select value={base} onChange={(e) => setBase(e.target.value)}>
+              {[base, ...currencies].map((cur) => (
+                <option key={cur} value={cur}>
+                  {cur}
+                </option>
+              ))}
+            </select>
+            {rateLoading ? (
+              <p>로딩 중...</p>
+            ) : (
+              <div className="rates">
+                {currencies.map((cur) => (
+                  <div key={cur} className="rate-card">
+                    <h3>
+                      {cur} <small>({currencyNamesKR[cur] || ""})</small>
+                    </h3>
+                    <p>
+                      1 {base} = {rates[cur]?.toFixed(4)} {cur}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {tab === "stock" && (
+          <div className="stock-container">
+            <h2>주식 정보</h2>
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="주식심볼 입력 (예: AAPL)"
+                value={symbol}
+                onChange={(e) => setSymbol(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && fetchStockData()}
+              />
+              <button onClick={fetchStockData}>검색</button>
             </div>
-          ))}
-        </div>
-      )}
+            {stockLoading && <div>불러오는 중...</div>}
+            {stockError && <div className="error">{stockError}</div>}
+            {stockData && (
+              <div className="info">
+                <p>
+                  <strong>현재가:</strong> ${stockData.c.toFixed(2)}
+                </p>
+                <p>
+                  <strong>변동:</strong> ${stockData.d.toFixed(2)}
+                </p>
+                <p>
+                  <strong>변동률:</strong> {stockData.dp.toFixed(2)}%
+                </p>
+                <p>
+                  <strong>시가:</strong> ${stockData.o.toFixed(2)}
+                </p>
+                <p>
+                  <strong>고가:</strong> ${stockData.h.toFixed(2)}
+                </p>
+                <p>
+                  <strong>저가:</strong> ${stockData.l.toFixed(2)}
+                </p>
+                <p>
+                  <strong>전일 종가:</strong> ${stockData.pc.toFixed(2)}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-export default ExchangeRate;
+}

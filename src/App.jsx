@@ -23,17 +23,13 @@ import Speed from "./Apps/Speed/Speed";
 import Maple from "./Apps/Maple/Maple";
 import Music from "./Apps/Music/Music";
 import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
-import Coin from "./Apps/CoinInfo/CoinInfo";
-import StockInfo from "./Apps/StockInfo/StockInfo";
 import Flight from "./Apps/FlightApp/FlightApp";
-import Seven from "./Apps/Seven/Seven";
 import Paint from "./Apps/PaintApp/PaintApp";
 import BookApp from "./Apps/BookApp/BookApp";
 import Travel from "./Apps/Travel/Travel";
 import Movie from "./Apps/Movies/Movies";
 import TicTacToe from "./Apps/TicTacToe/TicTacToe";
 import MemoryGame from "./Apps/MemoryGame/MemoryGame";
-import SnakeGame from "./Apps/Snake/SnakeGame";
 import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
 
 // 팝업 UI 컴포넌트
@@ -130,17 +126,13 @@ function DesktopApp() {
       "/maple": { title: "메이플 위키", component: <Maple /> },
       "/music": { title: "뮤직 플레이어", component: <Music /> },
       "/exchange": { title: "환율 정보", component: <ExchangeRate /> },
-      "/coin": { title: "코인 시세", component: <Coin /> },
-      "/stock": { title: "주식 정보", component: <StockInfo /> },
       "/flight": { title: "항공편 정보", component: <Flight /> },
-      "/seven": { title: "세븐나이츠", component: <Seven /> },
       "/paint": { title: "그림판", component: <Paint /> },
       "/book": { title: "도서 검색", component: <BookApp /> },
       "/travel": { title: "여행 정보", component: <Travel /> },
       "/movie": { title: "영화 정보", component: <Movie /> },
       "/tictactoe": { title: "틱택토", component: <TicTacToe /> },
       "/memory": { title: "카드 뒤집기", component: <MemoryGame /> },
-      "/snake": { title: "스네이크 게임", component: <SnakeGame /> },
       "/turncard": { title: "턴제 카드 RPG", component: <TurnBasedCardRPG /> },
     };
 

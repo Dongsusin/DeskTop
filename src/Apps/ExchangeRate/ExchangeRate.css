@@ -1,52 +1,97 @@
-.ExchangeRate {
-  max-width: 600px;
-  margin: 2rem auto;
+.dashboard-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.main-title {
   text-align: center;
-  color: #333;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-.ExchangeRate h1 {
-  margin-bottom: 1rem;
-  color: #0066cc;
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.ExchangeRate select {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  margin-bottom: 2rem;
+.tabs button {
+  padding: 10px 20px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 8px;
 }
 
-.ExchangeRate .rates {
+.tabs .active {
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.tab-content {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.up {
+  color: green;
+}
+
+.down {
+  color: red;
+}
+
+.rates {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.ExchangeRate .rate-card {
-  border: 1px solid #ccc;
+.rate-card {
+  background: #f5f5f5;
   border-radius: 8px;
-  padding: 1rem;
-  width: 150px;
-  background: #f9f9f9;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  flex: 1 1 200px;
 }
 
-.ExchangeRate .rate-card h2 {
-  margin: 0 0 0.5rem;
-  color: #444;
-  font-weight: 600;
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.ExchangeRate .rate-card h2 .currency-name {
-  display: block;
-  font-weight: normal;
-  font-size: 0.75rem;
-  color: #666;
-  margin-top: 2px;
+input[type="text"] {
+  flex: 1;
+  padding: 8px;
 }
 
-.ExchangeRate .rate-card p {
-  margin: 0;
-  font-weight: bold;
+button {
+  padding: 8px 16px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
 }

@@ -60,6 +60,12 @@
     "url": "/book"
   },
   {
+    "type": "icon",
+    "name": "환률",
+    "image": "/image/아이콘/환률.png",
+    "url": "/exchange"
+  },
+  {
     "type": "folder",
     "name": "(팀) 프로젝트",
     "image": "/image/아이콘/폴더.png",
@@ -109,12 +115,6 @@
       },
       {
         "type": "icon",
-        "name": "스네이크",
-        "image": "/image/아이콘/스네이크.png",
-        "url": "/snake"
-      },
-      {
-        "type": "icon",
         "name": "턴제카드게임",
         "image": "/image/아이콘/턴카드.png",
         "url": "/turncard"
@@ -137,37 +137,6 @@
         "name": "포켓몬",
         "image": "/image/아이콘/포켓몬.png",
         "url": "/pokedex"
-      },
-      {
-        "type": "icon",
-        "name": "세븐나이츠",
-        "image": "/image/아이콘/세븐나이츠.webp",
-        "url": "/seven"
-      }
-    ]
-  },
-  {
-    "type": "folder",
-    "name": "금융 정보",
-    "image": "/image/아이콘/폴더.png",
-    "projects": [
-      {
-        "type": "icon",
-        "name": "환률",
-        "image": "/image/아이콘/환률.png",
-        "url": "/exchange"
-      },
-      {
-        "type": "icon",
-        "name": "코인",
-        "image": "/image/아이콘/코인.png",
-        "url": "/coin"
-      },
-      {
-        "type": "icon",
-        "name": "주식",
-        "image": "/image/아이콘/주식.png",
-        "url": "/stock"
       }
     ]
   },
