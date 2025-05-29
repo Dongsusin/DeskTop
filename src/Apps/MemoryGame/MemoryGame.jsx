@@ -121,12 +121,7 @@ export default function MemoryGame() {
     <div className="MemoryGame">
       <h1>카드 뒤집기</h1>
       <div className="status">{status}</div>
-      <div
-        className="card-grid"
-        style={{
-          gridTemplateColumns: `repeat(${Math.min(6, gameSize)}, 1fr)`,
-        }}
-      >
+      <div className="card-grid">
         {cards.map((card, i) => (
           <div
             key={card.id}

@@ -234,7 +234,7 @@ button:disabled {
     width: auto;
   }
 
-  .controls button {
+  .weather .controls button {
     width: 40%;
   }
 
