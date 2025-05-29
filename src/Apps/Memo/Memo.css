@@ -1,13 +1,89 @@
 .memo-app {
   width: 100%;
+  max-width: 600px;
   height: 500px;
   background: #f9f9f9;
   border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
 }
 
 .memo-app h2 {
   text-align: center;
   color: #333;
+  margin-bottom: 10px;
+}
+
+.memo-sidebar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-note-btn {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #0077ff;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+.add-note-btn:hover {
+  background-color: #005fcc;
+}
+
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+  border-top: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+}
+
+.note-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.note-list-item:hover {
+  background-color: #e7f0ff;
+}
+
+.note-title {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-note-btn {
+  border: none;
+  background: transparent;
+  color: #ff4d4d;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0 5px;
+}
+
+.memo-edit {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .memo-input {
@@ -18,4 +94,45 @@
   font-size: 16px;
   border-radius: 6px;
   box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-family: inherit;
+}
+
+.memo-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.memo-footer button {
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.memo-footer button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.memo-footer button:first-child {
+  background-color: #eee;
+}
+.memo-footer button:first-child:hover:not(:disabled) {
+  background-color: #ddd;
+}
+
+.memo-footer button:last-child {
+  background-color: #0077ff;
+  color: white;
+}
+.memo-footer button:last-child:hover:not(:disabled) {
+  background-color: #005fcc;
 }
