@@ -105,3 +105,20 @@
 .history li strong {
   color: #eee;
 }
+
+@media screen and (max-width: 768px) {
+  .calculator {
+    margin: 0px;
+    padding: 0px;
+    gap: 5px;
+  }
+
+  .history {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    min-height: 300px;
+  }
+}
