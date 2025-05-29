@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./BookApp.css";
 
 export default function BookApp() {
   const [query, setQuery] = useState("");
@@ -181,7 +182,7 @@ export default function BookApp() {
               >
                 이전
               </button>
-              <span style={{ margin: "0 10px" }}>
+              <span style={{ margin: "0 10px", color: "white" }}>
                 {page + 1} / {totalPages}
               </span>
               <button
