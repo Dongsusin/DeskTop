@@ -20,16 +20,33 @@
   border: none;
   font-size: 16px;
   outline: none;
+  background-color: #333;
+  color: white;
+}
+
+.view-toggle {
+  margin-left: 10px;
+  padding: 8px 12px;
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.view-toggle:hover {
+  background-color: #17a74a;
 }
 
 .music .main {
   flex: 1;
   display: flex;
+  flex-direction: column;
   gap: 10px;
   padding: 10px;
   box-sizing: border-box;
   height: auto;
-  max-height: 500px;
+  max-height: 100%;
 }
 
 .music .right {
@@ -37,8 +54,8 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: auto;
   background: #222;
   padding: 20px;
@@ -46,6 +63,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   height: auto;
+  text-align: left;
 }
 
 .music .right h2 {
@@ -114,13 +132,18 @@
   text-align: center;
   width: 100%;
   max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  justify-content: center;
 }
 
 .music .player img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   animation-play-state: paused;
 }
 
@@ -142,9 +165,13 @@
 }
 
 .music .player h3 {
-  margin: 0 0 12px 0;
+  margin: 0;
   font-weight: 600;
   color: #1db954;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
 }
 
 .music audio {
@@ -219,4 +246,9 @@
   background: #1db954;
   cursor: pointer;
   box-shadow: 0 0 2px #1db954;
+}
+
+.audio {
+  display: flex;
+  flex-direction: row;
 }

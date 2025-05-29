@@ -11,6 +11,7 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [view, setView] = useState("search");
 
   const audioRef = useRef(null);
 
@@ -21,22 +22,18 @@ export default function App() {
     );
     const data = await res.json();
     setTracks(data.results);
+    setView("search");
   };
 
   const handlePlay = (track) => {
     setCurrentTrack(track);
     setProgress(0);
     setIsPlaying(true);
+    setView("player");
   };
 
-  const onTimeUpdate = () => {
-    setProgress(audioRef.current.currentTime);
-  };
-
-  const onLoadedMetadata = () => {
-    setDuration(audioRef.current.duration);
-  };
-
+  const onTimeUpdate = () => setProgress(audioRef.current.currentTime);
+  const onLoadedMetadata = () => setDuration(audioRef.current.duration);
   const onSeek = (e) => {
     const time = e.target.value;
     audioRef.current.currentTime = time;
@@ -75,18 +72,27 @@ export default function App() {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && searchTracks()}
         />
+        <button
+          className="view-toggle"
+          onClick={() => setView(view === "search" ? "player" : "search")}
+        >
+          {view === "search" ? "재생 보기" : "검색 보기"}
+        </button>
       </header>
 
-      <div className="main">
-        <section className="center">
-          {currentTrack ? (
-            <div className="player">
-              <img
-                src={currentTrack.artworkUrl100}
-                alt="art"
-                className={isPlaying ? "playing" : ""}
-              />
+      <div className="main unified">
+        {view === "player" && currentTrack && (
+          <div className="player">
+            <img
+              src={currentTrack.artworkUrl100}
+              alt="art"
+              className={isPlaying ? "playing" : ""}
+            />
+            <div className="info">
               <h3>{currentTrack.trackName}</h3>
+              <p>
+                {currentTrack.artistName} - {currentTrack.collectionName}
+              </p>
               <audio
                 ref={audioRef}
                 src={currentTrack.previewUrl}
@@ -97,7 +103,6 @@ export default function App() {
                 controls
                 autoPlay
               />
-
               <div className="progress-bar">
                 <span>{formatTime(progress)}</span>
                 <input
@@ -110,9 +115,8 @@ export default function App() {
                 />
                 <span>{formatTime(duration)}</span>
               </div>
-
               <div className="volume-control">
-                <label>sound:</label>
+                <label>Sound:</label>
                 <input
                   type="range"
                   min="0"
@@ -123,24 +127,27 @@ export default function App() {
                 />
               </div>
             </div>
-          ) : (
-            <p>노래를 검색후 재생하세요</p>
-          )}
-        </section>
+          </div>
+        )}
 
-        <aside className="right">
-          <h2>검색 결과</h2>
-          {tracks.length === 0 && <p>검색 결과 없음</p>}
-          {tracks.map((track) => (
-            <div key={track.trackId} className="track">
-              <img src={track.artworkUrl60} alt="art" />
-              <div>
-                <p>{track.trackName}</p>
-                <button onClick={() => handlePlay(track)}>재생</button>
-              </div>
-            </div>
-          ))}
-        </aside>
+        {view === "search" && (
+          <div className="right">
+            <h2>검색 결과</h2>
+            {tracks.length === 0 ? (
+              <p>검색 결과 없음</p>
+            ) : (
+              tracks.map((track) => (
+                <div key={track.trackId} className="track">
+                  <img src={track.artworkUrl60} alt="art" />
+                  <div>
+                    <p>{track.trackName}</p>
+                    <button onClick={() => handlePlay(track)}>재생</button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
