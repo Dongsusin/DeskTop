@@ -351,11 +351,20 @@ html {
   min-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: white;
   .Resume {
     margin-bottom: 16px;
   }
   span {
     color: #000;
+  }
+  button {
+    color: white;
+    background-color: #007bff;
+    margin-bottom: 25px;
+  }
+  button:hover {
+    background-color: #0056b3;
   }
 }
 

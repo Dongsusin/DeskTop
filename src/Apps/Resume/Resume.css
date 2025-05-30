@@ -23,6 +23,7 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
+  color: #000;
 }
 
 .nav-btn:hover {
@@ -169,10 +170,18 @@
     color: white;
     border-radius: 25px;
     padding: 16px;
+    strong {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #007bff;
+    }
   }
 }
 
 @media screen and (max-width: 426px) {
+  .Resume {
+    width: 95%;
+  }
   .navigation {
     margin-bottom: 20px;
     display: flex;
