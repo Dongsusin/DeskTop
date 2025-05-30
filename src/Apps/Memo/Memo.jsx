@@ -7,7 +7,7 @@ function Memo() {
   const [notes, setNotes] = useState([]);
   const [currentNoteId, setCurrentNoteId] = useState(null);
   const [input, setInput] = useState("");
-  const [mode, setMode] = useState("list"); // 'list' or 'edit'
+  const [mode, setMode] = useState("list");
   const saveTimeout = useRef(null);
 
   useEffect(() => {
@@ -22,7 +22,6 @@ function Memo() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(notes));
   }, [notes]);
 
-  // 목록에서 메모 선택 시 편집 모드로 전환
   function handleSelectNote(id) {
     const note = notes.find((n) => n.id === id);
     if (note) {
@@ -32,17 +31,14 @@ function Memo() {
     }
   }
 
-  // 새 메모 추가 -> 편집 모드로 전환
   function handleAddNote() {
     setCurrentNoteId(null);
     setInput("");
     setMode("edit");
   }
 
-  // 저장 (작성모드에서만 사용)
   function handleSave() {
     if (currentNoteId === null) {
-      // 새 메모 저장
       const newNote = {
         id: Date.now().toString(),
         content: input,
@@ -51,7 +47,6 @@ function Memo() {
       setNotes([newNote, ...notes]);
       setCurrentNoteId(newNote.id);
     } else {
-      // 기존 메모 업데이트
       setNotes((prevNotes) =>
         prevNotes.map((note) =>
           note.id === currentNoteId
@@ -63,17 +58,14 @@ function Memo() {
     setMode("list");
   }
 
-  // 편집 중인 텍스트 변경
   function handleInputChange(e) {
     setInput(e.target.value);
   }
 
-  // 편집 취소 (목록으로 돌아가기)
   function handleCancel() {
     setMode("list");
   }
 
-  // 메모 삭제 (목록 모드에서만)
   function handleDelete(id) {
     setNotes((prev) => prev.filter((note) => note.id !== id));
     if (id === currentNoteId) {
@@ -82,7 +74,6 @@ function Memo() {
     }
   }
 
-  // 목록 모드 UI
   if (mode === "list") {
     return (
       <div className="memo-app">
@@ -115,7 +106,6 @@ function Memo() {
     );
   }
 
-  // 편집 모드 UI
   return (
     <div className="memo-app">
       <div className="memo-edit">

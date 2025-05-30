@@ -172,7 +172,6 @@ header select:focus {
   font-size: 1rem;
 }
 
-/* ===================== 모달 상세 보기 ===================== */
 .modal {
   display: flex;
   justify-content: center;
@@ -300,7 +299,6 @@ header select:focus {
   }
 }
 
-/* 유틸 */
 .hidden {
   display: none !important;
 }

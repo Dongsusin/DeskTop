@@ -1,4 +1,3 @@
-// components/FolderPopup.js
 function FolderPopup({ folder, onClose, onIconClick }) {
   return (
     <div className="popup">

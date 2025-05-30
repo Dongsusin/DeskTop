@@ -8,10 +8,9 @@ function Taskbar({ time, onTimeClick }) {
   };
 
   const handleShutdownClick = () => {
-    // 사용자에게 확인을 요청한 뒤 창 닫기 시도
     const confirmExit = window.confirm("인터넷을 종료하시겠습니까?");
     if (confirmExit) {
-      window.open("", "_self")?.close(); // 현재 창 닫기 시도
+      window.open("", "_self")?.close();
     }
   };
 

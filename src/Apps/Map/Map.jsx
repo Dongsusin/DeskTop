@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-
-// 커스텀 아이콘 설정
 const customIcon = new L.Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png", // 예시 커스텀 아이콘
+  iconUrl: "https://cdn-icons-png.flaticon.com/512/64/64113.png",
   iconSize: [30, 40],
   iconAnchor: [15, 40],
   popupAnchor: [0, -40],
@@ -20,7 +18,7 @@ function Map() {
   const [error, setError] = useState(null);
 
   const getCurrentLocation = () => {
-    setError(null); // 초기화
+    setError(null);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude: lat, longitude: lon } = pos.coords;
@@ -57,7 +55,7 @@ function Map() {
           <Marker position={[coords.lat, coords.lon]} icon={customIcon}>
             <Popup>현재 위치</Popup>
           </Marker>
-          {/* 반경 500m 원 표시 */}
+
           <Circle
             center={[coords.lat, coords.lon]}
             radius={500}

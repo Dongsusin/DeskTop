@@ -1,8 +1,5 @@
-// 라이브러리 및 스타일/컴포넌트 임포트
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
-
-// 공통 UI 컴포넌트
 import IconList from "./components/IconList";
 import FolderPopup from "./components/Folder";
 import Memo from "./components/Memo";
@@ -10,8 +7,6 @@ import Calendar from "./components/Calendar";
 import Taskbar from "./components/Taskbar";
 import MobileTopbar from "./components/Mobile-Topbar";
 import MobileBottombar from "./components/Mobile-Bottombar";
-
-// 앱 컴포넌트
 import Calculator from "./Apps/Calculator/Calculator";
 import Weather from "./Apps/Weather/Weather";
 import Map from "./Apps/Map/Map";
@@ -30,7 +25,6 @@ import TicTacToe from "./Apps/TicTacToe/TicTacToe";
 import MemoryGame from "./Apps/MemoryGame/MemoryGame";
 import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
 
-// 팝업 UI 컴포넌트
 function Popup({ title, onClose, children }) {
   return (
     <div className="popup">
@@ -43,9 +37,7 @@ function Popup({ title, onClose, children }) {
   );
 }
 
-// 메인 데스크톱 앱 컴포넌트
 function DesktopApp() {
-  // 상태 변수들
   const [isIntro, setIsIntro] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isResume, setIsResume] = useState(false);
@@ -69,7 +61,6 @@ function DesktopApp() {
   const clickSoundRef = useRef(null);
   const touchStartX = useRef(0);
 
-  // 현재 시간 업데이트
   useEffect(() => {
     const timer = setInterval(
       () => setCurrentTime(new Date().toLocaleTimeString()),
@@ -78,7 +69,6 @@ function DesktopApp() {
     return () => clearInterval(timer);
   }, []);
 
-  // 아이콘 데이터 불러오기
   useEffect(() => {
     fetch("/data/iconsdata.json")
       .then((res) => res.json())
@@ -86,7 +76,6 @@ function DesktopApp() {
       .catch(console.error);
   }, []);
 
-  // 모바일 페이지 전환 처리
   useEffect(() => {
     if (mobilePagesRef.current) {
       mobilePagesRef.current.style.transform = `translateX(-${
@@ -95,18 +84,15 @@ function DesktopApp() {
     }
   }, [currentPage]);
 
-  // 클릭 사운드 오디오 로드
   useEffect(() => {
     clickSoundRef.current = new Audio("/sound/클릭.mp3");
   }, []);
 
-  // 공통 팝업 열기 함수
   const openPopup = (title, component) => {
     setCurrentPopup({ title, component });
     clickSoundRef.current?.play();
   };
 
-  // 아이콘 클릭 핸들러
   const handleIconClick = (icon) => {
     const appMap = {
       "/calculator": { title: "계산기", component: <Calculator /> },
@@ -137,7 +123,6 @@ function DesktopApp() {
     }
   };
 
-  // 날짜 클릭 시 메모 보기
   const handleDateClick = (day) => {
     const key = `${currentDate.getFullYear()}-${
       currentDate.getMonth() + 1
@@ -147,7 +132,6 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
-  // 메모 저장
   const handleSaveMemo = () => {
     const updated = { ...memos, [selectedDate]: memoInput };
     setMemos(updated);
@@ -156,7 +140,6 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
-  // 모바일 스와이프 제스처 처리
   const handleSwipe = (direction) => {
     setCurrentPage((prev) => {
       if (direction === "left" && prev < totalPages - 1) return prev + 1;
@@ -165,7 +148,6 @@ function DesktopApp() {
     });
   };
 
-  // 팝업/폴더/메모 모두 닫기
   const handleCloseAll = () => {
     setCurrentPopup(null);
     setOpenFolder(null);
@@ -173,7 +155,6 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
-  // 인트로 화면 → 로딩 → 데스크탑 시작
   const handleStart = () => {
     setIsLoading(true);
     setLoadingProgress(0);
@@ -199,7 +180,6 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
-  // 인트로 화면
   if (isIntro) {
     return (
       <div className="intro-screen">
@@ -228,7 +208,6 @@ function DesktopApp() {
     );
   }
 
-  // 데스크탑 UI
   return (
     <div className="all">
       <div className="desktop">
@@ -250,7 +229,6 @@ function DesktopApp() {
         />
       </div>
 
-      {/* 모바일 UI */}
       <div
         className="mobile"
         onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
@@ -276,7 +254,6 @@ function DesktopApp() {
         <MobileBottombar onCloseAll={handleCloseAll} />
       </div>
 
-      {/* 팝업/폴더/메모 */}
       <div>
         {openFolder && (
           <FolderPopup

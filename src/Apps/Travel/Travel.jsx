@@ -5,14 +5,10 @@ const API_URL = "https://opensky-network.org/api/states/all";
 
 const Travel = () => {
   const [page, setPage] = useState("flight");
-
-  // FlightTravel 상태
   const [origin, setOrigin] = useState("ICN");
   const [destination, setDestination] = useState("NRT");
   const [flights, setFlights] = useState([]);
   const [flightLoading, setFlightLoading] = useState(false);
-
-  // Travel 상태
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const [travelLoading, setTravelLoading] = useState(false);

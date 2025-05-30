@@ -5,7 +5,6 @@ const ROWS = 15;
 const COLS = 10;
 const BLOCK_SIZE = 30;
 
-// 블록 도형 정의
 const SHAPES = {
   I: [
     [
@@ -121,7 +120,6 @@ const SHAPES = {
   ],
 };
 
-// 각 도형의 색상
 const COLORS = {
   I: "cyan",
   O: "yellow",
@@ -132,7 +130,6 @@ const COLORS = {
   L: "orange",
 };
 
-// 랜덤 도형 생성
 function randomShape() {
   const types = Object.keys(SHAPES);
   const type = types[Math.floor(Math.random() * types.length)];
@@ -153,8 +150,6 @@ function Tetris() {
   const [comboText, setComboText] = useState("");
   const [blinkingRows, setBlinkingRows] = useState([]);
   const prevLevelRef = useRef(1);
-
-  // 사운드 참조
   const gameoverSound = useRef();
   const levelSound = useRef();
   const deleteSound = useRef();

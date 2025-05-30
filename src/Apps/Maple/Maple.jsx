@@ -66,11 +66,6 @@ function Maple() {
     }
   };
 
-  const handleFavClick = (name) => {
-    setNickname(name);
-    handleSearch(name);
-  };
-
   const getExpPercent = () => {
     if (!characterData?.character_exp || !characterData?.next_exp) return 0;
     return Math.min(

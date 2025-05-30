@@ -6,7 +6,7 @@ export default function BookApp() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [page, setPage] = useState(0); // 0부터 시작
+  const [page, setPage] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
   const [sort, setSort] = useState("relevance");
   const [recentSearches, setRecentSearches] = useState([]);
@@ -19,7 +19,6 @@ export default function BookApp() {
     if (query.trim() === "") return;
 
     fetchBooks(query, page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, sort]);
 
   const fetchBooks = async (search, pageNum = 0) => {
@@ -78,7 +77,6 @@ export default function BookApp() {
     });
   };
 
-  // 총 페이지수 계산
   const totalPages = Math.ceil(totalItems / maxResults);
 
   return (
@@ -87,7 +85,6 @@ export default function BookApp() {
         <>
           <h1>도서 검색</h1>
 
-          {/* 검색 바 */}
           <form onSubmit={handleSubmit} className="search-bar">
             <input
               type="text"
@@ -98,7 +95,6 @@ export default function BookApp() {
             <button type="submit">검색</button>
           </form>
 
-          {/* 최근 검색어 */}
           {recentSearches.length > 0 && (
             <div className="recent-searches">
               최근 검색어:{" "}
@@ -117,7 +113,6 @@ export default function BookApp() {
             </div>
           )}
 
-          {/* 정렬 */}
           <div className="sort-bar">
             정렬:{" "}
             <select
@@ -132,13 +127,10 @@ export default function BookApp() {
             </select>
           </div>
 
-          {/* 로딩 */}
           {loading && <div className="loader">로딩 중...</div>}
 
-          {/* 에러 */}
           {error && <div className="error">{error}</div>}
 
-          {/* 도서 리스트 */}
           <div className="book-list">
             {books.map((book, i) => {
               const info = book.volumeInfo;
@@ -173,7 +165,6 @@ export default function BookApp() {
             })}
           </div>
 
-          {/* 페이지네이션 */}
           {totalPages > 1 && (
             <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
               <button
@@ -194,7 +185,6 @@ export default function BookApp() {
             </div>
           )}
 
-          {/* 찜 목록 */}
           {favorites.length > 0 && (
             <div className="favorites">
               <h2>즐겨찾기 목록</h2>
@@ -219,7 +209,6 @@ export default function BookApp() {
         </>
       )}
 
-      {/* 상세 페이지 */}
       {selectedBook && (
         <div className="book-detail">
           <button onClick={() => setSelectedBook(null)}>닫기</button>

@@ -42,7 +42,6 @@ const Calculator = () => {
     } else if (value === "+/-") {
       if (input === "0") return;
       if (justCalculated) {
-        // 부호 변경 시 새 시작
         if (result.startsWith("-")) {
           setInput(result.slice(1));
           setResult("");
@@ -53,7 +52,6 @@ const Calculator = () => {
           setJustCalculated(false);
         }
       } else {
-        // 부호 토글
         if (input.startsWith("-")) setInput(input.slice(1));
         else setInput("-" + input);
       }
@@ -63,7 +61,6 @@ const Calculator = () => {
       setInput(input + (open > close ? ")" : "("));
       setJustCalculated(false);
     } else if (value === ".") {
-      // 소수점 중복 방지 (현재 숫자 그룹 내에 '.' 있으면 입력 불가)
       const parts = input.split(/[\+\-\×\÷]/);
       const lastPart = parts[parts.length - 1];
       if (lastPart.includes(".")) return;
@@ -75,15 +72,12 @@ const Calculator = () => {
         setInput((prev) => (prev === "0" ? "0." : prev + "."));
       }
     } else {
-      // 숫자 또는 연산자 입력 처리
       if (justCalculated) {
         if (isOperator(value)) {
-          // 결과 뒤에 연산자 붙이기 가능
           setInput(result + value);
           setResult("");
           setJustCalculated(false);
         } else {
-          // 숫자 입력 시 새로 시작
           setInput(value === "0" ? "0" : value);
           setResult("");
           setJustCalculated(false);
@@ -91,7 +85,6 @@ const Calculator = () => {
       } else {
         let updatedInput = input === "0" ? "" : input;
         const lastChar = updatedInput[updatedInput.length - 1];
-        // 연산자 중복 방지: 마지막이 연산자면 교체
         if (isOperator(lastChar) && isOperator(value)) {
           updatedInput = updatedInput.slice(0, -1);
         }
@@ -131,13 +124,10 @@ const Calculator = () => {
         Enter: "=",
         Backspace: "←",
         Escape: "C",
-        // 키보드에서 '(' , ')' 직접 처리
         "(": "(",
         ")": ")",
-        // +/-는 Shift + '-' 키로 처리 불가, 별도 토글키 미지정
       };
       const key = map[e.key] || e.key;
-      // 숫자, 연산자, 괄호, 기타 버튼들 입력 허용
       if (
         /^[0-9]$/.test(key) ||
         ["+", "-", "×", "÷", ".", "%", "=", "C", "←", "(", ")", "+/-"].includes(
@@ -146,7 +136,6 @@ const Calculator = () => {
       ) {
         e.preventDefault();
         if (key === "(" || key === ")") {
-          // 괄호 직접 입력 시, 그냥 붙이기
           setInput((prev) => prev + key);
           setJustCalculated(false);
         } else {

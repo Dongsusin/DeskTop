@@ -1,10 +1,8 @@
-/* 공통 레이아웃 */
 .App {
   font-family: "Arial", sans-serif;
   padding: 20px;
 }
 
-/* FlightApp 영역 */
 .flight-container {
   max-width: 600px;
   margin: 40px auto;
@@ -63,7 +61,6 @@
   line-height: 1.6;
 }
 
-/* Travel 영역 */
 .Travel {
   max-width: 900px;
   margin: 40px auto;

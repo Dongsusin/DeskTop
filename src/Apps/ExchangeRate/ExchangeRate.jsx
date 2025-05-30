@@ -4,19 +4,16 @@ import "./ExchangeRate.css";
 export default function ExchangeRate() {
   const [tab, setTab] = useState("coin");
 
-  // 🔹 코인 정보 관련 상태
   const [coins, setCoins] = useState([]);
   const [coinLoading, setCoinLoading] = useState(true);
   const [coinError, setCoinError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
 
-  // 🔹 환율 관련 상태
   const [base, setBase] = useState("USD");
   const [rates, setRates] = useState({});
   const [rateLoading, setRateLoading] = useState(true);
   const [currencies, setCurrencies] = useState([]);
 
-  // 🔹 주식 관련 상태
   const [symbol, setSymbol] = useState("");
   const [stockData, setStockData] = useState(null);
   const [stockError, setStockError] = useState(null);
@@ -192,7 +189,6 @@ export default function ExchangeRate() {
     TVD: "투발루 달러",
     XCG: "코모로 프랑",
   };
-  // 🔹 코인 정보 가져오기
   const fetchCoins = async () => {
     try {
       setCoinLoading(true);
@@ -212,7 +208,6 @@ export default function ExchangeRate() {
     }
   };
 
-  // 🔹 환율 정보 가져오기
   const fetchRates = async () => {
     setRateLoading(true);
     try {
@@ -233,7 +228,6 @@ export default function ExchangeRate() {
     setRateLoading(false);
   };
 
-  // 🔹 주식 정보 가져오기
   const fetchStockData = async () => {
     if (!symbol) return;
     setStockLoading(true);
@@ -272,7 +266,7 @@ export default function ExchangeRate() {
 
   return (
     <div className="dashboard-container">
-      <h1 className="main-title">📊 금융 정보 대시보드</h1>
+      <h1 className="main-title">금융 정보 대시보드</h1>
       <div className="tabs">
         <button
           onClick={() => setTab("coin")}

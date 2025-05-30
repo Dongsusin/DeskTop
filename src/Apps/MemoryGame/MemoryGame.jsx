@@ -14,7 +14,7 @@ const allCardSymbols = [
   "🐸",
   "🐵",
   "🐰",
-]; // 최대 12쌍까지 확장 가능
+];
 
 function shuffleArray(array) {
   return array
@@ -34,7 +34,7 @@ export default function MemoryGame() {
   const [isChecking, setIsChecking] = useState(false);
 
   const [showIntro, setShowIntro] = useState(true);
-  const [gameSize, setGameSize] = useState(6); // 기본 6쌍
+  const [gameSize, setGameSize] = useState(6);
 
   const clickSoundRef = useRef(null);
 
@@ -91,7 +91,6 @@ export default function MemoryGame() {
   const status =
     matchedCount === gameSize * 2 ? "완료!" : `맞춘 쌍: ${matchedCount / 2}`;
 
-  // 인트로 화면
   if (showIntro) {
     return (
       <div className="MemoryGame Intro">

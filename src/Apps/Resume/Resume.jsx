@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Resume.css";
 
 function Resume() {
-  const pages = ["Main", "PortfolioInfo", "Project", "Contact"];
+  const pages = ["Main", "PortfolioInfo", "Project", "TeamProject", "Contact"];
   const projectPages = [
     "Project 1",
     "Project 2",
@@ -21,8 +21,10 @@ function Resume() {
     "Project 15",
     "Project 16",
   ];
+  const teamProjectPages = ["Team Project 1", "Team Project 2"];
   const [currentPage, setCurrentPage] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [currentTeamProjectIndex, setCurrentTeamProjectIndex] = useState(0);
 
   const handlePrev = () => {
     if (pages[currentPage] === "Project") {
@@ -30,6 +32,12 @@ function Resume() {
         setCurrentPage(pages.indexOf("PortfolioInfo"));
       } else {
         setCurrentProjectIndex(currentProjectIndex - 1);
+      }
+    } else if (pages[currentPage] === "TeamProject") {
+      if (currentTeamProjectIndex === 0) {
+        setCurrentPage(pages.indexOf("Project"));
+      } else {
+        setCurrentTeamProjectIndex(currentTeamProjectIndex - 1);
       }
     } else {
       setCurrentPage((prev) => (prev === 0 ? pages.length - 1 : prev - 1));
@@ -39,9 +47,15 @@ function Resume() {
   const handleNext = () => {
     if (pages[currentPage] === "Project") {
       if (currentProjectIndex === projectPages.length - 1) {
-        setCurrentPage(pages.indexOf("Contact"));
+        setCurrentPage(pages.indexOf("TeamProject"));
       } else {
         setCurrentProjectIndex(currentProjectIndex + 1);
+      }
+    } else if (pages[currentPage] === "TeamProject") {
+      if (currentTeamProjectIndex === teamProjectPages.length - 1) {
+        setCurrentPage(pages.indexOf("Contact"));
+      } else {
+        setCurrentTeamProjectIndex(currentTeamProjectIndex + 1);
       }
     } else {
       setCurrentPage((prev) => (prev === pages.length - 1 ? 0 : prev + 1));
@@ -56,11 +70,55 @@ function Resume() {
           <section>
             <h2>계산기 프로젝트</h2>
             <img src="/image/이력서/계산기페이지.png" alt="" />
+            <h1>계산기 프로젝트를 소개합니다!</h1>
             <p>
-              React/자바스크립트로 계산기를 구현했으며
-              사칙연산,소수점,퍼센트,+/-로 다양한계산이 가능하며 계산기록을
-              버튼으로 온/오프해서 볼수있으며, 모바일 환경에서는 스크린에 따라
-              크기가 변화하도록 구현했습니다.
+              React,css를 이용해서 계산기기능을 구현해봤으며 개발 과정에서
+              그동안 몰랐던 계산기의 구동로직을 자세히 알수있는 유익한
+              시간이였습니다.
+            </p>
+            <h1>프로젝트 개요</h1>
+            <p>React,css 계산기 기능 구현 프로젝트 </p>
+            <h1>프로젝트 기간</h1>
+            <p>1일</p>
+            <h1>기술 스택/협업 툴</h1>
+            <p>
+              언어:React, Css, JavaScript
+              <br></br>
+              개발환경:Visual Studio Code,Vite,React
+              <br></br>
+              협업:Git, GitHub
+              <br></br>
+              배포:netlify
+            </p>
+            <h1>주요기능</h1>
+            <p>
+              숫자 및 연산자 입력
+              <br></br>
+              숫자(0~9),사칙연사(+,-,*,/)입력 가능
+              <br></br>
+              소수점 입력
+              <br></br>. 입력으로 소수점 표시및 계산 가능
+              <br></br>
+              계산 결과 표시
+              <br></br>= 입력으로 수식을 계산하여 결과 값을 표시
+              <br></br>
+              입력 초기화(C)
+              <br></br>C 버튼으로 전체 값을 초기화
+              <br></br>한 글자 삭제(←)
+              <br></br>
+              마지막 문자 삭제, 계산 직후에는 전체 초기화
+              <br></br>
+              부호 변경(+,-)
+              <br></br>
+              입력 값의 부호를 바꿀수있음
+              <br></br>
+              백분율 처리(%)
+              <br></br>
+              %를 /100으로 계산해서 퍼센트 백분율 계산 가능
+              <br></br>
+              연산 기록 보기/숨기기
+              <br></br>
+              연산 기록 보기 버튼으로 결과 기록을 표시
             </p>
           </section>
         );
@@ -69,14 +127,62 @@ function Resume() {
           <section>
             <h2>날씨 API 프로젝트</h2>
             <img src="/image/이력서/날씨페이지.png" alt="" />
+            <h1>날씨 API 프로젝트를 소개합니다!</h1>
             <p>
-              OpenWeather Api를 이용해서 현재위치의 날씨정보를 받아와서
-              현재온도,체감온도,습도,풍속등의 정보를 나타내주며, 도시이름을
-              영어로 검색해서 해당도시의 날씨를 알수있으며,라이트/다크모드로
-              모드에따라 배경,폰트색을 변경할수있으며,주간 날씨보기로 5일간의
-              날씨를 볼수있으며,도시를 즐겨찾기해서 즐겨찾기한 도시를 빠리게
-              찾을수있으며,정보안내 버튼으로 소리로 현재 날씨를 알려줄수있는
-              기능도 구현했습니다.
+              React,css를 이용해서 OpenWeatherAPi를 이용해서 현재 위치에대한
+              날씨정보를 받아와서 현재 날씨를 알려줍니다. API를 이용해서
+              현재위치값을 받아올수있는 방법을 알수있었습니다.
+            </p>
+            <h1>프로젝트 개요</h1>
+            <p>React,css 날씨 API 구현 프로젝트 </p>
+            <h1>프로젝트 기간</h1>
+            <p>2일</p>
+            <h1>기술 스택/협업 툴</h1>
+            <p>
+              사용API:OpenWeatherApi
+              <br></br>
+              언어:React, Css, JavaScript
+              <br></br>
+              개발환경:Visual Studio Code,Vite,React
+              <br></br>
+              협업:Git, GitHub
+              <br></br>
+              배포:netlify
+            </p>
+            <h1>주요기능</h1>
+            <p>
+              현재 위치 기반 날씨 불러오기
+              <br></br>
+              최초 로딩시 navigator.geolocation으로 위치 추적
+              <br></br>
+              도시 이름으로 날씨 검색
+              <br></br>
+              도시명을 입력하면 API를 통해 날씨 조회
+              <br></br>
+              날씨 정보 표시
+              <br></br>
+              도시명, 현재 기온, 체감 온도, 습도, 풍속, 아이콘을 API로 받아와서
+              표시
+              <br></br>
+              즐겨찾기 추가/삭제
+              <br></br>
+              도시를 즐겨찾기로 로컬에 저장및 삭제기능
+              <br></br>
+              음성 안내
+              <br></br>
+              현재 날씨 정보를 음성으로 읽어 주는 기능(speechSynthesis)
+              <br></br>
+              다크모드 전환
+              <br></br>
+              버튼 클릭시 다크/라이트 모드로 전환돼며 배경색,글자색이 변함
+              <br></br>
+              간단한 날씨 메세지
+              <br></br>
+              현재 날씨 상태에따라 간단한 메세지 표시
+              <br></br>
+              에러/로딩 처리
+              <br></br>
+              잘못된 도시 입력시 에러처리 및 로딩시 로딩 안내문자 표시
             </p>
           </section>
         );
@@ -85,10 +191,51 @@ function Resume() {
           <section>
             <h2>지도 API 프로젝트</h2>
             <img src="/image/이력서/지도페이지.png" alt="" />
+            <h1>지도 API 프로젝트를 소개합니다!</h1>
             <p>
-              avigator.geolocation.getCurrentPosition API를 이용해서
-              현재위치에따른 지도를 보여주며 커스텀마커로 현재위치에 표시했으며
-              위치업데이트 버튼으로 이동후에 위치를 다시 받아올수있습니다.
+              React + Leaflet.js를 이용해 현재 위치를 지도에 표시하는
+              앱.Leaflet.js는 처음 써봤는데 새로운 기능을 체험해볼수있었습니다.
+            </p>
+            <h1>프로젝트 개요</h1>
+            <p> React + Leaflet.js를 이용해 현재 위치를 지도에 표시하는 앱</p>
+            <h1>프로젝트 기간</h1>
+            <p>1일</p>
+            <h1>기술 스택/협업 툴</h1>
+            <p>
+              언어:React, Css, JavaScript,Leaflet.js
+              <br></br>
+              개발환경:Visual Studio Code,Vite,React
+              <br></br>
+              협업:Git, GitHub
+              <br></br>
+              배포:netlify
+            </p>
+            <h1>주요기능</h1>
+            <p>
+              현재 위치 자동 탐지
+              <br></br>
+              최초 로딩시 navigator.geolocation으로 위치 추적
+              <br></br>
+              Leaflet 지도 표시
+              <br></br>
+              OpenStreetMap 기반 지도를 출력
+              <br></br>
+              현재 위치 마커 표시
+              <br></br>
+              커스텀 아이콘을 사용해 현재 위치를 마커로 표시
+              <br></br>
+              500m 반경 원 시각화
+              <br></br>
+              현재 위치를 기반으로 주변 500m를 원으로 그려 사용자의 위치 범위
+              표현
+              <br></br>
+              위치 재탐색 버튼
+              <br></br>
+              위치 업데이트 버튼으로 위치를 다시 탐지 가능
+              <br></br>
+              에러 처리
+              <br></br>
+              위치 접근 실패시 오류 메세지 출력
             </p>
           </section>
         );
@@ -97,11 +244,52 @@ function Resume() {
           <section>
             <h2>메모장 프로젝트</h2>
             <img src="/image/이력서/메모장페이지.png" alt="" />
+            <h1>메모장 프로젝트를 소개합니다!</h1>
             <p>
-              React/자바스크립트로 메모장을 구현했으며, 메모작성으로 메모를
-              추가할수있으며,메인화면에서 추가된 메모를 확인및
-              수정,삭제할수있습니다.또한 메모작성중에는 현재메모의 글자수를
-              표시하도록 구현했습니다.
+              React를 이용해 만든 간단한 메모장 애플리케이션으로, 브라우저의
+              localStorage를 이용해 메모 작성/편집/삭제 기능을 제공합니다.
+            </p>
+            <h1>프로젝트 개요</h1>
+            <p> React를 이용해 만든 간단한 메모장 애플리케이션</p>
+            <h1>프로젝트 기간</h1>
+            <p>2일</p>
+            <h1>기술 스택/협업 툴</h1>
+            <p>
+              언어:React, Css, JavaScript
+              <br></br>
+              개발환경:Visual Studio Code,Vite,React
+              <br></br>
+              협업:Git, GitHub
+              <br></br>
+              배포:netlify
+            </p>
+            <h1>주요기능</h1>
+            <p>
+              메모 목록 보기
+              <br></br>
+              저장된 메모를 리스트로 출력(최대 20자로 요약)
+              <br></br>
+              메모 작성
+              <br></br>새 메모 추가 버튼으로 편집 화면으로 이동
+              <br></br>
+              메모 수정
+              <br></br>
+              기존 메모 클릭시 해당 메모의 내용을 불러와 편집할수있습니다.
+              <br></br>
+              메모 삭제
+              <br></br>
+              리스트에서 메오 옆X버튼트로 메모 개별삭제 기능
+              <br></br>
+              자동 저장
+              <br></br>
+              모든 메모는 로컬 스트리지에 저장되어 새로고침후에도 유지 됍니다.
+              <br></br>
+              텍스트 길이 표시
+              <br></br>
+              메모 작성중 하단에 글자수 표시
+              <br></br>빈 메모 안내
+              <br></br>
+              현재 메모가 없으면 저장된 메모가 없습니다를 메세지로 표시.
             </p>
           </section>
         );
@@ -315,6 +503,179 @@ function Resume() {
     }
   };
 
+  const renderTeamProjectPage = () => {
+    const project = teamProjectPages[currentTeamProjectIndex];
+    switch (project) {
+      case "Team Project 1":
+        return (
+          <section>
+            <h2>윌리의 서재 UI/UX 프로젝트</h2>
+            <img src="/image/이력서/팀프로젝트1.svg" alt="팀 프로젝트 1" />
+            <h1>월리의 서재를 소개합니다!</h1>
+            <p>
+              안녕하세요! 9로디지털 팀은 국내 최대 전자책 구독 서비스 '밀리의
+              서재'의 디자인을 참고하여 '윌리의 서재' 프로젝트를 진행했습니다.
+              사용자 중심의 UI 디자인과 직관적인 인터페이스를 만들기 위해
+              노력했습니다. 팀원 각자의 강점을 살린 효율적인 협업 과정을 통해
+              아이디어를 발전시키고, 함께 문제를 해결하며 모두가 한 단계 성장할
+              수 있는 소중한 경험이었습니다.
+            </p>
+            <h1>프로젝트 개요</h1>
+            <p>윌리의 서재 UI/UX 프로젝트</p>
+            <h1>프로젝트 기간</h1>
+            <p>2025.03.14~2025.03.25</p>
+            <h1>기술 스택/협업 툴</h1>
+            <p>
+              언어:Html5, Css3, TallWindCss, Javascript
+              <br></br>
+              개발환경:Visual Studio Code,Vite
+              <br></br>
+              협업:Git, GitHub, Discord, Notion
+              <br></br>
+              디자인:Figma
+              <br></br>
+              배포:netlify
+            </p>
+            <h1>주요기능</h1>
+            <p>
+              홈 화면
+              <br></br>
+              추천 도서,인기 도서, 신간 도서등 다양한 카테고리별 도서 큐레이션
+              <br></br>
+              도서 검색
+              <br></br>
+              제목,저자,출판사 등 다양한 조건으로 도서 검색 기능
+              <br></br>
+              도서 상세 페이지
+              <br></br>
+              도서 정보, 리뷰, 관련 도서 추천
+              <br></br>내 서재
+              <br></br>
+              사용자가 읽은 책, 읽고 있는 책, 찜한 책 관리
+              <br></br>
+              반응형 디자인
+              <br></br>
+              모바일, 태블릿, 데스크톱 환경에 최적화된 UI
+              <br></br>
+              모듈식 레이아웃
+              <br></br>
+              헤더, 푸터, 버튼, 타이틀 등 레이아웃 요소를 컴포넌트 형식으로 제작
+              <br></br>
+              Tailwind 기반 디자인
+              <br></br>
+              일괄된 디자인 시스템으로 빠른 스타일링이 가능하며, 커스터마이징이
+              용이
+            </p>
+          </section>
+        );
+      case "Team Project 2":
+        return (
+          <section>
+            <h2>2048 JavaScript 프로젝트</h2>
+            <img src="/image/아이콘/js프로젝트.svg" alt="팀 프로젝트 2" />
+            <h1>2048 in 3line을 소개합니다</h1>
+            <p>
+              기존의 2048 게임을 저희 팀만의 로직과 디자인으로 재해석한
+              프로젝트입니다. 코드의 간결함과 유지 보수성을 높이는 데
+              집중하였습니다.
+            </p>
+            <h1>프로젝트 개요</h1>
+            <p>
+              2048 게임을 Vanilla JavaScript 환경에서 직접 구현한 웹 게임
+              프로젝트입니다.
+            </p>
+            <h1>프로젝트 기간</h1>
+            <p>2025.05.09~2025.05.23</p>
+            <h1>기술 스택/협업 툴</h1>
+            <p>
+              언어:Html5, Css3, Typrscript, Javascript
+              <br></br>
+              개발환경:Visual Studio Code,Vite
+              <br></br>
+              협업:Git, GitHub, Discord, Notion
+              <br></br>
+              디자인:Figma
+              <br></br>
+              배포:netlify
+              <br></br>
+              패키지:Prrttier, Eslilt, TS-Node, Node.js
+            </p>
+            <h1>주요기능</h1>
+            <p>
+              타일 이동 및 병합
+              <br></br>
+              방향키를 이용해서 타일이 각 방향으로 이동히며 이동방향에 같은값의
+              타일이 있으면 현재 값*2로 값이 변하며 타일 2개가 병합돼도록
+              구현했습니다.
+              <br></br>
+              타일 자동 생성
+              <br></br>
+              게임 시작시 2개의 셀이 랜덤 위치에 생성돼며 이동마다 추가로
+              비어있는 셀의 랜덤위치에 2또는 4의 값을 가진 셀이 생성돼도록
+              구현했습니다.
+              <br></br>
+              점수 시스템
+              <br></br>
+              병합시 현재 셀의 값*2의 점수가 오르도록 구현했으며,최고기록과
+              비교해서 현재 점수가 최고기록 보다 높으면 최고기록이 갱신돼며,
+              최고기록은 1일단위로 기록및 초기화 됍니다.
+              <br></br>
+              사운드 효과
+              <br></br>
+              게임 시작시 브금이 실행돼며 데스크톱 환경에서는 사운드 스크롤
+              느낌으로 사운드 조절이 가능하고 모바일 환경은 사운드 온/오프
+              버튼으로 구현했습니다.
+              <br></br>
+              게임 종료및 승리 조건 처리
+              <br></br>
+              이동 및병합시마다 현재 타일중에 이동및 병합이 가능한 타일을
+              조건으로 검사해서 만약 이동및 병합할수있는 타일이 없으면
+              게임오버가 표시돼며, 타일을 합쳤을때 타일의값이 2048이 돼면
+              게임승리가 표시됍니다.
+              <br></br>
+              모바일 대응(터치 슬라이드)
+              <br></br>
+              모바일 환경에서도 플레이할수 있도록 터치 슬라이드로도 이동및
+              병합이 가능하도록 구현했습니다.
+              <br></br>
+              반응형 웹 디자인
+              <br></br>
+              다양한 환경에서 원활히 플레이할수있도록 스크린 크기에 맟게
+              반응형으로 디자인 하였습니다.
+              <br></br>
+              보드 크기변경
+              <br></br>
+              게임 보드의 보드를 실시간으로(3*3,4*4,5*5)의 크기로 변경이
+              가능하며 난이도 조절의 역활을 하도록 구현했습니다.
+              <br></br>
+              이동 애니메이션 구현
+              <br></br>
+              이동시 타일의 위치를 이동후 보드값을 업데이트하는 방식으로
+              자연스럽게 이동 애니메이션이 작동하도록 구현했습니다.
+              <br></br>
+              타임어택 모드
+              <br></br>
+              게임 시작시 타이머가 실행돼며 타이머의 값이 상단에 표시돼며 값이
+              0이됄때 까지의 최고점수를 구하는 모드입니다.
+              <br></br>
+              하드 모드
+              <br></br>
+              게임 시작시 랜덤 위치에 이동및 병합이 불가능한 -1값의 셀을 추가로
+              생성하며 그값을 피해서 최고점수를 내는 모드 입니다.
+              <br></br>
+              AI대전 모드
+              <br></br>
+              게임 시작시 게임 보드가 1개더 생성돼며 추가로 생성됀 보는 AI로직에
+              의해 자동으로 게임이 진행돼며 누가더 많은 점수를 내는지 대결하는
+              모드입니다.
+            </p>
+          </section>
+        );
+      default:
+        return null;
+    }
+  };
+
   const renderPage = () => {
     switch (pages[currentPage]) {
       case "Main":
@@ -357,7 +718,6 @@ function Resume() {
             </section>
           </>
         );
-
       case "PortfolioInfo":
         return (
           <section className="PortfolioInfo">
@@ -439,6 +799,25 @@ function Resume() {
             </div>
           </>
         );
+      case "TeamProject":
+        return (
+          <>
+            <div className="projects">{renderTeamProjectPage()}</div>
+            <div className="project-nav">
+              {teamProjectPages.map((proj, idx) => (
+                <button
+                  key={proj}
+                  className={`nav-btn ${
+                    idx === currentTeamProjectIndex ? "active" : ""
+                  }`}
+                  onClick={() => setCurrentTeamProjectIndex(idx)}
+                >
+                  {proj}
+                </button>
+              ))}
+            </div>
+          </>
+        );
       case "Contact":
         return (
           <>
@@ -446,7 +825,7 @@ function Resume() {
               <h2>자격증</h2>
               <ul>
                 <li>정보처리기능사</li>
-                <li>정보기기기능사</li>
+                <li>전자기기기능사</li>
                 <li>제한무선통신사</li>
                 <li>컴활 2급</li>
               </ul>
@@ -500,6 +879,7 @@ function Resume() {
             onClick={() => {
               setCurrentPage(index);
               if (pages[index] !== "Project") setCurrentProjectIndex(0);
+              if (pages[index] !== "TeamProject") setCurrentTeamProjectIndex(0);
             }}
           >
             {page}
@@ -515,6 +895,8 @@ function Resume() {
           {pages[currentPage]}
           {pages[currentPage] === "Project"
             ? ` - ${projectPages[currentProjectIndex]}`
+            : pages[currentPage] === "TeamProject"
+            ? ` - ${teamProjectPages[currentTeamProjectIndex]}`
             : ""}
         </span>
         <button onClick={handleNext}>다음 →</button>

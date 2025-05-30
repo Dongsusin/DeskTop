@@ -212,7 +212,7 @@ function Weather() {
                 !weatherData.city || favorites.includes(weatherData.city)
               }
             >
-              ⭐ 즐겨찾기 추가
+              즐겨찾기 추가
             </button>
             <button onClick={handleSpeak}>🔊 정보 안내</button>
           </div>
