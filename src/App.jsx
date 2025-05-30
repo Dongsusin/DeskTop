@@ -48,28 +48,24 @@ function DesktopApp() {
   // 상태 변수들
   const [isIntro, setIsIntro] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isResume, setIsResume] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
-
   const [icons, setIcons] = useState([]);
   const [openFolder, setOpenFolder] = useState(null);
   const [currentPopup, setCurrentPopup] = useState(null);
-
   const [currentDate] = useState(new Date());
   const [memos, setMemos] = useState(
     () => JSON.parse(localStorage.getItem("calendarMemos")) || {}
   );
   const [selectedDate, setSelectedDate] = useState(null);
   const [memoInput, setMemoInput] = useState("");
-
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
   const [showCalendar, setShowCalendar] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(0);
   const mobilePagesRef = useRef(null);
   const totalPages = 2;
-
   const clickSoundRef = useRef(null);
   const touchStartX = useRef(0);
 
@@ -198,11 +194,21 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
+  const handleResume = () => {
+    setIsResume(true);
+    clickSoundRef.current?.play();
+  };
+
   // 인트로 화면
   if (isIntro) {
     return (
       <div className="intro-screen">
-        {!isLoading ? (
+        {!isResume ? (
+          <div className="intro-Resume">
+            <Resume />
+            <button onClick={handleResume}>포토폴리오 보기</button>
+          </div>
+        ) : !isLoading ? (
           <div>
             <button className="power-button" onClick={handleStart}></button>
             <p>전원을 클릭하세요</p>
