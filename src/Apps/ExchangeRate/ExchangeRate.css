@@ -2,7 +2,7 @@
   max-width: 1000px;
   margin: auto;
   padding: 20px;
-  font-family: "Segoe UI", sans-serif;
+  color: white;
 }
 
 .main-title {
@@ -48,6 +48,7 @@ table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
+  color: white;
 }
 
 .up {
@@ -70,6 +71,8 @@ table td {
   border-radius: 8px;
   padding: 10px;
   flex: 1 1 200px;
+  color: #000;
+  text-align: center;
 }
 
 .search-box {
