@@ -11,6 +11,14 @@ function Resume() {
     "Project 5",
     "Project 6",
     "Project 7",
+    "Project 8",
+    "Project 9",
+    "Project 10",
+    "Project 11",
+    "Project 12",
+    "Project 13",
+    "Project 14",
+    "Project 15",
   ];
   const [currentPage, setCurrentPage] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
@@ -18,7 +26,7 @@ function Resume() {
   const handlePrev = () => {
     if (pages[currentPage] === "Project") {
       if (currentProjectIndex === 0) {
-        setCurrentPage(pages.indexOf("PortfolioInfo")); // 수정: 이전 페이지는 포폴설명
+        setCurrentPage(pages.indexOf("PortfolioInfo"));
       } else {
         setCurrentProjectIndex(currentProjectIndex - 1);
       }
@@ -30,7 +38,7 @@ function Resume() {
   const handleNext = () => {
     if (pages[currentPage] === "Project") {
       if (currentProjectIndex === projectPages.length - 1) {
-        setCurrentPage(pages.indexOf("Contact")); // 수정: 다음 페이지는 Contact
+        setCurrentPage(pages.indexOf("Contact"));
       } else {
         setCurrentProjectIndex(currentProjectIndex + 1);
       }
@@ -131,6 +139,154 @@ function Resume() {
               Google Books API를 이용해 도서를 검색하여 결과를 리스트를 페이지로
               가져오며, 도서 리스트 클릭시 상세페이지로 전환되며
               상세페이지에서자세히보기로 책을 구글에서 검색할수있습니다.
+            </p>
+          </section>
+        );
+      case "Project 8":
+        return (
+          <section>
+            <h2>금융 검색 프로젝트</h2>
+            <img src="/image/이력서/금융페이지.png" alt="" />
+            <p>
+              각각의 금융정보를 API를 이용해서 정보를 받아오고 버튼을 페이지를
+              전환해거며 금융정보를 보기좋게 디자인했습니다.
+            </p>
+          </section>
+        );
+      case "Project 9":
+        return (
+          <section>
+            <h2>테트리스 프로젝트</h2>
+            <img src="/image/이력서/테트리스페이지.png" alt="" />
+            <p>
+              React/자바스크립트를 이용하여 테트리스 게임을 구현했으며
+              1줄없애는걸로 점수가 오르며 일정점수에따라 레벨리 오르고
+              레벨에따라 속도가 증가합니다. 게임 오버시 점수와 최고점수를
+              로컬로저장하며 나타내줍니다.
+            </p>
+          </section>
+        );
+      case "Project 10":
+        return (
+          <section>
+            <h2>반응속도 프로젝트</h2>
+            <img src="/image/이력서/반응속도페이지.png" alt="" />
+            <p>
+              React/자바스크립트를 이용하여 반응속도 테스트를 구현했으며 클릭시
+              배경색이 변하며 랜덤시간이 지나면 초록색으로 바뀌며 초록색으로
+              변한후 화면을 클릭할때까지 시간을 측정해서 반응속도를
+              나타내줍니다.
+            </p>
+          </section>
+        );
+      case "Project 11":
+        return (
+          <section>
+            <h2>틱택토 프로젝트</h2>
+            <img src="/image/이력서/반응속도페이지.png" alt="" />
+            <p>
+              React/자바스크립트를 이용하여 3*3틱택토 게임을 구현했습니다.
+              게임시작후 요소 선택시X로 표시돼며 인공지능이 랜덤한 위치에 O를
+              표시하며 1줄을 먼저 같은 표시로 바꾼 쪽이 승리합니다.
+            </p>
+          </section>
+        );
+      case "Project 12":
+        return (
+          <section>
+            <h2>카드 뒤집기 프로젝트</h2>
+            <img src="/image/이력서/카드페이지.png" alt="" />
+            <p>
+              React/자바스크립트를 이용하여 카드를 뒤집어서 짝을 맟추는 게임을
+              구현해봤습니다. 인트로 페이지에서 카드쌍의 갯수를 선택할수있으며
+              선택후 개임시작시 카드가 갯수에 맟게 정렬돼고 현재 맟춘 카드쌍의
+              갯수가 표시됍니다.
+            </p>
+          </section>
+        );
+      case "Project 13":
+        return (
+          <section>
+            <h2>턴제 카드 게임 프로젝트</h2>
+            <img src="/image/이력서/턴제카드게임.png" alt="" />
+            <p>React/자바스크립트를 이용하여 턴제 카드게임을 구현해봤습니다.</p>
+            <h1>핵심 시스템</h1>
+            <p>
+              1:스테이지 구성
+              <br></br>매 스테이지마다 1~3명씩 랜덤으로 적이 등장하며 3스테이지
+              마다 상점 스테이지가 등장하고, 5스테이지마다 보스 스테이지가
+              등장합니다. 모든적 처치시 다음스테이지로 이동할수있습니다.
+              <br></br>
+              2:카드 구성
+              <br></br>
+              매턴 마다 카드5장을 뽑으며 카드는 각각의 에너지를 소모하여 1번씩
+              사용할수있고 사용하지 않은카드는 버려집니다. 카드는 종류마다
+              효과가 다르며 분류로는 공격/디버프/버프로 나눠며 공격카드는 적한테
+              데미지를 입히며 디버프는 중독과 기절이 있으며, 중독은 매턴 적의
+              체력이 감소하며 기절은 1턴간 행동이 불가하며, 버프카드로는 힐과
+              방어력, 강화카드가 있습니다. 또한 카드강화로 각 카드의 효과를
+              강화할수있습니다.
+              <br></br>
+              3:상점 스테이지
+              <br></br>
+              3스테이지마다 상점이 등장하며 상점에서는 50골드로 에너지증가, 카드
+              강화, 아이템 구매를 할수있습니다.
+              <br></br>
+              4:몬스터 구성
+              <br></br>
+              몬스터는 종류에 따라 공격형,수비형,치유형,랜덤형,보스로 나눠며
+              종류에따라 각행동의 확률이 다르며, 체력,공격력,방어력,저항이
+              매스테이지마다 일정수치 증가합니다. 또한 처치시 골드가 주어지며
+              매스테이지마다 증가합니다.
+              <br></br>
+              5:장비 구성
+              <br></br>
+              장비 칸으로는 투구,갑옷,무기,신발,장갑이 있소 해당칸에 따라 기본
+              능력치가 상승합니다.
+              <br></br>
+              6:게임 오버및 기록저장,게임 로그
+              <br></br>
+              플레이어의 체력이 0이돼면 게임이종료돼며 기록을 확인해서
+              최고기록을 5개까지 로컬로 기록합니다. 또한 모든행동은 로그창에
+              간단히 표시돼며 로그창은 끄고 킬수있습니다.
+            </p>
+          </section>
+        );
+      case "Project 14":
+        return (
+          <section>
+            <h2>메이플 캐릭터 검색 프로젝트</h2>
+            <img src="/image/이력서/메이플페이지.png" alt="" />
+            <p>
+              넥슨에서 지원하는 메이플 API를 이용해서 이름을 검색해서
+              레벨,직업,월드등의 정보를 받아와 나타내주며 최근 검색기록을
+              저장해서 클릭으로 빠르게 검색할수있게해줍니다.
+            </p>
+          </section>
+        );
+      case "Project 15":
+        return (
+          <section>
+            <h2>포켓몬 도감 프로젝트</h2>
+            <img src="/image/이력서/포켓몬페이지.png" alt="" />
+            <p>포켓몬 API를 이용해서 포켓몬의 정보를 받아옵니다.</p>
+            <h1>기능 구성</h1>
+            <p>
+              1:이름 검색및 타입 분류,즐겨찾기
+              <br></br>
+              포켓몬의 이름으 해당 포켓몬을 검색해서 찾을수있으며, 타입에 따라
+              분류도 가능하며, 즐겨찾기를 추가해서 즐겨찾기한 포켓몬만 표시할수
+              있습니다.
+              <br></br>
+              2:타입에 따라른 변화
+              <br></br>
+              포켓몬 타입에 따라 카드의 배경이 변화하며 각타입을 나타내줍니다.
+              <br></br>
+              3:페이지 구성
+              <br></br>
+              1페이지에 30마리씩 배치했으며 30마리가 넘으면 다음페이지에 이어서
+              나타냈으며 각 카드클릭시 해당포켓몬의 상세페이지로 이동하며
+              상세페이지내에서도 다음,이전 포켓몬으로 이동할수있습니다.
             </p>
           </section>
         );
