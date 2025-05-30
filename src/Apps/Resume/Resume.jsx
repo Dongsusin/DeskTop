@@ -203,7 +203,7 @@ function Resume() {
         return (
           <section>
             <h2>틱택토 프로젝트</h2>
-            <img src="/image/이력서/반응속도페이지.png" alt="" />
+            <img src="/image/이력서/틱택토페이지.png" alt="" />
             <p>
               React/자바스크립트를 이용하여 3*3틱택토 게임을 구현했습니다.
               게임시작후 요소 선택시X로 표시돼며 인공지능이 랜덤한 위치에 O를
