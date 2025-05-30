@@ -23,11 +23,9 @@ import Speed from "./Apps/Speed/Speed";
 import Maple from "./Apps/Maple/Maple";
 import Music from "./Apps/Music/Music";
 import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
-import Flight from "./Apps/FlightApp/FlightApp";
 import Paint from "./Apps/PaintApp/PaintApp";
 import BookApp from "./Apps/BookApp/BookApp";
 import Travel from "./Apps/Travel/Travel";
-import Movie from "./Apps/Movies/Movies";
 import TicTacToe from "./Apps/TicTacToe/TicTacToe";
 import MemoryGame from "./Apps/MemoryGame/MemoryGame";
 import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
@@ -126,11 +124,9 @@ function DesktopApp() {
       "/maple": { title: "메이플 위키", component: <Maple /> },
       "/music": { title: "뮤직 플레이어", component: <Music /> },
       "/exchange": { title: "환율 정보", component: <ExchangeRate /> },
-      "/flight": { title: "항공편 정보", component: <Flight /> },
       "/paint": { title: "그림판", component: <Paint /> },
       "/book": { title: "도서 검색", component: <BookApp /> },
       "/travel": { title: "여행 정보", component: <Travel /> },
-      "/movie": { title: "영화 정보", component: <Movie /> },
       "/tictactoe": { title: "틱택토", component: <TicTacToe /> },
       "/memory": { title: "카드 뒤집기", component: <MemoryGame /> },
       "/turncard": { title: "턴제 카드 RPG", component: <TurnBasedCardRPG /> },

@@ -19,6 +19,7 @@ function Resume() {
     "Project 13",
     "Project 14",
     "Project 15",
+    "Project 16",
   ];
   const [currentPage, setCurrentPage] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
@@ -156,6 +157,25 @@ function Resume() {
       case "Project 9":
         return (
           <section>
+            <h2>여행 API 프로젝트</h2>
+            <img src="/image/이력서/여행페이지.png" alt="" />
+            <p>
+              항공편 검색
+              <br></br>
+              OpenSky API를 이용해서 실시간 항공기 정보를 가져와서 출발지 도착지
+              검색후 검색 결과에 맟는 항공편에 고도,속도,항공번호등의 정보를
+              보여줌.
+              <br></br>
+              여행지 검색
+              <br></br>
+              도시 이름을 검색하고 해당도시의 국가,지역,인구,위치등을 보여주고
+              Google Map으로 상세 검색 가능.
+            </p>
+          </section>
+        );
+      case "Project 10":
+        return (
+          <section>
             <h2>테트리스 프로젝트</h2>
             <img src="/image/이력서/테트리스페이지.png" alt="" />
             <p>
@@ -166,7 +186,7 @@ function Resume() {
             </p>
           </section>
         );
-      case "Project 10":
+      case "Project 11":
         return (
           <section>
             <h2>반응속도 프로젝트</h2>
@@ -179,7 +199,7 @@ function Resume() {
             </p>
           </section>
         );
-      case "Project 11":
+      case "Project 12":
         return (
           <section>
             <h2>틱택토 프로젝트</h2>
@@ -191,7 +211,7 @@ function Resume() {
             </p>
           </section>
         );
-      case "Project 12":
+      case "Project 13":
         return (
           <section>
             <h2>카드 뒤집기 프로젝트</h2>
@@ -204,7 +224,7 @@ function Resume() {
             </p>
           </section>
         );
-      case "Project 13":
+      case "Project 14":
         return (
           <section>
             <h2>턴제 카드 게임 프로젝트</h2>
@@ -252,7 +272,7 @@ function Resume() {
             </p>
           </section>
         );
-      case "Project 14":
+      case "Project 15":
         return (
           <section>
             <h2>메이플 캐릭터 검색 프로젝트</h2>
@@ -264,7 +284,7 @@ function Resume() {
             </p>
           </section>
         );
-      case "Project 15":
+      case "Project 16":
         return (
           <section>
             <h2>포켓몬 도감 프로젝트</h2>
