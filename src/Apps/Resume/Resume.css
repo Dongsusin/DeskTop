@@ -178,6 +178,23 @@
   }
 }
 
+@keyframes rippleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+.ripple-animate {
+  animation: rippleIn 0.7s ease-out;
+}
+
 @media screen and (max-width: 426px) {
   .Resume {
     width: 95%;
