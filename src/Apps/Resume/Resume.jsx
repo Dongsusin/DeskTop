@@ -111,15 +111,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -187,17 +278,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                사용API:OpenWeatherApi
-                <br></br>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -270,15 +450,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript,Leaflet.js
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -343,15 +614,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -418,15 +780,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -486,17 +939,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                사용 API:iTunes API
-                <br></br>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -553,17 +1095,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                사용 API:Google Books API
-                <br></br>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -623,17 +1254,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                사용 API:CoinGecko API,Exchange Rate API, Finnhub API
-                <br></br>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -694,17 +1414,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                사용 API:OpenSky Network API,GeoDB Cities API,Unsplash API
-                <br></br>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -755,15 +1564,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -830,15 +1730,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -894,15 +1885,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -957,15 +2039,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -1023,15 +2196,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -1133,15 +2397,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -1196,15 +2551,106 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:React, Css, JavaScript
-                <br></br>
-                개발환경:Visual Studio Code,Vite,React
-                <br></br>
-                협업:Git, GitHub
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={2500}
@@ -1292,17 +2738,128 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:Html5, Css3, TallWindCss, Javascript
-                <br></br>
-                개발환경:Visual Studio Code,Vite
-                <br></br>
-                협업:Git, GitHub, Discord, Notion
-                <br></br>
-                디자인:Figma
-                <br></br>
-                배포:netlify
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/html-5--v1.png"
+                          alt="HTML"
+                        />
+                        HTML5
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/tailwindcss.png"
+                          alt="Tailwind"
+                        />
+                        TailwindCSS
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/discord-logo.png"
+                          alt="Discord"
+                        />
+                        Discord
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"
+                          alt="Notion"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Notion
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={3000}
@@ -1387,19 +2944,148 @@ function Resume() {
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>기술 스택/협업 툴</h1>
-              <p>
-                언어:Html5, Css3, Typrscript, Javascript
-                <br></br>
-                개발환경:Visual Studio Code,Vite
-                <br></br>
-                협업:Git, GitHub, Discord, Notion
-                <br></br>
-                디자인:Figma
-                <br></br>
-                배포:netlify
-                <br></br>
-                패키지:Prrttier, Eslilt, TS-Node, Node.js
-              </p>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/html-5--v1.png"
+                          alt="HTML"
+                        />
+                        HTML5
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/typescript.png"
+                          alt="TypeScript"
+                        />
+                        TypeScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/discord-logo.png"
+                          alt="Discord"
+                        />
+                        Discord
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"
+                          alt="Notion"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Notion
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>패키지</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg"
+                          alt="ESLint"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        ESLint
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/nodejs.png"
+                          alt="Node.js"
+                        />
+                        Node.js
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </FadeInLine>
             <FadeInLine
               delay={3000}
