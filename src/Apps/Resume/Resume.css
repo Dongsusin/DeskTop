@@ -13,6 +13,9 @@
   width: 100%;
   gap: 10px;
   justify-content: center;
+  position: absolute;
+  top: 0;
+  height: 70px;
 }
 
 .nav-btn {
@@ -43,6 +46,10 @@
   width: 90%;
   max-width: 800px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 70vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  margin-top: 70px;
 }
 
 .resume-container header {
@@ -80,13 +87,29 @@
   text-decoration: underline;
 }
 
-.page-controls {
-  display: flex;
-  justify-content: space-between;
+.page {
   align-items: center;
+  text-align: center;
   width: 100%;
   max-width: 800px;
   margin-top: 20px;
+}
+.page span {
+  font-weight: bold;
+  width: 100%;
+  font-size: 1.1rem;
+  color: #000;
+}
+
+.page-controls {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
 }
 
 .page-controls button {
@@ -102,12 +125,6 @@
 
 .page-controls button:hover {
   background-color: #0056b3;
-}
-
-.page-controls span {
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #000;
 }
 
 .project-nav {

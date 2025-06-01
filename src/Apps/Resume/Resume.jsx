@@ -34,15 +34,6 @@ function Resume() {
     return () => clearTimeout(timeout);
   }, [currentPage, currentProjectIndex, currentTeamProjectIndex]);
 
-  useEffect(() => {
-    const scrollTarget = document.querySelector(".resume-container");
-    if (scrollTarget) {
-      scrollTarget.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [currentPage, currentProjectIndex, currentTeamProjectIndex]);
-
   const handlePrev = () => {
     if (pages[currentPage] === "Project") {
       if (currentProjectIndex === 0) {
@@ -3406,8 +3397,7 @@ function Resume() {
         {renderPage()}
       </div>
 
-      <div className="page-controls">
-        <button onClick={handlePrev}>← 이전</button>
+      <div className="page">
         <span>
           {pages[currentPage]}
           {pages[currentPage] === "Project"
@@ -3416,6 +3406,10 @@ function Resume() {
             ? ` - ${teamProjectPages[currentTeamProjectIndex]}`
             : ""}
         </span>
+      </div>
+
+      <div className="page-controls">
+        <button onClick={handlePrev}>← 이전</button>
         <button onClick={handleNext}>다음 →</button>
       </div>
     </div>
