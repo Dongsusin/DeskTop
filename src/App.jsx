@@ -186,7 +186,7 @@ function DesktopApp() {
         {!isResume ? (
           <div className="intro-Resume">
             <Resume />
-            <button onClick={handleResume}>포토폴리오 보기</button>
+            <button onClick={handleResume}>프로젝트 보기</button>
           </div>
         ) : !isLoading ? (
           <div>
