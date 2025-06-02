@@ -3213,10 +3213,78 @@ function Resume() {
             <FadeInLine delay={2000}>
               <section>
                 <h2>스킬</h2>
-                <p>
-                  GitHub, C++, React, CSS, HTML, Figma, JavaScript,
-                  Git,C#,Unity,Unreal
-                </p>
+                <div class="skills-container">
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                      alt="GitHub"
+                    />
+                    GitHub
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"
+                      alt="C++"
+                    />
+                    C++
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                      alt="React"
+                    />
+                    React
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                      alt="CSS"
+                    />
+                    CSS
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                      alt="HTML"
+                    />
+                    HTML
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                      alt="Figma"
+                    />
+                    Figma
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                      alt="JavaScript"
+                    />
+                    JavaScript
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+                      alt="Git"
+                    />
+                    Git
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"
+                      alt="C#"
+                    />
+                    C#
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg"
+                      alt="Unity"
+                    />
+                    Unity
+                  </div>
+                </div>
               </section>
             </FadeInLine>
           </>
