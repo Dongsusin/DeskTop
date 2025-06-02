@@ -1,5 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./pokedex.css";
+import { Radar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  Filler,
+  Tooltip,
+  Legend
+);
 
 const typeKoMap = {
   normal: "노말",
@@ -43,6 +62,15 @@ const typeColorMap = {
   페어리: "#EE99AC",
 };
 
+const statNameMap = {
+  hp: "체력",
+  attack: "공격",
+  defense: "방어",
+  "special-attack": "특공",
+  "special-defense": "특방",
+  speed: "스피드",
+};
+
 function PokedexApp() {
   const [pokemonList, setPokemonList] = useState([]);
   const [page, setPage] = useState(1);
@@ -58,6 +86,27 @@ function PokedexApp() {
   );
   const limit = 30;
   const [typeFilteredAll, setTypeFilteredAll] = useState([]);
+  const [statView, setStatView] = useState("bar"); // 'bar' or 'radar'
+
+  const getPokemonImage = async (id, fallbackUrl) => {
+    const gifUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`;
+
+    try {
+      const res = await fetch(gifUrl, { method: "HEAD" });
+      if (res.ok) {
+        return gifUrl;
+      }
+    } catch (e) {}
+
+    return fallbackUrl;
+  };
+
+  const getTypeGradient = (types) => {
+    if (!types || types.length === 0) return "#ccc";
+    const colors = types.map((t) => typeColorMap[t]);
+    if (colors.length === 1) return colors[0];
+    return `linear-gradient(135deg, ${colors.join(", ")})`;
+  };
 
   const fetchPokemonList = async (pageNum) => {
     setLoading(true);
@@ -82,10 +131,15 @@ function PokedexApp() {
             species.names.find((n) => n.language.name === "ko")?.name ||
             detail.name;
 
+          const image = await getPokemonImage(
+            detail.id,
+            detail.sprites.front_default
+          );
+
           return {
             id: detail.id,
             name: koreanName,
-            image: detail.sprites.front_default,
+            image,
             types: detail.types.map((t) => typeKoMap[t.type.name]),
             stats: detail.stats.map((s) => ({
               name: s.stat.name,
@@ -140,10 +194,15 @@ function PokedexApp() {
             species.names.find((n) => n.language.name === "ko")?.name ||
             detail.name;
 
+          const image = await getPokemonImage(
+            detail.id,
+            detail.sprites.front_default
+          );
+
           return {
             id: detail.id,
             name: koreanName,
-            image: detail.sprites.front_default,
+            image,
             types: detail.types.map((t) => typeKoMap[t.type.name]),
             stats: detail.stats.map((s) => ({
               name: s.stat.name,
@@ -181,11 +240,14 @@ function PokedexApp() {
       const koreanName =
         species.names.find((n) => n.language.name === "ko")?.name ||
         detail.name;
-
+      const image = await getPokemonImage(
+        detail.id,
+        detail.sprites.front_default
+      );
       const result = {
         id: detail.id,
         name: koreanName,
-        image: detail.sprites.front_default,
+        image,
         types: detail.types.map((t) => typeKoMap[t.type.name]),
         stats: detail.stats.map((s) => ({
           name: s.stat.name,
@@ -216,10 +278,15 @@ function PokedexApp() {
         species.names.find((n) => n.language.name === "ko")?.name ||
         detail.name;
 
+      const image = await getPokemonImage(
+        detail.id,
+        detail.sprites.front_default
+      );
+
       return {
         id: detail.id,
         name: koreanName,
-        image: detail.sprites.front_default,
+        image,
         types: detail.types.map((t) => typeKoMap[t.type.name]),
         stats: detail.stats.map((s) => ({
           name: s.stat.name,
@@ -334,9 +401,8 @@ function PokedexApp() {
                 className="pokemon-item"
                 onClick={() => setSelectedPokemon(p)}
                 style={{
-                  borderColor: p.types.length
-                    ? typeColorMap[p.types[0]]
-                    : "#000",
+                  background: getTypeGradient(p.types),
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
                 }}
               >
                 <img src={p.image} alt={p.name} />
@@ -400,14 +466,97 @@ function PokedexApp() {
                 </span>
               ))}
             </div>
-            <div className="stats">
-              {selectedPokemon.stats.map((s) => (
-                <div key={s.name} className="stat">
-                  <span>{s.name}</span>
-                  <span>{s.value}</span>
-                </div>
-              ))}
+            {statView === "bar" && (
+              <div className="stats">
+                {selectedPokemon.stats.map((s) => {
+                  const value = s.value;
+                  const ratio = (value / 255) * 100;
+
+                  const getBarColor = (val) => {
+                    if (val >= 180) return "#ff5959";
+                    if (val >= 120) return "#f5ac78";
+                    if (val >= 80) return "#fae078";
+                    if (val >= 40) return "#9db7f5";
+                    return "#a4a4a4";
+                  };
+
+                  return (
+                    <div key={s.name} className="stat">
+                      <span className="stat-name">
+                        {statNameMap[s.name] || s.name}
+                      </span>
+                      <div className="stat-bar-wrapper">
+                        <div
+                          className="stat-bar"
+                          style={{
+                            width: `${ratio}%`,
+                            backgroundColor: getBarColor(value),
+                          }}
+                        ></div>
+                      </div>
+                      <span className="stat-value">{value}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {statView === "radar" && (
+              <div className="radar-chart-container">
+                <Radar
+                  data={{
+                    labels: selectedPokemon.stats.map(
+                      (s) => statNameMap[s.name] || s.name
+                    ),
+                    datasets: [
+                      {
+                        label: "스탯",
+                        data: selectedPokemon.stats.map((s) => s.value),
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        pointBackgroundColor: "rgba(255, 99, 132, 1)",
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    scales: {
+                      r: {
+                        min: 0,
+                        max: 255,
+                        ticks: { stepSize: 50, backdropColor: "transparent" },
+                        pointLabels: {
+                          font: { size: 14 },
+                          color: "#333",
+                        },
+                        grid: {
+                          circular: true,
+                        },
+                      },
+                    },
+                    plugins: {
+                      legend: { display: false },
+                    },
+                  }}
+                />
+              </div>
+            )}
+
+            <div className="stat-toggle-buttons">
+              <button
+                onClick={() => setStatView("bar")}
+                className={statView === "bar" ? "active" : ""}
+              >
+                기본
+              </button>
+              <button
+                onClick={() => setStatView("radar")}
+                className={statView === "radar" ? "active" : ""}
+              >
+                원형
+              </button>
             </div>
+
             <button onClick={() => toggleFavorite(selectedPokemon)}>
               {favorites.some((p) => p.id === selectedPokemon.id)
                 ? "즐겨찾기 해제"
