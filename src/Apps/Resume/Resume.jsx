@@ -30,7 +30,7 @@ function Resume() {
     "Project 16",
   ];
   const teamProjectPages = ["Team Project 1", "Team Project 2"];
-  const UnityProjectPages = ["Unity Project 1"];
+  const UnityProjectPages = ["Unity Project 1", "Unity Project 2"];
   const [currentPage, setCurrentPage] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [currentTeamProjectIndex, setCurrentTeamProjectIndex] = useState(0);
@@ -53,7 +53,12 @@ function Resume() {
     }
 
     return () => clearTimeout(timeout);
-  }, [currentPage, currentProjectIndex, currentTeamProjectIndex]);
+  }, [
+    currentPage,
+    currentProjectIndex,
+    currentTeamProjectIndex,
+    currentUnityProjectIndex,
+  ]);
 
   const handlePrev = () => {
     if (pages[currentPage] === "Project") {
@@ -96,7 +101,7 @@ function Resume() {
       if (currentUnityProjectIndex === UnityProjectPages.length - 1) {
         setCurrentPage(pages.indexOf("Contact"));
       } else {
-        setCurrentTeamProjectIndex(currentUnityProjectIndex + 1);
+        setCurrentUnityProjectIndex(currentUnityProjectIndex + 1);
       }
     } else {
       setCurrentPage((prev) => (prev === pages.length - 1 ? 0 : prev + 1));
@@ -3201,7 +3206,7 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>유니티 2048프로젝트</h2>
+              <h2>유니티 2048</h2>
               <img src="/image/아이콘/unity2048.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -3219,7 +3224,7 @@ function Resume() {
               <p>3일</p>
             </FadeInLine>
             <FadeInLine
-              delay={2500}
+              delay={2000}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <h1>주요기능</h1>
@@ -3267,7 +3272,7 @@ function Resume() {
               </p>
             </FadeInLine>
             <FadeInLine
-              delay={3000}
+              delay={2500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
               <button
@@ -3283,6 +3288,80 @@ function Resume() {
             </FadeInLine>
           </section>
         );
+      case "Unity Project 2":
+        return (
+          <section>
+            <FadeInLine
+              delay={500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h2>유니티 스와이프벽돌깨기</h2>
+              <img src="/image/아이콘/UnitySwipe.png" alt="" />
+            </FadeInLine>
+            <FadeInLine
+              delay={1000}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>프로젝트 개요</h1>
+              <p>Unity를 이용해서 만들어본 스와이프벽돌깨기앱</p>
+            </FadeInLine>
+            <FadeInLine
+              delay={1500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>프로젝트 기간</h1>
+              <p>5일</p>
+            </FadeInLine>
+            <FadeInLine
+              delay={2000}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>주요기능</h1>
+              <p>
+                <strong>블록 생성</strong>
+                <br></br>
+                점수에 따라 생성 블록수가 증가하고 블록위치는 6개의 위치중
+                랜덤으로 생성 됍니다. 추가로 초록공 아이템은 1개씩 생성됩니다.
+                <br></br>
+                <strong>블록 색상 변경</strong>
+                <br></br>
+                현재 점수 대비 블록수치에 따라 블록색상이 변경됩니다.
+                <br></br>
+                <strong>공 발사라인 미리보기</strong>
+                <br></br>
+                마우스 드래그로 공의 발사 라인을 미리 볼수있습니다.
+                <br></br>
+                <strong>충돌처리</strong>
+                <br></br>
+                벽에 닿으면 닿은 각도로 날아가며,바닥에 닿으면
+                스테이지종료,블록에 닿으면 블록의 체력이 감소하며 0이되면
+                파괴됍니다.
+                <br></br>
+                <strong>게임 종료처리</strong>
+                <br></br>
+                스테이지종료로 블록에 1칸씩내려올때 블록이 바닥에 닿으면 게임이
+                종료됩니다.
+                <br></br>
+              </p>
+            </FadeInLine>
+            <FadeInLine
+              delay={2500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <button
+                onClick={() => {
+                  const link = document.createElement("a");
+                  link.href = "/path/SwiprBreakOut.zip";
+                  link.download = "SwiprBreakOut.zip";
+                  link.click();
+                }}
+              >
+                앱 다운로드
+              </button>
+            </FadeInLine>
+          </section>
+        );
+
       default:
         return null;
     }
