@@ -118,6 +118,18 @@ function DesktopApp() {
       openPopup(appMap[icon.url].title, appMap[icon.url].component);
     } else if (icon.type === "folder") {
       setOpenFolder(icon);
+    } else if (icon.type === "unity") {
+      if (!icon.url || !icon.name) {
+        console.error("Unity icon에 url 또는 name 정보가 없습니다.");
+        return;
+      }
+      const zipPath = icon.url.endsWith(".zip") ? icon.url : `${icon.url}.zip`;
+      const link = document.createElement("a");
+      link.href = `/path/${zipPath}`;
+      link.download = `${icon.name}.zip`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } else if (icon.url) {
       window.location.href = icon.url;
     }
