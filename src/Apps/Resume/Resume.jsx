@@ -3,7 +3,14 @@ import "./Resume.css";
 import FadeInLine from "./components/FadeInLine";
 
 function Resume() {
-  const pages = ["Main", "PortfolioInfo", "Project", "TeamProject", "Contact"];
+  const pages = [
+    "Main",
+    "PortfolioInfo",
+    "Project",
+    "TeamProject",
+    "UnityProject",
+    "Contact",
+  ];
   const projectPages = [
     "Project 1",
     "Project 2",
@@ -23,9 +30,11 @@ function Resume() {
     "Project 16",
   ];
   const teamProjectPages = ["Team Project 1", "Team Project 2"];
+  const UnityProjectPages = ["Unity Project 1"];
   const [currentPage, setCurrentPage] = useState(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [currentTeamProjectIndex, setCurrentTeamProjectIndex] = useState(0);
+  const [currentUnityProjectIndex, setCurrentUnityProjectIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -59,6 +68,12 @@ function Resume() {
       } else {
         setCurrentTeamProjectIndex(currentTeamProjectIndex - 1);
       }
+    } else if (pages[currentPage] === "UnityProject") {
+      if (currentUnityProjectIndex === 0) {
+        setCurrentPage(pages.indexOf("TeamProject"));
+      } else {
+        setCurrentTeamProjectIndex(currentUnityProjectIndex - 1);
+      }
     } else {
       setCurrentPage((prev) => (prev === 0 ? pages.length - 1 : prev - 1));
     }
@@ -73,9 +88,15 @@ function Resume() {
       }
     } else if (pages[currentPage] === "TeamProject") {
       if (currentTeamProjectIndex === teamProjectPages.length - 1) {
-        setCurrentPage(pages.indexOf("Contact"));
+        setCurrentPage(pages.indexOf("UnityProject"));
       } else {
         setCurrentTeamProjectIndex(currentTeamProjectIndex + 1);
+      }
+    } else if (pages[currentPage] === "UnityProject") {
+      if (currentUnityProjectIndex === UnityProjectPages.length - 1) {
+        setCurrentPage(pages.indexOf("Contact"));
+      } else {
+        setCurrentTeamProjectIndex(currentUnityProjectIndex + 1);
       }
     } else {
       setCurrentPage((prev) => (prev === pages.length - 1 ? 0 : prev + 1));
@@ -3171,6 +3192,102 @@ function Resume() {
     }
   };
 
+  const renderUnityProjectPage = () => {
+    switch (UnityProjectPages[currentUnityProjectIndex]) {
+      case "Unity Project 1":
+        return (
+          <section>
+            <FadeInLine
+              delay={500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h2>유니티 2048프로젝트</h2>
+              <img src="/image/아이콘/unity2048.png" alt="" />
+            </FadeInLine>
+            <FadeInLine
+              delay={1000}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>프로젝트 개요</h1>
+              <p>Unity를 이용해서 만들어본 2048앱</p>
+            </FadeInLine>
+            <FadeInLine
+              delay={1500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>프로젝트 기간</h1>
+              <p>3일</p>
+            </FadeInLine>
+            <FadeInLine
+              delay={2500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>주요기능</h1>
+              <p>
+                <strong>타일 이동 및 병합</strong>
+                <br></br>
+                드래그를 이용해서 타일이 각 방향으로 이동히며 이동방향에
+                같은값의 타일이 있으면 현재 값*2로 값이 변하며 타일 2개가
+                병합돼도록 구현했습니다.
+                <br></br>
+                <strong>타일 자동 생성</strong>
+                <br></br>
+                게임 시작시 2개의 셀이 랜덤 위치에 생성돼며 이동마다 추가로
+                비어있는 셀의 랜덤위치에 2또는 4의 값을 가진 셀이 생성돼도록
+                구현했습니다.
+                <br></br>
+                <strong>점수 시스템</strong>
+                <br></br>
+                병합시 현재 셀의 값*2의 점수가 오르도록 구현했으며,최고기록과
+                비교해서 현재 점수가 최고기록 보다 높으면 최고기록이 갱신돼며,
+                최고기록은 1일단위로 기록및 초기화 됍니다.
+                <br></br>
+                <strong>사운드 효과</strong>
+                <br></br>
+                게임 시작시 브금이 실행돼며 데스크톱 환경에서는 사운드 스크롤
+                느낌으로 사운드 조절이 가능하고 모바일 환경은 사운드 온/오프
+                버튼으로 구현했습니다.
+                <br></br>
+                <strong>게임 종료및 승리 조건 처리</strong>
+                <br></br>
+                이동 및병합시마다 현재 타일중에 이동및 병합이 가능한 타일을
+                조건으로 검사해서 만약 이동및 병합할수있는 타일이 없으면
+                게임오버가 표시됩니다
+                <br></br>
+                <strong>이동 애니메이션 구현</strong>
+                <br></br>
+                이동시 타일의 위치를 이동후 보드값을 업데이트하는 방식으로
+                자연스럽게 이동 애니메이션이 작동하도록 구현했습니다.
+                <br></br>
+                <strong>하드 모드</strong>
+                <br></br>
+                게임 시작시 랜덤 위치에 이동및 병합이 불가능한 -1값의 셀을
+                추가로 생성하며 그값을 피해서 최고점수를 내는 모드 입니다.
+                <br></br>
+              </p>
+            </FadeInLine>
+            <FadeInLine
+              delay={3000}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <button
+                onClick={() => {
+                  const link = document.createElement("a");
+                  link.href = "/path/2048.zip";
+                  link.download = "2048.zip";
+                  link.click();
+                }}
+              >
+                앱 다운로드
+              </button>
+            </FadeInLine>
+          </section>
+        );
+      default:
+        return null;
+    }
+  };
+
   const renderPage = () => {
     switch (pages[currentPage]) {
       case "Main":
@@ -3400,6 +3517,25 @@ function Resume() {
             </div>
           </>
         );
+      case "UnityProject":
+        return (
+          <>
+            <div className="projects">{renderUnityProjectPage()}</div>
+            <div className="project-nav">
+              {UnityProjectPages.map((proj, idx) => (
+                <button
+                  key={proj}
+                  className={`nav-btn ${
+                    idx === currentUnityProjectIndex ? "active" : ""
+                  }`}
+                  onClick={() => setCurrentUnityProjectIndex(idx)}
+                >
+                  {proj}
+                </button>
+              ))}
+            </div>
+          </>
+        );
       case "Contact":
         return (
           <>
@@ -3479,11 +3615,12 @@ function Resume() {
 
       <div className="page">
         <span>
-          {pages[currentPage]}
           {pages[currentPage] === "Project"
             ? ` - ${projectPages[currentProjectIndex]}`
             : pages[currentPage] === "TeamProject"
             ? ` - ${teamProjectPages[currentTeamProjectIndex]}`
+            : pages[currentPage] === "UnityProject"
+            ? ` - ${UnityProjectPages[currentUnityProjectIndex]}`
             : ""}
         </span>
       </div>
