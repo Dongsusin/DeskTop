@@ -3319,16 +3319,6 @@ function Resume() {
             </FadeInLine>
             <FadeInLine delay={1500}>
               <section>
-                <h2>학력</h2>
-                <p>
-                  서울로봇고등학교 (2018.03 - 2021.01) - 첨단로봇정보통신과 졸업
-                  <br></br>
-                  구미대학교(EMU) (2022.02 - 2022.08) - 중퇴
-                </p>
-              </section>
-            </FadeInLine>
-            <FadeInLine delay={2000}>
-              <section>
                 <h2>스킬</h2>
                 <div class="skills-container">
                   <div class="skill-badge">
