@@ -359,6 +359,8 @@ html {
     color: white;
     background-color: #007bff;
     margin-bottom: 25px;
+    z-index: 1000;
+    position: relative;
   }
   button:hover {
     background-color: #0056b3;
