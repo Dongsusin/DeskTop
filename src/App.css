@@ -352,6 +352,7 @@ html {
   overflow-y: auto;
   overflow-x: hidden;
   background-color: white;
+  justify-items: center;
   .Resume {
     margin-bottom: 16px;
   }
