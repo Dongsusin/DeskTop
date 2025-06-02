@@ -13,6 +13,7 @@
   background-color: rgb(50, 50, 50);
   border: white 3px solid;
   border-radius: 25px;
+  margin-bottom: 50px;
 }
 
 header {
@@ -33,7 +34,6 @@ header input[type="text"] {
   font-size: 1rem;
   border-radius: 8px;
   border: 1px solid #ccc;
-  width: 40vw;
   margin-right: 8px;
   outline: none;
   transition: border-color 0.3s ease;

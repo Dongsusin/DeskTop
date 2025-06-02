@@ -1,6 +1,5 @@
 .Resume {
   background-color: #f0f2f5;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -258,7 +257,20 @@
   height: 16px;
   margin-right: 6px;
 }
-
+@media screen and (max-width: 1024px) {
+  .page-controls {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .page-controls {
+    top: auto;
+    bottom: 0;
+  }
+  .resume-container {
+    height: 60vh;
+  }
+}
 @media screen and (max-width: 426px) {
   .Resume {
     width: 95%;

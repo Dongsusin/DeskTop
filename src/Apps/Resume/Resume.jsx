@@ -34,6 +34,18 @@ function Resume() {
     return () => clearTimeout(timeout);
   }, [currentPage, currentProjectIndex, currentTeamProjectIndex]);
 
+  useEffect(() => {
+    setAnimate(false);
+    const timeout = setTimeout(() => setAnimate(true), 50);
+
+    const container = document.querySelector(".resume-container");
+    if (container) {
+      container.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    return () => clearTimeout(timeout);
+  }, [currentPage, currentProjectIndex, currentTeamProjectIndex]);
+
   const handlePrev = () => {
     if (pages[currentPage] === "Project") {
       if (currentProjectIndex === 0) {

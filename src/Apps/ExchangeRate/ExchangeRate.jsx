@@ -307,7 +307,7 @@ export default function ExchangeRate() {
                   <tr>
                     <th>코인</th>
                     <th>현재가 (USD)</th>
-                    <th>시가총액</th>
+                    <th className="pc">시가총액</th>
                     <th>24시간 변동률</th>
                   </tr>
                 </thead>
@@ -319,7 +319,9 @@ export default function ExchangeRate() {
                         {coin.name}
                       </td>
                       <td>${coin.current_price.toLocaleString()}</td>
-                      <td>${coin.market_cap.toLocaleString()}</td>
+                      <td className="pc">
+                        ${coin.market_cap.toLocaleString()}
+                      </td>
                       <td
                         className={
                           coin.price_change_percentage_24h > 0 ? "up" : "down"

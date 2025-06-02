@@ -1,15 +1,9 @@
-.App {
-  font-family: "Arial", sans-serif;
-  padding: 20px;
-}
-
 .flight-container {
   max-width: 600px;
   margin: 40px auto;
   background: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
 }
 
 .flight-container h1 {
@@ -26,7 +20,7 @@
 
 .input-group input {
   padding: 8px;
-  width: 100px;
+  width: 80px;
   text-align: center;
   font-weight: bold;
   border: 1px solid #ccc;
@@ -64,8 +58,6 @@
 .Travel {
   max-width: 900px;
   margin: 40px auto;
-  padding: 0 20px;
-  font-family: "Segoe UI", sans-serif;
   text-align: center;
 }
 
