@@ -362,6 +362,25 @@ header select:focus {
   }
 }
 
+.evolution-chain {
+  margin-top: 20px;
+  text-align: center;
+}
+.evolution-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.evolution-item {
+  cursor: pointer;
+  text-align: center;
+}
+.evolution-item img {
+  width: 80px;
+  height: 80px;
+}
+
 @media screen and (max-width: 426px) {
   .pokemon-list {
     grid-template-columns: repeat(2, 1fr);

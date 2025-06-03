@@ -86,7 +86,8 @@ function PokedexApp() {
   );
   const limit = 30;
   const [typeFilteredAll, setTypeFilteredAll] = useState([]);
-  const [statView, setStatView] = useState("bar"); // 'bar' or 'radar'
+  const [statView, setStatView] = useState("bar");
+  const [evolutionChain, setEvolutionChain] = useState(null);
 
   const getPokemonImage = async (id, fallbackUrl) => {
     const gifUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`;
@@ -363,6 +364,44 @@ function PokedexApp() {
     fetchPokemonList(page);
   }, []);
 
+  useEffect(() => {
+    setStatView("bar"); // 기본값으로 되돌리기
+    setEvolutionChain(null);
+  }, [selectedPokemon]);
+
+  const fetchEvolutionChain = async (id) => {
+    try {
+      const resSpecies = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${id}`
+      );
+      const species = await resSpecies.json();
+      const evoRes = await fetch(species.evolution_chain.url);
+      const evoData = await evoRes.json();
+
+      const evolutionList = [];
+      let current = evoData.chain;
+
+      while (current) {
+        const name = current.species.name;
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        const detail = await res.json();
+        const koreanName =
+          species.names.find((n) => n.language.name === "ko")?.name || name;
+        const image = await getPokemonImage(
+          detail.id,
+          detail.sprites.front_default
+        );
+
+        evolutionList.push({ id: detail.id, name: koreanName, image });
+
+        current = current.evolves_to[0];
+      }
+
+      setEvolutionChain(evolutionList);
+      setShowEvolution(true);
+    } catch (err) {}
+  };
+
   return (
     <div className="pokedex-container">
       <header>
@@ -542,6 +581,26 @@ function PokedexApp() {
               </div>
             )}
 
+            {statView === "evolution" && evolutionChain && (
+              <div className="evolution-chain">
+                <h3>진화 정보</h3>
+                <div className="evolution-list">
+                  {evolutionChain.map((p) => (
+                    <div
+                      key={p.id}
+                      className="evolution-item"
+                      onClick={() =>
+                        loadPokemonById(p.id).then(setSelectedPokemon)
+                      }
+                    >
+                      <img src={p.image} alt={p.name} />
+                      <div>{p.name}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="stat-toggle-buttons">
               <button
                 onClick={() => setStatView("bar")}
@@ -554,6 +613,17 @@ function PokedexApp() {
                 className={statView === "radar" ? "active" : ""}
               >
                 원형
+              </button>
+              <button
+                onClick={() => {
+                  if (statView !== "evolution") {
+                    fetchEvolutionChain(selectedPokemon.id);
+                  }
+                  setStatView("evolution");
+                }}
+                className={statView === "evolution" ? "active" : ""}
+              >
+                진화
               </button>
             </div>
 
