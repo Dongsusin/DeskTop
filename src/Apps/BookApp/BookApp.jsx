@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from "react";
+import SearchBar from "./components/SearchBar";
+import RecentSearches from "./components/RecentSearches";
+import SortBar from "./components/SortBar";
+import BookList from "./components/BookList";
+import BookDetail from "./components/BookDetail";
+import Pagination from "./components/Pagination";
+import FavoritesList from "./components/FavoritesList";
 import "./BookApp.css";
 
 export default function BookApp() {
@@ -17,7 +24,6 @@ export default function BookApp() {
 
   useEffect(() => {
     if (query.trim() === "") return;
-
     fetchBooks(query, page);
   }, [page, sort]);
 
@@ -39,9 +45,7 @@ export default function BookApp() {
       } else {
         setBooks(data.items || []);
         setTotalItems(data.totalItems || 0);
-        if (pageNum === 0) {
-          addRecentSearch(search);
-        }
+        if (pageNum === 0) addRecentSearch(search);
       }
     } catch (e) {
       setError("검색 중 오류가 발생했습니다.");
@@ -52,11 +56,10 @@ export default function BookApp() {
     }
   };
 
-  const addRecentSearch = (searchTerm) => {
-    setRecentSearches((prev) => {
-      const filtered = prev.filter((item) => item !== searchTerm);
-      return [searchTerm, ...filtered].slice(0, 5);
-    });
+  const addRecentSearch = (term) => {
+    setRecentSearches((prev) =>
+      [term, ...prev.filter((t) => t !== term)].slice(0, 5)
+    );
   };
 
   const handleSubmit = (e) => {
@@ -69,11 +72,7 @@ export default function BookApp() {
   const toggleFavorite = (book) => {
     setFavorites((prev) => {
       const exists = prev.find((b) => b.id === book.id);
-      if (exists) {
-        return prev.filter((b) => b.id !== book.id);
-      } else {
-        return [...prev, book];
-      }
+      return exists ? prev.filter((b) => b.id !== book.id) : [...prev, book];
     });
   };
 
@@ -81,162 +80,51 @@ export default function BookApp() {
 
   return (
     <div className="book-app">
-      {!selectedBook && (
+      {!selectedBook ? (
         <>
           <h1>도서 검색</h1>
-
-          <form onSubmit={handleSubmit} className="search-bar">
-            <input
-              type="text"
-              placeholder="도서 이름 검색"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <button type="submit">검색</button>
-          </form>
-
-          {recentSearches.length > 0 && (
-            <div className="recent-searches">
-              최근 검색어:{" "}
-              {recentSearches.map((term, i) => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    setQuery(term);
-                    setPage(0);
-                    fetchBooks(term, 0);
-                  }}
-                >
-                  {term}
-                </button>
-              ))}
-            </div>
-          )}
-
-          <div className="sort-bar">
-            정렬:{" "}
-            <select
-              value={sort}
-              onChange={(e) => {
-                setSort(e.target.value);
-                setPage(0);
-              }}
-            >
-              <option value="relevance">관련도</option>
-              <option value="newest">최신순</option>
-            </select>
-          </div>
-
+          <SearchBar
+            query={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onSubmit={handleSubmit}
+          />
+          <RecentSearches
+            recentSearches={recentSearches}
+            onClick={(term) => {
+              setQuery(term);
+              setPage(0);
+              fetchBooks(term, 0);
+            }}
+          />
+          <SortBar
+            sort={sort}
+            onChange={(val) => {
+              setSort(val);
+              setPage(0);
+            }}
+          />
           {loading && <div className="loader">로딩 중...</div>}
-
           {error && <div className="error">{error}</div>}
-
-          <div className="book-list">
-            {books.map((book, i) => {
-              const info = book.volumeInfo;
-              const isFavorite = favorites.some((b) => b.id === book.id);
-              return (
-                <div
-                  key={book.id || i}
-                  className="book-card"
-                  onClick={() => setSelectedBook(book)}
-                  style={{ cursor: "pointer" }}
-                  title="상세보기"
-                >
-                  {info.imageLinks?.thumbnail && (
-                    <img src={info.imageLinks.thumbnail} alt={info.title} />
-                  )}
-                  <div className="book-content">
-                    <h3>{info.title}</h3>
-                    <p>{info.authors?.join(", ")}</p>
-                    <div className="actions">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleFavorite(book);
-                        }}
-                      >
-                        {isFavorite ? "즐겨찾기 해제" : "즐겨찾기"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {totalPages > 1 && (
-            <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-              <button
-                onClick={() => setPage((p) => Math.max(p - 1, 0))}
-                disabled={page === 0}
-              >
-                이전
-              </button>
-              <span style={{ margin: "0 10px", color: "white" }}>
-                {page + 1} / {totalPages}
-              </span>
-              <button
-                onClick={() => setPage((p) => Math.min(p + 1, totalPages - 1))}
-                disabled={page + 1 >= totalPages}
-              >
-                다음
-              </button>
-            </div>
-          )}
-
-          {favorites.length > 0 && (
-            <div className="favorites">
-              <h2>즐겨찾기 목록</h2>
-              <ul>
-                {favorites.map((book) => (
-                  <li key={book.id}>
-                    {book.volumeInfo.title}{" "}
-                    <button
-                      onClick={() =>
-                        setFavorites((prev) =>
-                          prev.filter((b) => b.id !== book.id)
-                        )
-                      }
-                    >
-                      삭제
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <BookList
+            books={books}
+            favorites={favorites}
+            toggleFavorite={toggleFavorite}
+            onSelect={setSelectedBook}
+          />
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+          <FavoritesList
+            favorites={favorites}
+            onRemove={(id) =>
+              setFavorites((prev) => prev.filter((b) => b.id !== id))
+            }
+          />
         </>
-      )}
-
-      {selectedBook && (
-        <div className="book-detail">
-          <button onClick={() => setSelectedBook(null)}>닫기</button>
-          <h2>{selectedBook.volumeInfo.title}</h2>
-          {selectedBook.volumeInfo.authors && (
-            <p>저자: {selectedBook.volumeInfo.authors.join(", ")}</p>
-          )}
-          {selectedBook.volumeInfo.publisher && (
-            <p>출판사: {selectedBook.volumeInfo.publisher}</p>
-          )}
-          {selectedBook.volumeInfo.publishedDate && (
-            <p>출판일: {selectedBook.volumeInfo.publishedDate}</p>
-          )}
-          {selectedBook.volumeInfo.description && (
-            <p
-              dangerouslySetInnerHTML={{
-                __html: selectedBook.volumeInfo.description,
-              }}
-            />
-          )}
-          <a
-            href={selectedBook.volumeInfo.infoLink}
-            target="_blank"
-            rel="noreferrer"
-          >
-            구글 도서에서 자세히 보기 →
-          </a>
-        </div>
+      ) : (
+        <BookDetail book={selectedBook} onClose={() => setSelectedBook(null)} />
       )}
     </div>
   );

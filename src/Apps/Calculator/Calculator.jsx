@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import Display from "./components/Display";
+import Keypad from "./components/Keypad";
+import History from "./components/History";
 import "./Calculator.css";
 
 const Calculator = () => {
@@ -44,16 +47,13 @@ const Calculator = () => {
       if (justCalculated) {
         if (result.startsWith("-")) {
           setInput(result.slice(1));
-          setResult("");
-          setJustCalculated(false);
         } else {
           setInput("-" + result);
-          setResult("");
-          setJustCalculated(false);
         }
+        setResult("");
+        setJustCalculated(false);
       } else {
-        if (input.startsWith("-")) setInput(input.slice(1));
-        else setInput("-" + input);
+        setInput(input.startsWith("-") ? input.slice(1) : "-" + input);
       }
     } else if (value === "()") {
       const open = (input.match(/\(/g) || []).length;
@@ -75,13 +75,11 @@ const Calculator = () => {
       if (justCalculated) {
         if (isOperator(value)) {
           setInput(result + value);
-          setResult("");
-          setJustCalculated(false);
         } else {
           setInput(value === "0" ? "0" : value);
-          setResult("");
-          setJustCalculated(false);
         }
+        setResult("");
+        setJustCalculated(false);
       } else {
         let updatedInput = input === "0" ? "" : input;
         const lastChar = updatedInput[updatedInput.length - 1];
@@ -151,23 +149,8 @@ const Calculator = () => {
   return (
     <div className="calculator">
       <div>
-        <div className="display">
-          <div className="input">{input}</div>
-          <div className="result">{result}</div>
-        </div>
-
-        <div className="buttons">
-          {buttons.map((btn) => (
-            <button
-              key={btn}
-              onClick={() => handleClick(btn)}
-              className={`btn ${btn}`}
-            >
-              {btn}
-            </button>
-          ))}
-        </div>
-
+        <Display input={input} result={result} />
+        <Keypad buttons={buttons} onClick={handleClick} />
         <button
           className="toggle-history-btn"
           onClick={() => setShowHistory((show) => !show)}
@@ -175,21 +158,7 @@ const Calculator = () => {
           {showHistory ? "숨기기" : "연산 기록 보기"}
         </button>
       </div>
-
-      {showHistory && (
-        <div className="history">
-          <h3>연산 기록</h3>
-          <ul>
-            {history.length === 0 && <li>기록이 없습니다.</li>}
-            {history.map((item, idx) => (
-              <li key={idx}>
-                <span>{item.expr} = </span>
-                <strong>{item.res}</strong>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {showHistory && <History history={history} />}
     </div>
   );
 };
