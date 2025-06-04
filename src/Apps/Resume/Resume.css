@@ -104,7 +104,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 75%;
+  width: 90%;
 }
 
 .page-controls button {
@@ -308,7 +308,7 @@
 @media screen and (max-width: 768px) {
   .page-controls {
     top: auto;
-    bottom: 0;
+    bottom: 60px;
   }
   .resume-container {
     height: 60vh;
