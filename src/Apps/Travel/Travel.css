@@ -1,6 +1,7 @@
 .flight-container {
   max-width: 600px;
   margin: 40px auto;
+  padding: 20px;
   background: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -44,6 +45,9 @@
 .flight-list {
   list-style: none;
   padding: 0;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .flight-card {
@@ -150,4 +154,17 @@
 
 .map-button:hover {
   background-color: #0056b3;
+}
+
+@media screen and (max-width: 426px) {
+  .flight-list {
+    gap: 5px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .flight-container {
+    padding: 0px;
+  }
 }
