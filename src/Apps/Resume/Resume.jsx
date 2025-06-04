@@ -2913,6 +2913,14 @@ function Resume() {
                 커스터마이징이 용이
               </p>
             </FadeInLine>
+            <FadeInLine
+              delay={3500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <a href="https://9rodigital-willie.netlify.app/">
+                <button>배포 사이트</button>
+              </a>
+            </FadeInLine>
           </section>
         );
       case "Team Project 2":
@@ -3184,6 +3192,14 @@ function Resume() {
                 AI로직에 의해 자동으로 게임이 진행돼며 누가더 많은 점수를 내는지
                 대결하는 모드입니다.
               </p>
+            </FadeInLine>
+            <FadeInLine
+              delay={3500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <a href="https://3lines-2048.netlify.app/">
+                <button>배포 사이트</button>
+              </a>
             </FadeInLine>
           </section>
         );
@@ -3464,6 +3480,21 @@ function Resume() {
                       alt="Unity"
                     />
                     Unity
+                  </div>
+                  <div class="skill-badge">
+                    <img src="/image/아이콘/vite.png" alt="Vite" />
+                    Vite
+                  </div>
+                  <div class="skill-badge">
+                    <img src="/image/아이콘/테일윈드.png" alt="Tailwind" />
+                    Tailwind
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"
+                      alt="Next.js"
+                    />
+                    Next.js
                   </div>
                 </div>
               </section>

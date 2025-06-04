@@ -53,7 +53,6 @@
 
 .resume-container header {
   text-align: center;
-  margin-bottom: 2rem;
   border-radius: 10px;
 }
 
@@ -67,10 +66,7 @@
 }
 
 .resume-container section h2 {
-  margin-bottom: 0.5rem;
   color: #333;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 0.2rem;
 }
 
 .resume-container section ul {
@@ -181,6 +177,8 @@
     width: 100%;
     justify-content: center;
     gap: 10px;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 10px;
     .icon {
       width: 40px;
       height: 40px;
