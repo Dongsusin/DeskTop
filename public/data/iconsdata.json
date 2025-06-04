@@ -72,6 +72,12 @@
     "url": "/travel"
   },
   {
+    "type": "icon",
+    "name": "포켓몬",
+    "image": "/image/아이콘/포켓몬.png",
+    "url": "/pokedex"
+  },
+  {
     "type": "folder",
     "name": "(팀) 프로젝트",
     "image": "/image/아이콘/폴더.png",
@@ -124,25 +130,6 @@
         "name": "턴제카드게임",
         "image": "/image/아이콘/턴카드.png",
         "url": "/turncard"
-      }
-    ]
-  },
-  {
-    "type": "folder",
-    "name": "게임 위키",
-    "image": "/image/아이콘/폴더.png",
-    "projects": [
-      {
-        "type": "icon",
-        "name": "메이플",
-        "image": "/image/아이콘/메이플.png",
-        "url": "/maple"
-      },
-      {
-        "type": "icon",
-        "name": "포켓몬",
-        "image": "/image/아이콘/포켓몬.png",
-        "url": "/pokedex"
       }
     ]
   },

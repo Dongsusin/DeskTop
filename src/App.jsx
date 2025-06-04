@@ -15,7 +15,6 @@ import Resume from "./Apps/Resume/Resume";
 import Pokedex from "./Apps/pokedex/pokedex";
 import Tetris from "./Apps/Tetris/Tetris";
 import Speed from "./Apps/Speed/Speed";
-import Maple from "./Apps/Maple/Maple";
 import Music from "./Apps/Music/Music";
 import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
 import Paint from "./Apps/PaintApp/PaintApp";
@@ -103,7 +102,6 @@ function DesktopApp() {
       "/pokedex": { title: "PokeDex", component: <Pokedex /> },
       "/tetris": { title: "테트리스", component: <Tetris /> },
       "/speed": { title: "반응속도 테스트", component: <Speed /> },
-      "/maple": { title: "메이플 위키", component: <Maple /> },
       "/music": { title: "뮤직 플레이어", component: <Music /> },
       "/exchange": { title: "환율 정보", component: <ExchangeRate /> },
       "/paint": { title: "그림판", component: <Paint /> },

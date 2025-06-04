@@ -27,7 +27,6 @@ function Resume() {
     "Project 13",
     "Project 14",
     "Project 15",
-    "Project 16",
   ];
   const teamProjectPages = ["Team Project 1", "Team Project 2"];
   const UnityProjectPages = ["Unity Project 1", "Unity Project 2"];
@@ -1571,6 +1570,171 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
+              <h2>포켓몬 도감 프로젝트</h2>
+              <img src="/image/이력서/포켓몬페이지.png" alt="" />
+            </FadeInLine>
+            <FadeInLine
+              delay={1000}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>프로젝트 개요</h1>
+              <p>React 기반의 PokemonAPI를 이용한 웹 애플리케이션</p>
+            </FadeInLine>
+            <FadeInLine
+              delay={1500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>프로젝트 기간</h1>
+              <p>7일</p>
+            </FadeInLine>
+            <FadeInLine
+              delay={2000}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>기술 스택/협업 툴</h1>
+              <table className="tool-table">
+                <thead>
+                  <tr>
+                    <th>분류</th>
+                    <th>툴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>언어</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/css3.png"
+                          alt="CSS"
+                        />
+                        CSS3
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/javascript--v1.png"
+                          alt="JavaScript"
+                        />
+                        JavaScript
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/react-native.png"
+                          alt="React"
+                        />
+                        React
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>개발 환경</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
+                          alt="VSCode"
+                        />
+                        VS Code
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://vitejs.dev/logo.svg"
+                          alt="Vite"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Vite
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>협업</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/git.png"
+                          alt="Git"
+                        />
+                        Git
+                      </span>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/ios-glyphs/30/github.png"
+                          alt="GitHub"
+                        />
+                        GitHub
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>디자인</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://img.icons8.com/color/48/figma--v1.png"
+                          alt="Figma"
+                        />
+                        Figma
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>배포</td>
+                    <td>
+                      <span className="badge">
+                        <img
+                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                          alt="Netlify"
+                          style={{ width: "16px", height: "16px" }}
+                        />
+                        Netlify
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </FadeInLine>
+            <FadeInLine
+              delay={2500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
+              <h1>주요기능</h1>
+              <p>
+                <strong>포켓몬 검색 기능</strong>
+                <br></br>
+                이름을 검색해서 해당 포켓몬의 정보를 보여 줍니다
+                <br></br>
+                <strong>타입별 필터링</strong>
+                <br></br>
+                해당 포켓몬의 타입에따라 해당타입을 가진 포켓몬만으로 다시
+                필터링해주는 기능
+                <br></br>
+                <strong>즐겨찾기</strong>
+                <br></br>
+                상세 페이지에서 즐겨찾기를 추가하고 필터창에서 즐겨찾기만
+                필터링하는 기능이 있습니다.
+                <br></br>
+                <strong>타입 한글화및 타입에따른 border색상 변화</strong>
+                <br></br>
+                api로 받아온 타입을 한글화하고, 각 타입에따라 배경색을
+                설정해주고 대표타입에따라 해당 포켓몬카드의 border색상도
+                변화하는 기능
+                <br></br>
+                <strong>상세 페이지</strong>
+                <br></br>각 포켓몬 카드 클릭시 상세 페이지로 전환돼며
+                상세페이지에는 이미지가 gif으로 변경돼며 능력치를 추가로
+                표시해주며 이전및 다음 포켓몬으로 도감순서에따라
+                이동할수있습니다.
+              </p>
+            </FadeInLine>
+          </section>
+        );
+      case "Project 11":
+        return (
+          <section>
+            <FadeInLine
+              delay={500}
+              trigger={`${currentPage}-${currentProjectIndex}`}
+            >
               <h2>테트리스 프로젝트</h2>
               <img src="/image/이력서/테트리스페이지.png" alt="" />
             </FadeInLine>
@@ -1730,7 +1894,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 11":
+      case "Project 12":
         return (
           <section>
             <FadeInLine
@@ -1885,7 +2049,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 12":
+      case "Project 13":
         return (
           <section>
             <FadeInLine
@@ -2039,7 +2203,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 13":
+      case "Project 14":
         return (
           <section>
             <FadeInLine
@@ -2193,7 +2357,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 14":
+      case "Project 15":
         return (
           <section>
             <FadeInLine
@@ -2390,328 +2554,6 @@ function Resume() {
                 <br></br>
                 게임이 진행돼면서 그동안의 과정을 메세지로 보여주며, 버튼으로
                 열고 닫을수있습니다.
-              </p>
-            </FadeInLine>
-          </section>
-        );
-      case "Project 15":
-        return (
-          <section>
-            <FadeInLine
-              delay={500}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h2>메이플 캐릭터 검색 프로젝트</h2>
-              <img src="/image/이력서/메이플페이지.png" alt="" />
-            </FadeInLine>
-            <FadeInLine
-              delay={1000}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>프로젝트 개요</h1>
-              <p>
-                어린시절 즐겼던 메이플의 Nexon Open API를 통해 캐릭터의 정보를
-                보여주는 웹애플리케이션
-              </p>
-            </FadeInLine>
-            <FadeInLine
-              delay={1500}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>프로젝트 기간</h1>
-              <p>1일</p>
-            </FadeInLine>
-            <FadeInLine
-              delay={2000}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>기술 스택/협업 툴</h1>
-              <table className="tool-table">
-                <thead>
-                  <tr>
-                    <th>분류</th>
-                    <th>툴</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>언어</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/css3.png"
-                          alt="CSS"
-                        />
-                        CSS3
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/javascript--v1.png"
-                          alt="JavaScript"
-                        />
-                        JavaScript
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/react-native.png"
-                          alt="React"
-                        />
-                        React
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>개발 환경</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
-                          alt="VSCode"
-                        />
-                        VS Code
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://vitejs.dev/logo.svg"
-                          alt="Vite"
-                          style={{ width: "16px", height: "16px" }}
-                        />
-                        Vite
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>협업</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/git.png"
-                          alt="Git"
-                        />
-                        Git
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/ios-glyphs/30/github.png"
-                          alt="GitHub"
-                        />
-                        GitHub
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>디자인</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/figma--v1.png"
-                          alt="Figma"
-                        />
-                        Figma
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>배포</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
-                          alt="Netlify"
-                          style={{ width: "16px", height: "16px" }}
-                        />
-                        Netlify
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </FadeInLine>
-            <FadeInLine
-              delay={2500}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>주요기능</h1>
-              <p>
-                <strong>캐릭터 검색 기능</strong>
-                <br></br>
-                사용자의 닉네임을 검색해서 api로 정보를 받아와
-                이미지,레벨,직업,월드등을 보여줍니다.
-                <br></br>
-                <strong>최근 검색 기록 저장기능</strong>
-                <br></br>
-                최근 검색기록을 로컬로 저장해서 클릭으로 빠르게 검색할수있는
-                기능
-                <br></br>
-                <strong>로딩 및 에러 처리</strong>
-                <br></br>
-                검색중에는 검색중입니다로 표시하며 검색실패시 캐릭터를 찾을수
-                없습니다.를 표시합니다.
-              </p>
-            </FadeInLine>
-          </section>
-        );
-      case "Project 16":
-        return (
-          <section>
-            <FadeInLine
-              delay={500}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h2>포켓몬 도감 프로젝트</h2>
-              <img src="/image/이력서/포켓몬페이지.png" alt="" />
-            </FadeInLine>
-            <FadeInLine
-              delay={1000}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>프로젝트 개요</h1>
-              <p>React 기반의 PokemonAPI를 이용한 웹 애플리케이션</p>
-            </FadeInLine>
-            <FadeInLine
-              delay={1500}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>프로젝트 기간</h1>
-              <p>7일</p>
-            </FadeInLine>
-            <FadeInLine
-              delay={2000}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>기술 스택/협업 툴</h1>
-              <table className="tool-table">
-                <thead>
-                  <tr>
-                    <th>분류</th>
-                    <th>툴</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>언어</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/css3.png"
-                          alt="CSS"
-                        />
-                        CSS3
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/javascript--v1.png"
-                          alt="JavaScript"
-                        />
-                        JavaScript
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/react-native.png"
-                          alt="React"
-                        />
-                        React
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>개발 환경</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/visual-studio-code-2019.png"
-                          alt="VSCode"
-                        />
-                        VS Code
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://vitejs.dev/logo.svg"
-                          alt="Vite"
-                          style={{ width: "16px", height: "16px" }}
-                        />
-                        Vite
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>협업</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/git.png"
-                          alt="Git"
-                        />
-                        Git
-                      </span>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/ios-glyphs/30/github.png"
-                          alt="GitHub"
-                        />
-                        GitHub
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>디자인</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://img.icons8.com/color/48/figma--v1.png"
-                          alt="Figma"
-                        />
-                        Figma
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>배포</td>
-                    <td>
-                      <span className="badge">
-                        <img
-                          src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
-                          alt="Netlify"
-                          style={{ width: "16px", height: "16px" }}
-                        />
-                        Netlify
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </FadeInLine>
-            <FadeInLine
-              delay={2500}
-              trigger={`${currentPage}-${currentProjectIndex}`}
-            >
-              <h1>주요기능</h1>
-              <p>
-                <strong>포켓몬 검색 기능</strong>
-                <br></br>
-                이름을 검색해서 해당 포켓몬의 정보를 보여 줍니다
-                <br></br>
-                <strong>타입별 필터링</strong>
-                <br></br>
-                해당 포켓몬의 타입에따라 해당타입을 가진 포켓몬만으로 다시
-                필터링해주는 기능
-                <br></br>
-                <strong>즐겨찾기</strong>
-                <br></br>
-                상세 페이지에서 즐겨찾기를 추가하고 필터창에서 즐겨찾기만
-                필터링하는 기능이 있습니다.
-                <br></br>
-                <strong>타입 한글화및 타입에따른 border색상 변화</strong>
-                <br></br>
-                api로 받아온 타입을 한글화하고, 각 타입에따라 배경색을
-                설정해주고 대표타입에따라 해당 포켓몬카드의 border색상도
-                변화하는 기능
-                <br></br>
-                <strong>상세 페이지</strong>
-                <br></br>각 포켓몬 카드 클릭시 상세 페이지로 전환돼며
-                상세페이지에는 이미지가 gif으로 변경돼며 능력치를 추가로
-                표시해주며 이전및 다음 포켓몬으로 도감순서에따라
-                이동할수있습니다.
               </p>
             </FadeInLine>
           </section>
