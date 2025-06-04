@@ -117,7 +117,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>계산기 프로젝트</h2>
+              <div className="title">
+                <h2>계산기 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Calculator/Calculator.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/계산기페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -284,7 +293,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>날씨 API 프로젝트</h2>
+              <div className="title">
+                <h2>날씨 API 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Weather/Weather.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/날씨페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -456,7 +474,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>지도 API 프로젝트</h2>
+              <div className="title">
+                <h2>지도 API 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Map/Map.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/지도페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -620,7 +647,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>메모장 프로젝트</h2>
+              <div className="title">
+                <h2>메모장 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Memo/Memo.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/메모장페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -786,7 +822,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>그림판 프로젝트</h2>
+              <div className="title">
+                <h2>그림판 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/PaintApp/PaintApp.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/그림판페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -942,7 +987,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>뮤직 플레이어 프로젝트</h2>
+              <div className="title">
+                <h2>뮤직 플레이어 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Music/Music.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/뮤직플레이어페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -1101,7 +1155,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>도서 검색 프로젝트</h2>
+              <div className="title">
+                <h2>도서 검색 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/BookApp/BookApp.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/도서페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -1260,7 +1323,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>금융 검색 프로젝트</h2>
+              <div className="title">
+                <h2>금융 검색 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/ExchangeRate/ExchangeRate.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/금융페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -1420,7 +1492,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>여행 API 프로젝트</h2>
+              <div className="title">
+                <h2>여행 API 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Travel/Travel.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/여행페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -1570,7 +1651,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>포켓몬 도감 프로젝트</h2>
+              <div className="title">
+                <h2>포켓몬 도감 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/pokedex/pokedex.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/포켓몬페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -1735,7 +1825,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>테트리스 프로젝트</h2>
+              <div className="title">
+                <h2>테트리스 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Tetris/Tetris.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/테트리스페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -1901,7 +2000,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>반응속도 프로젝트</h2>
+              <div className="title">
+                <h2>반응속도 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/Speed/Speed.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/반응속도페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -2056,7 +2164,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>틱택토 프로젝트</h2>
+              <div className="title">
+                <h2>틱택토 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/TicTacToe/TicTacToe.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/틱택토페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -2210,7 +2327,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>카드 뒤집기 프로젝트</h2>
+              <div className="title">
+                <h2>카드 뒤집기 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/MemoryGame/MemoryGame.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/카드페이지.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -2364,7 +2490,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>턴제 카드 게임 프로젝트</h2>
+              <div className="title">
+                <h2>턴제 카드 게임 프로젝트</h2>
+                <a
+                  href="https://github.com/Dongsusin/my-portfolio/blob/main/src/Apps/TurnBasedCardRPG/TurnBasedCardRPG.jsx"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/턴제카드게임.png" alt="" />
             </FadeInLine>
             <FadeInLine
@@ -2573,7 +2708,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>윌리의 서재 UI/UX 프로젝트</h2>
+              <div className="title">
+                <h2>윌리의 서재 UI/UX 프로젝트</h2>
+                <a
+                  href="https://github.com/FRONTENDBOOTCAMP-13th/9RoDigital"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/이력서/팀프로젝트1.svg" alt="팀 프로젝트 1" />
             </FadeInLine>
             <FadeInLine
@@ -2778,7 +2922,16 @@ function Resume() {
               delay={500}
               trigger={`${currentPage}-${currentProjectIndex}`}
             >
-              <h2>2048 JavaScript 프로젝트</h2>
+              <div className="title">
+                <h2>2048 JavaScript 프로젝트</h2>
+                <a
+                  href="https://github.com/FRONTENDBOOTCAMP-13th/JS-03-2048-in-3lines"
+                  target=""
+                  rel="noreferrer"
+                >
+                  <img src="/image/아이콘/github.png" alt="" className="icon" />
+                </a>
+              </div>
               <img src="/image/아이콘/js프로젝트.svg" alt="팀 프로젝트 2" />
             </FadeInLine>
             <FadeInLine

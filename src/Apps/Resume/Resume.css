@@ -176,6 +176,22 @@
   img {
     width: 100%;
   }
+  .title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+    .icon {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      background-color: transparent;
+      border-radius: 25px;
+    }
+    .icon:hover {
+      background-color: rgb(200, 200, 200);
+    }
+  }
   h1 {
     font-size: 1.5rem;
   }
