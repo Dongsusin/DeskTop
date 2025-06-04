@@ -3120,8 +3120,8 @@ function Resume() {
               <button
                 onClick={() => {
                   const link = document.createElement("a");
-                  link.href = "/path/2048.zip";
-                  link.download = "2048.zip";
+                  link.href = "/path/2048.apk";
+                  link.download = "2048.apk";
                   link.click();
                 }}
               >
@@ -3193,8 +3193,8 @@ function Resume() {
               <button
                 onClick={() => {
                   const link = document.createElement("a");
-                  link.href = "/path/SwiprBreakOut.zip";
-                  link.download = "SwiprBreakOut.zip";
+                  link.href = "/path/SwiprBreakOut.apk";
+                  link.download = "SwiprBreakOut.apk";
                   link.click();
                 }}
               >
