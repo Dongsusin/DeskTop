@@ -3496,6 +3496,24 @@ function Resume() {
                     />
                     Next.js
                   </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://seeklogo.com/images/N/netlify-logo-758722CDF4-seeklogo.com.png"
+                      alt="Netlify"
+                    />
+                    Netlify
+                  </div>
+                  <div class="skill-badge">
+                    <img
+                      src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg"
+                      alt="Vue.js"
+                    />
+                    Vue.js
+                  </div>
+                  <div class="skill-badge">
+                    <img src="/image/아이콘/노션.png" alt="Notion" />
+                    Notion
+                  </div>
                 </div>
               </section>
             </FadeInLine>
