@@ -6,27 +6,27 @@ function Resume() {
   const pages = [
     "Main",
     "PortfolioInfo",
-    "Project",
+    "Toi-Project",
     "TeamProject",
     "UnityProject",
     "Contact",
   ];
   const projectPages = [
-    "Project 1",
-    "Project 2",
-    "Project 3",
-    "Project 4",
-    "Project 5",
-    "Project 6",
-    "Project 7",
-    "Project 8",
-    "Project 9",
-    "Project 10",
-    "Project 11",
-    "Project 12",
-    "Project 13",
-    "Project 14",
-    "Project 15",
+    "Toi-Project 1",
+    "Toi-Project 2",
+    "Toi-Project 3",
+    "Toi-Project 4",
+    "Toi-Project 5",
+    "Toi-Project 6",
+    "Toi-Project 7",
+    "Toi-Project 8",
+    "Toi-Project 9",
+    "Toi-Project 10",
+    "Toi-Project 11",
+    "Toi-Project 12",
+    "Toi-Project 13",
+    "Toi-Project 14",
+    "Toi-Project 15",
   ];
   const teamProjectPages = ["Team Project 1", "Team Project 2"];
   const UnityProjectPages = ["Unity Project 1", "Unity Project 2"];
@@ -60,7 +60,7 @@ function Resume() {
   ]);
 
   const handlePrev = () => {
-    if (pages[currentPage] === "Project") {
+    if (pages[currentPage] === "Toi-Project") {
       if (currentProjectIndex === 0) {
         setCurrentPage(pages.indexOf("PortfolioInfo"));
       } else {
@@ -68,7 +68,7 @@ function Resume() {
       }
     } else if (pages[currentPage] === "TeamProject") {
       if (currentTeamProjectIndex === 0) {
-        setCurrentPage(pages.indexOf("Project"));
+        setCurrentPage(pages.indexOf("Toi-Project"));
       } else {
         setCurrentTeamProjectIndex(currentTeamProjectIndex - 1);
       }
@@ -84,7 +84,7 @@ function Resume() {
   };
 
   const handleNext = () => {
-    if (pages[currentPage] === "Project") {
+    if (pages[currentPage] === "Toi-Project") {
       if (currentProjectIndex === projectPages.length - 1) {
         setCurrentPage(pages.indexOf("TeamProject"));
       } else {
@@ -110,7 +110,7 @@ function Resume() {
   const renderProjectPage = () => {
     const project = projectPages[currentProjectIndex];
     switch (project) {
-      case "Project 1":
+      case "Toi-Project 1":
         return (
           <section>
             <FadeInLine
@@ -286,7 +286,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 2":
+      case "Toi-Project 2":
         return (
           <section>
             <FadeInLine
@@ -467,7 +467,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 3":
+      case "Toi-Project 3":
         return (
           <section>
             <FadeInLine
@@ -640,7 +640,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 4":
+      case "Toi-Project 4":
         return (
           <section>
             <FadeInLine
@@ -815,7 +815,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 5":
+      case "Toi-Project 5":
         return (
           <section>
             <FadeInLine
@@ -980,7 +980,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 6":
+      case "Toi-Project 6":
         return (
           <section>
             <FadeInLine
@@ -1148,7 +1148,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 7":
+      case "Toi-Project 7":
         return (
           <section>
             <FadeInLine
@@ -1316,7 +1316,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 8":
+      case "Toi-Project 8":
         return (
           <section>
             <FadeInLine
@@ -1485,7 +1485,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 9":
+      case "Toi-Project 9":
         return (
           <section>
             <FadeInLine
@@ -1644,7 +1644,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 10":
+      case "Toi-Project 10":
         return (
           <section>
             <FadeInLine
@@ -1823,7 +1823,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 11":
+      case "Toi-Project 11":
         return (
           <section>
             <FadeInLine
@@ -1998,7 +1998,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 12":
+      case "Toi-Project 12":
         return (
           <section>
             <FadeInLine
@@ -2162,7 +2162,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 13":
+      case "Toi-Project 13":
         return (
           <section>
             <FadeInLine
@@ -2325,7 +2325,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 14":
+      case "Toi-Project 14":
         return (
           <section>
             <FadeInLine
@@ -2488,7 +2488,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project 15":
+      case "Toi-Project 15":
         return (
           <section>
             <FadeInLine
@@ -3597,7 +3597,7 @@ function Resume() {
             </FadeInLine>
           </section>
         );
-      case "Project":
+      case "Toi-Project":
         return (
           <>
             <div className="projects"> {renderProjectPage()}</div>
@@ -3733,7 +3733,7 @@ function Resume() {
 
       <div className="page">
         <span>
-          {pages[currentPage] === "Project"
+          {pages[currentPage] === "Toi-Project"
             ? ` - ${projectPages[currentProjectIndex]}`
             : pages[currentPage] === "TeamProject"
             ? ` - ${teamProjectPages[currentTeamProjectIndex]}`
