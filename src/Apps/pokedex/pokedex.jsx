@@ -14,6 +14,7 @@ import { typeKoMap } from "./utils/constants";
 import "./pokedex.css";
 
 function Pokedex() {
+  const [showIntro, setShowIntro] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,11 @@ function Pokedex() {
   );
   const limit = 30;
   const [typeFilteredAll, setTypeFilteredAll] = useState([]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowIntro(false), 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (typeFilter === "favorite") {
@@ -111,39 +117,52 @@ function Pokedex() {
 
   return (
     <div className="pokedex-container">
-      <Header
-        searchTerm={searchTerm}
-        onSearchTermChange={(e) => setSearchTerm(e.target.value)}
-        onSearch={handleSearch}
-        typeFilter={typeFilter}
-        onTypeChange={(e) => setTypeFilter(e.target.value)}
-        typeOptions={Object.values(typeKoMap)}
-      />
-      {loading && <div className="loading">로딩 중...</div>}
-      {!selectedPokemon && (
-        <main>
-          <PokemonList
-            pokemonList={pokemonList}
-            onSelect={setSelectedPokemon}
+      {showIntro && (
+        <div className="intro-container">
+          <img
+            src="/image/포켓볼.jpg"
+            alt="Intro Pokeball"
+            className="intro-image"
           />
-          {typeFilter !== "favorite" && (
-            <Pagination
-              page={page}
-              onPageChange={setPage}
-              total={typeFilter ? typeFilteredAll.length : 1118}
-              limit={limit}
+        </div>
+      )}
+      {!showIntro && (
+        <>
+          <Header
+            searchTerm={searchTerm}
+            onSearchTermChange={(e) => setSearchTerm(e.target.value)}
+            onSearch={handleSearch}
+            typeFilter={typeFilter}
+            onTypeChange={(e) => setTypeFilter(e.target.value)}
+            typeOptions={Object.values(typeKoMap)}
+          />
+          {loading && <div className="loading">로딩 중...</div>}
+          {!selectedPokemon && (
+            <main>
+              <PokemonList
+                pokemonList={pokemonList}
+                onSelect={setSelectedPokemon}
+              />
+              {typeFilter !== "favorite" && (
+                <Pagination
+                  page={page}
+                  onPageChange={setPage}
+                  total={typeFilter ? typeFilteredAll.length : 1118}
+                  limit={limit}
+                />
+              )}
+            </main>
+          )}
+          {selectedPokemon && (
+            <PokemonModal
+              pokemon={selectedPokemon}
+              onClose={() => setSelectedPokemon(null)}
+              onFavorite={toggleFavorite}
+              favorites={favorites}
+              onNavigate={handleDetailNav}
             />
           )}
-        </main>
-      )}
-      {selectedPokemon && (
-        <PokemonModal
-          pokemon={selectedPokemon}
-          onClose={() => setSelectedPokemon(null)}
-          onFavorite={toggleFavorite}
-          favorites={favorites}
-          onNavigate={handleDetailNav}
-        />
+        </>
       )}
     </div>
   );
