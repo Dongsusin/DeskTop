@@ -11,15 +11,9 @@ import Calculator from "./Apps/Calculator/Calculator";
 import Weather from "./Apps/Weather/Weather";
 import Map from "./Apps/Map/Map";
 import MemoApp from "./Apps/Memo/Memo";
-import Resume from "./Apps/Resume/Resume";
-import Pokedex from "./Apps/pokedex/pokedex";
 import Tetris from "./Apps/Tetris/Tetris";
 import Speed from "./Apps/Speed/Speed";
-import Music from "./Apps/Music/Music";
-import ExchangeRate from "./Apps/ExchangeRate/ExchangeRate";
 import Paint from "./Apps/PaintApp/PaintApp";
-import BookApp from "./Apps/BookApp/BookApp";
-import Travel from "./Apps/Travel/Travel";
 import TicTacToe from "./Apps/TicTacToe/TicTacToe";
 import MemoryGame from "./Apps/MemoryGame/MemoryGame";
 import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
@@ -39,7 +33,6 @@ function Popup({ title, onClose, children }) {
 function DesktopApp() {
   const [isIntro, setIsIntro] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [isResume, setIsResume] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [icons, setIcons] = useState([]);
   const [openFolder, setOpenFolder] = useState(null);
@@ -98,15 +91,9 @@ function DesktopApp() {
       "/weather": { title: "날씨", component: <Weather /> },
       "/map": { title: "지도", component: <Map /> },
       "/memo": { title: "메모장", component: <MemoApp /> },
-      "/resume": { title: "이력서", component: <Resume /> },
-      "/pokedex": { title: "PokeDex", component: <Pokedex /> },
       "/tetris": { title: "테트리스", component: <Tetris /> },
       "/speed": { title: "반응속도 테스트", component: <Speed /> },
-      "/music": { title: "뮤직 플레이어", component: <Music /> },
-      "/exchange": { title: "환율 정보", component: <ExchangeRate /> },
       "/paint": { title: "그림판", component: <Paint /> },
-      "/book": { title: "도서 검색", component: <BookApp /> },
-      "/travel": { title: "여행 정보", component: <Travel /> },
       "/tictactoe": { title: "틱택토", component: <TicTacToe /> },
       "/memory": { title: "카드 뒤집기", component: <MemoryGame /> },
       "/turncard": { title: "턴제 카드 RPG", component: <TurnBasedCardRPG /> },
@@ -185,20 +172,10 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
-  const handleResume = () => {
-    setIsResume(true);
-    clickSoundRef.current?.play();
-  };
-
   if (isIntro) {
     return (
       <div className="intro-screen">
-        {!isResume ? (
-          <div className="intro-Resume">
-            <Resume />
-            <button onClick={handleResume}>프로젝트 보기</button>
-          </div>
-        ) : !isLoading ? (
+        {!isLoading ? (
           <div>
             <button className="power-button" onClick={handleStart}></button>
             <p>전원을 클릭하세요</p>

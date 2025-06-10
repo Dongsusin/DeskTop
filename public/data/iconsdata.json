@@ -1,12 +1,6 @@
 [
   {
     "type": "icon",
-    "name": "이력서",
-    "image": "/image/아이콘/이력서.png",
-    "url": "/resume"
-  },
-  {
-    "type": "icon",
     "name": "GITHUB",
     "image": "/image/아이콘/github.png",
     "url": "https://github.com/Dongsusin"
@@ -46,36 +40,6 @@
     "name": "그림판",
     "image": "/image/아이콘/그림판.png",
     "url": "/paint"
-  },
-  {
-    "type": "icon",
-    "name": "뮤직 플레이어",
-    "image": "/image/아이콘/뮤직플레이어.png",
-    "url": "/music"
-  },
-  {
-    "type": "icon",
-    "name": "도서검색",
-    "image": "/image/아이콘/도서.png",
-    "url": "/book"
-  },
-  {
-    "type": "icon",
-    "name": "금융",
-    "image": "/image/아이콘/환률.png",
-    "url": "/exchange"
-  },
-  {
-    "type": "icon",
-    "name": "여행지",
-    "image": "/image/아이콘/여행.png",
-    "url": "/travel"
-  },
-  {
-    "type": "icon",
-    "name": "포켓몬",
-    "image": "/image/아이콘/포켓몬.png",
-    "url": "/pokedex"
   },
   {
     "type": "folder",
