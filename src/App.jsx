@@ -18,6 +18,7 @@ import TicTacToe from "./Apps/TicTacToe/TicTacToe";
 import MemoryGame from "./Apps/MemoryGame/MemoryGame";
 import TurnBasedCardRPG from "./Apps/TurnBasedCardRPG/TurnBasedCardRPG";
 
+// 팝업창 컴포넌트
 function Popup({ title, onClose, children }) {
   return (
     <div className="popup">
@@ -31,28 +32,42 @@ function Popup({ title, onClose, children }) {
 }
 
 function DesktopApp() {
+  // 인트로 화면 표시
   const [isIntro, setIsIntro] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
+
+  // 아이콘 리스트
   const [icons, setIcons] = useState([]);
+
+  // 폴더와 팝업 정보
   const [openFolder, setOpenFolder] = useState(null);
   const [currentPopup, setCurrentPopup] = useState(null);
+
+  // 현재 날짜 및 메모 상태
   const [currentDate] = useState(new Date());
   const [memos, setMemos] = useState(
     () => JSON.parse(localStorage.getItem("calendarMemos")) || {}
   );
   const [selectedDate, setSelectedDate] = useState(null);
   const [memoInput, setMemoInput] = useState("");
+
+  // 시간
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString()
   );
   const [showCalendar, setShowCalendar] = useState(false);
+
+  // 모바일 페이지 슬라이드
   const [currentPage, setCurrentPage] = useState(0);
   const mobilePagesRef = useRef(null);
   const totalPages = 2;
+
+  // 사운드
   const clickSoundRef = useRef(null);
   const touchStartX = useRef(0);
 
+  // 시간 업데이트
   useEffect(() => {
     const timer = setInterval(
       () => setCurrentTime(new Date().toLocaleTimeString()),
@@ -61,6 +76,7 @@ function DesktopApp() {
     return () => clearInterval(timer);
   }, []);
 
+  // 아이콘 정보 불러오기
   useEffect(() => {
     fetch("/data/iconsdata.json")
       .then((res) => res.json())
@@ -68,6 +84,7 @@ function DesktopApp() {
       .catch(console.error);
   }, []);
 
+  // 모바일 페이지 슬라이드 애니메이션
   useEffect(() => {
     if (mobilePagesRef.current) {
       mobilePagesRef.current.style.transform = `translateX(-${
@@ -76,15 +93,18 @@ function DesktopApp() {
     }
   }, [currentPage]);
 
+  // 클릭 사운드
   useEffect(() => {
     clickSoundRef.current = new Audio("/sound/클릭.mp3");
   }, []);
 
+  // 앱 아이콘 클릭 시 팝업 열기
   const openPopup = (title, component) => {
     setCurrentPopup({ title, component });
     clickSoundRef.current?.play();
   };
 
+  // 아이콘 클릭 처리
   const handleIconClick = (icon) => {
     const appMap = {
       "/calculator": { title: "계산기", component: <Calculator /> },
@@ -104,6 +124,7 @@ function DesktopApp() {
     } else if (icon.type === "folder") {
       setOpenFolder(icon);
     } else if (icon.type === "unity") {
+      // Unity 앱은 zip 파일 다운로드
       if (!icon.url || !icon.name) {
         console.error("Unity icon에 url 또는 name 정보가 없습니다.");
         return;
@@ -116,10 +137,12 @@ function DesktopApp() {
       link.click();
       document.body.removeChild(link);
     } else if (icon.url) {
+      // 일반 외부 링크로 이동
       window.location.href = icon.url;
     }
   };
 
+  // 날짜 클릭 시 메모 입력창 열기
   const handleDateClick = (day) => {
     const key = `${currentDate.getFullYear()}-${
       currentDate.getMonth() + 1
@@ -129,6 +152,7 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
+  // 메모 저장
   const handleSaveMemo = () => {
     const updated = { ...memos, [selectedDate]: memoInput };
     setMemos(updated);
@@ -137,6 +161,7 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
+  // 모바일에서 좌우 스와이프 처리
   const handleSwipe = (direction) => {
     setCurrentPage((prev) => {
       if (direction === "left" && prev < totalPages - 1) return prev + 1;
@@ -145,6 +170,7 @@ function DesktopApp() {
     });
   };
 
+  // 모든 팝업 닫기
   const handleCloseAll = () => {
     setCurrentPopup(null);
     setOpenFolder(null);
@@ -152,6 +178,7 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
+  // 인트로 화면에서 시작 버튼 클릭 시 로딩 처리
   const handleStart = () => {
     setIsLoading(true);
     setLoadingProgress(0);
@@ -172,6 +199,7 @@ function DesktopApp() {
     clickSoundRef.current?.play();
   };
 
+  // 인트로 화면 렌더링
   if (isIntro) {
     return (
       <div className="intro-screen">
@@ -195,8 +223,10 @@ function DesktopApp() {
     );
   }
 
+  // 데스크탑/모바일 UI 렌더링
   return (
     <div className="all">
+      {/* 데스크탑 화면 */}
       <div className="desktop">
         <div className="left-pane">
           <IconList icons={icons} onIconClick={handleIconClick} />
@@ -216,6 +246,7 @@ function DesktopApp() {
         />
       </div>
 
+      {/* 모바일 화면 */}
       <div
         className="mobile"
         onTouchStart={(e) => (touchStartX.current = e.touches[0].clientX)}
@@ -241,6 +272,7 @@ function DesktopApp() {
         <MobileBottombar onCloseAll={handleCloseAll} />
       </div>
 
+      {/* 팝업 및 모달 영역 */}
       <div>
         {openFolder && (
           <FolderPopup
