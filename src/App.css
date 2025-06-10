@@ -278,7 +278,7 @@ html {
   position: fixed;
   bottom: 0;
   width: 90vw;
-  height: 5vh;
+  height: 50px;
   padding: 0 5vw;
   z-index: 1000;
 }
