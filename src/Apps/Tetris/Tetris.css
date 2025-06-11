@@ -207,6 +207,11 @@
 }
 
 @media (max-width: 768px) {
+  .tetris-container {
+    width: 100%;
+    margin: 0px auto;
+  }
+
   .tetris-container .controls {
     display: grid;
   }
